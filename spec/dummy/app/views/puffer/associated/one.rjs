@@ -1,0 +1,1 @@
+page.replace_html 'terbium_popup', :partial => 'terbium/associated/one', :locals => {:field => @field, :associated => @records}

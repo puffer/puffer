@@ -1,0 +1,29 @@
+<% @title = "Show #{current_resource.human_name}" %>
+<h1><%= @title %></h1>
+<ul class="show_entry">
+  <% if current_resource.children.present? %>
+    <li>
+      <h2>Associations</h2>
+      <% current_resource.children.each do |child| %>
+        <%= link_to child.human_name, child.index_path %>
+      <% end %>
+    </li>
+  <% end %>
+
+<% show_fields.each do |field| -%>
+  <li>
+    <h2><%= field.label %></h2>
+    <div>
+      <%= render_field record, field %>
+    </div>
+  </li>
+<% end if show_fields && record -%>
+</ul>
+<% content_for :additional_navigation do %>
+  <ul class="buttons">
+    <% (current_resource.ancestors + [current_resource]).each do |resource| %>
+      <%= link_to resource.plural? ? resource.human_name : resource.member.to_title, resource.index_path %>
+      <%= link_to resource.member.to_title, resource.path unless resource.plural? %>
+    <% end %>
+  </ul>
+<% end %>

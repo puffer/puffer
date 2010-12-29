@@ -1,0 +1,18 @@
+<% @title = "New #{controller.model_name.humanize.downcase}" %>
+<h1><%= @title %></h1>
+<% form_for record, :url => resource_path, :html => {:multipart => true} do |f| %>
+  <%= render :partial => 'terbium/form', :locals => { :f => f, :action => 'new' } %>
+<% end %>
+<% content_for :additional_navigation do %>
+  <ul class="buttons">
+    <% 0.upto(resource_ancestors_records.length - 1) do |i| %>
+      <li><%= link_to resource_ancestors[i].to_s.pluralize.humanize, polymorphic_path([route_prefix] + resource_ancestors_records[0..i-3] + [resource_ancestors[i].to_s.pluralize]) %></li>
+      <li><%= link_to resource_ancestors_records[i].to_title, polymorphic_path([route_prefix] + resource_ancestors_records[0..i]) %></li>
+    <% end %>
+    <% if plural? %>
+      <li><%= link_to controller.model_name.pluralize.humanize, resources_path %></li>
+    <% else %>
+      <li><%= link_to resource.humanize, resource_path %></li>
+    <% end %>
+  </ul>
+<% end %>
