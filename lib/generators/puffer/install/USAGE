@@ -1,0 +1,6 @@
+Description:
+    Copy puffer files to your application
+
+Example:
+    rails generate puffer:install
+
