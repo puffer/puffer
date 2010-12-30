@@ -23,3 +23,14 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('README.rdoc')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
+
+require 'jeweler'
+
+Jeweler::Tasks.new do |gem|
+  gem.name = "puffer"
+  gem.summary = %Q{Admin interface builder}
+  gem.description = %Q{In Soviet Russia puffer admins you}
+  gem.email = "kinwizard@gmail.com"
+  gem.homepage = "http://github.com/puffer/puffer"
+  gem.authors = ["pyromaniac"]
+end
