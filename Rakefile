@@ -34,3 +34,4 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/puffer/puffer"
   gem.authors = ["pyromaniac"]
 end
+Jeweler::GemcutterTasks.new
