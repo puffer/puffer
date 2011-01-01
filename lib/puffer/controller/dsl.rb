@@ -33,31 +33,30 @@ module Puffer
         end
 
         def index_fields
-          puffer_fields[:index] || []
+          puffer_fields[:index] || Puffer::Fields.new
         end
 
         def show_fields
-          puffer_fields[:show] || puffer_fields[:index] || []
+          puffer_fields[:show] || puffer_fields[:index] || Puffer::Fields.new
         end
 
         def form_fields
-          puffer_fields[:form] || []
+          puffer_fields[:form] || Puffer::Fields.new
         end
 
         def create_fields
-          puffer_fields[:create] || puffer_fields[:form] || []
+          puffer_fields[:create] || puffer_fields[:form] || Puffer::Fields.new
         end
 
         def update_fields
-          puffer_fields[:update] || puffer_fields[:form] || []
+          puffer_fields[:update] || puffer_fields[:form] || Puffer::Fields.new
         end
 
         def field name, options = {}
-          puffer_fields[@puffer_option] ||= []
-          field = ::Puffer::Field.new(current_resource.model, name, options)
-          generate_association_actions field if field.association?
-          generate_change_actions field if field.toggable?
-          puffer_fields[@puffer_option] << field
+          puffer_fields[@puffer_option] ||= Puffer::Fields.new
+          field = puffer_fields[@puffer_option].field(current_resource.model, name, options)
+          #generate_association_actions field if field.association?
+          #generate_change_actions field if field.toggable?
         end
 
       end

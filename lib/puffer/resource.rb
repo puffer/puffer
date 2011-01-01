@@ -30,7 +30,7 @@ module Puffer
     end
 
     def human_name
-      model_name.humanize
+      model.model_name.human
     end
 
     def parent
@@ -112,7 +112,7 @@ module Puffer
         if plural?
           parent.member.send(model_name.pluralize).new attributes
         else
-          parent.member.send("build_#{model_name}")
+          parent.member.send("build_#{model_name}", attributes)
         end
       else
         model.new attributes
@@ -131,7 +131,7 @@ module Puffer
       method = method.to_s
       if method.match(/path$/)
         options = args.extract_options!
-        return send method.gsub(/path$/, 'url'), *(args << options.merge(:routing_type => :path))
+        return send method.gsub(/path$/, 'url'), *(args << options.merge(:routing_type => :path)) if defined? method.gsub(/path$/, 'url')
       end
       model.send method, *args, &block
     end

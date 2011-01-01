@@ -156,28 +156,52 @@ describe Puffer::Resource do
       resource = Puffer::Resource.new default_params
 
       Category.stub(:new) {@category}
+
       resource.new_member.should == @category
+    end
+
+    it "no parent with attributes" do
+      resource = Puffer::Resource.new default_params.merge(:category => {:title => 'my new title'})
+
+      resource.new_member.title.should == 'my new title'
     end
 
     it "plural parent" do
       resource = Puffer::Resource.new default_params.merge(:ancestors => [:posts], :post_id => 42)
 
       @categories = @post.categories
-
       Post.stub(:find).with(42) {@post}
       @categories.stub(:new) {@category}
+
       resource.new_member.should == @category
+    end
+
+    it "plural parent with attributes" do
+      resource = Puffer::Resource.new default_params.merge(:ancestors => [:posts], :post_id => 42, :category => {:title => 'my new title'})
+
+      @categories = @post.categories
+      Post.stub(:find).with(42) {@post}
+
+      resource.new_member.title.should == 'my new title'
     end
 
     it "singular" do
       resource = Puffer::Resource.new default_params.merge(:controller => 'admin/profiles', :plural => false, :ancestors => [:users], :user_id => 42)
 
       @profile = @user.profile
-
       User.stub(:find).with(42) {@user}
       @user.stub(:build_profile) {@profile}
 
       resource.new_member.should == @profile
+    end
+
+    it "singular with attributes" do
+      resource = Puffer::Resource.new default_params.merge(:controller => 'admin/profiles', :plural => false, :ancestors => [:users], :user_id => 42, :profile => {:name => 'my new name'})
+
+      @profile = @user.profile
+      User.stub(:find).with(42) {@user}
+
+      resource.new_member.name.should == 'my new name'
     end
 
     it "singular parent" do
@@ -185,12 +209,22 @@ describe Puffer::Resource do
 
       @profile = @user.profile
       @tag = @profile.tags.first
-
       User.stub(:find).with(42) {@user}
       @user.stub(:profile) {@profile}
       @profile.tags.stub(:new) {@tag}
 
       resource.new_member.should == @tag
+    end
+
+    it "singular parent with attributes" do
+      resource = Puffer::Resource.new default_params.merge(:controller => 'admin/tags', :ancestors => [:users, :profile], :user_id => 42, :tag => {:name => 'my new name'})
+
+      @profile = @user.profile
+      @tag = @profile.tags.first
+      User.stub(:find).with(42) {@user}
+      @user.stub(:profile) {@profile}
+
+      resource.new_member.name.should == 'my new name'
     end
 
   end

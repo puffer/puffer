@@ -37,10 +37,6 @@ module Puffer
           true
         end
 
-        def configure &block
-          block.bind(current_config).call
-        end
-
       end
 
     end

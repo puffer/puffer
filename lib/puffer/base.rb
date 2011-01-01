@@ -2,7 +2,7 @@ module Puffer
   class Base < ApplicationController
     unloadable
 
-    respond_to :html
+    respond_to :html, :js
 
     include Puffer::Controller::Mutate
     include Puffer::Controller::Dsl
