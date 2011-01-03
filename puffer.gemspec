@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{puffer}
-  s.version = "0.0.3"
+  s.version = "0.0.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["pyromaniac"]
-  s.date = %q{2010-12-30}
+  s.date = %q{2011-01-03}
   s.description = %q{In Soviet Russia puffer admins you}
   s.email = %q{kinwizard@gmail.com}
   s.extra_rdoc_files = [
@@ -43,6 +43,13 @@ Gem::Specification.new do |s|
     "lib/generators/puffer/controller/templates/controller.rb",
     "lib/generators/puffer/install/USAGE",
     "lib/generators/puffer/install/install_generator.rb",
+    "lib/generators/puffer/install/templates/puffer.rb",
+    "lib/generators/puffer/install/templates/puffer/javascripts/application.js",
+    "lib/generators/puffer/install/templates/puffer/javascripts/controls.js",
+    "lib/generators/puffer/install/templates/puffer/javascripts/dragdrop.js",
+    "lib/generators/puffer/install/templates/puffer/javascripts/effects.js",
+    "lib/generators/puffer/install/templates/puffer/javascripts/prototype.js",
+    "lib/generators/puffer/install/templates/puffer/javascripts/rails.js",
     "lib/puffer.rb",
     "lib/puffer/base.rb",
     "lib/puffer/controller/actions.rb",
@@ -54,7 +61,8 @@ Gem::Specification.new do |s|
     "lib/puffer/extensions/controller.rb",
     "lib/puffer/extensions/core.rb",
     "lib/puffer/extensions/mapper.rb",
-    "lib/puffer/field.rb",
+    "lib/puffer/fields.rb",
+    "lib/puffer/fields/field.rb",
     "lib/puffer/railtie.rb",
     "lib/puffer/resource.rb",
     "lib/puffer/resource/routing.rb",
@@ -117,6 +125,7 @@ Gem::Specification.new do |s|
     "spec/fabricators/tags_fabricator.rb",
     "spec/fabricators/users_fabricator.rb",
     "spec/integration/navigation_spec.rb",
+    "spec/lib/fields_spec.rb",
     "spec/lib/params_spec.rb",
     "spec/lib/render_fallback_spec.rb",
     "spec/lib/resource/routing_spec.rb",
@@ -126,7 +135,7 @@ Gem::Specification.new do |s|
   ]
   s.homepage = %q{http://github.com/puffer/puffer}
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.7}
+  s.rubygems_version = %q{1.4.1}
   s.summary = %q{Admin interface builder}
   s.test_files = [
     "spec/dummy/app/controllers/admin/categories_controller.rb",
@@ -169,6 +178,7 @@ Gem::Specification.new do |s|
     "spec/fabricators/tags_fabricator.rb",
     "spec/fabricators/users_fabricator.rb",
     "spec/integration/navigation_spec.rb",
+    "spec/lib/fields_spec.rb",
     "spec/lib/params_spec.rb",
     "spec/lib/render_fallback_spec.rb",
     "spec/lib/resource/routing_spec.rb",
@@ -178,12 +188,11 @@ Gem::Specification.new do |s|
   ]
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<rails>, ["~> 3.0.3"])
-      s.add_runtime_dependency(%q<will_paginate>, ["~> 3.0.beta"])
+      s.add_runtime_dependency(%q<will_paginate>, ["~> 3.0.pre2"])
       s.add_development_dependency(%q<capybara>, [">= 0.4.0"])
       s.add_development_dependency(%q<sqlite3-ruby>, [">= 0"])
       s.add_development_dependency(%q<rspec-rails>, [">= 0"])
@@ -193,7 +202,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<jeweler>, [">= 0"])
     else
       s.add_dependency(%q<rails>, ["~> 3.0.3"])
-      s.add_dependency(%q<will_paginate>, ["~> 3.0.beta"])
+      s.add_dependency(%q<will_paginate>, ["~> 3.0.pre2"])
       s.add_dependency(%q<capybara>, [">= 0.4.0"])
       s.add_dependency(%q<sqlite3-ruby>, [">= 0"])
       s.add_dependency(%q<rspec-rails>, [">= 0"])
@@ -204,7 +213,7 @@ Gem::Specification.new do |s|
     end
   else
     s.add_dependency(%q<rails>, ["~> 3.0.3"])
-    s.add_dependency(%q<will_paginate>, ["~> 3.0.beta"])
+    s.add_dependency(%q<will_paginate>, ["~> 3.0.pre2"])
     s.add_dependency(%q<capybara>, [">= 0.4.0"])
     s.add_dependency(%q<sqlite3-ruby>, [">= 0"])
     s.add_dependency(%q<rspec-rails>, [">= 0"])
