@@ -29,7 +29,7 @@ module Puffer
       params[:plural]
     end
 
-    def human_name
+    def human
       model.model_name.human
     end
 
@@ -92,7 +92,7 @@ module Puffer
 
     def collection
       scope = parent ? parent.member.send(model_name.pluralize) : model
-      scope.paginate :page => params[:page]
+      scope.includes(includes).joins(includes).order(order).paginate :page => params[:page]
     end
 
     def member

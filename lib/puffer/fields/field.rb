@@ -1,12 +1,12 @@
 module Puffer
-  module Fields
+  class Fields
     class Field
 
       attr_accessor :resource, :field, :options
 
       def initialize resource, field, options = {}
         @resource = resource
-        @field = field
+        @field = field.to_s
         @options = options
       end
 
@@ -14,75 +14,43 @@ module Puffer
         model == resource
       end
 
+      def name
+        field.split('.').last
+      end
+
+      def label
+        @label ||= options[:label] || model.human_attribute_name(name)
+      end
+
       def order
         @order ||= options[:order] || query_column
       end
 
-      def label
-        @label ||= options[:label] || @name.to_s.humanize
-      end
-
-      def [](key)
-        @options[key]
+      def type
+        @type ||= options[:type] ? options[:type].to_sym : (column ? column.type : :string)
       end
 
       def to_s
-        @name.to_s
-      end
-
-      def toggable?
-        options[:toggable] = true if options[:toggable].nil?
-        native? && type == :boolean && options[:toggable]
-      end
-
-      def association
-        @association ||= main_model.reflect_on_association(to_s.split('.').first.to_sym)
-      end
-
-      def association?
-        !!association
-      end
-
-      def collection?
-        association? && [:has_many, :has_and_belongs_to_many].include?(association.macro)
-      end
-
-      def association_fields
-        @association_fields ||= @options[:fields].map {|sym| self.class.new(association.klass, sym) }
-      end
-
-      def association_key
-        association.primary_key_name
-      end
-
-      def record
-        name.split('.')[0..-2].join('.')
+        field
       end
 
       def model
         unless @model
-          try_model = to_s.split('.')[-2]
-          @model = try_model.classify.constantize rescue nil if try_model
-          @model ||= main_model
+          @model = resource
+          associations = field.split('.')
+          while @model.reflect_on_association(association = associations.shift.to_sym) do
+            @model = @model.reflect_on_association(association).klass
+          end
         end
         @model
       end
 
-      def type
-        @options[:type] = :association if association?
-        @options[:type].to_sym || swallow_nil{column.type}
-      end
-
       def column
-        @column ||= model.columns.detect { |c| c.name == to_s.split('.').last}
-      end
-
-      def column?
-        !!column
+        @column ||= model.columns_hash[name]
       end
 
       def query_column
-        "#{model.to_s.tableize}.#{to_s.split('.').last}" if column
+        "#{model.table_name}.#{name}" if column
       end
 
     end
