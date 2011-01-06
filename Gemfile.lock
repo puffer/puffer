@@ -43,16 +43,20 @@ GEM
       selenium-webdriver (>= 0.0.27)
       xpath (~> 0.1.2)
     celerity (0.8.6)
+    cgi_multipart_eof_fix (2.5.0)
     childprocess (0.1.6)
       ffi (~> 0.6.3)
     culerity (0.2.13)
+    daemons (1.1.0)
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     fabrication (0.9.4)
+    fastthread (1.0.7)
     ffi (0.6.3)
       rake (>= 0.8.7)
     forgery (0.3.6)
+    gem_plugin (0.2.3)
     git (1.2.5)
     i18n (0.5.0)
     jeweler (1.5.2)
@@ -66,6 +70,11 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
+    mongrel (1.1.5)
+      cgi_multipart_eof_fix (>= 2.4)
+      daemons (>= 1.0.3)
+      fastthread (>= 1.0.1)
+      gem_plugin (>= 0.2.3)
     nokogiri (1.4.4)
     polyglot (0.3.1)
     rack (1.2.1)
@@ -124,6 +133,7 @@ DEPENDENCIES
   fabrication
   forgery
   jeweler
+  mongrel
   rails (~> 3.0.3)
   rspec-rails
   sqlite3-ruby

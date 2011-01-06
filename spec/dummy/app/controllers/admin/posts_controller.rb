@@ -1,5 +1,9 @@
 class Admin::PostsController < Puffer::Base
 
+  configure do
+    group :posting
+  end
+
   index do
     field :user
     field :title

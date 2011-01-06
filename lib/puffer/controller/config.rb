@@ -1,27 +1,63 @@
 module Puffer
   module Controller
-    class Config
+    module Config
 
-      attr_accessor :config
-      cattr_accessor :default_config
-      @@default_config = {}
+      def self.included base
+        base.class_eval do
+          extend ClassMethods
+          include InstanceMethods
 
-      def initialize
-        @config = {}
+          puffer_class_attribute :group, :default
+          puffer_class_attribute :model
+          puffer_class_attribute :destroy, false
+
+          helper_method :configuration
+        end
       end
 
-      def self.option name, default
-        @@default_config[name.to_sym] = default
-        class_eval <<-EOS
-          def #{name} value = nil
-            value.nil? ? (@config.key?(:#{name}) ? @config[:#{name}] : self.class.default_config[:#{name}]) : @config[:#{name}] = value
+      module InstanceMethods
+
+        def configuration
+          @configuration ||= Config.new(self.class)
+        end
+
+      end
+
+      module ClassMethods
+
+        def puffer_class_attribute name, default = nil
+          class_attribute "_puffer_attribute_#{name}"
+          send "_puffer_attribute_#{name}=", default
+        end
+
+        def configure &block
+          block.bind(Config.new(self)).call
+        end
+
+        def configuration
+          @configuration ||= Config.new(self)
+        end
+
+      end
+
+      class Config
+
+        attr_accessor :controller
+
+        def initialize controller
+          @controller = controller
+        end
+
+        def method_missing method, *args, &block
+          method_name = "_puffer_attribute_#{method}"
+          if args.present? && controller.respond_to?("#{method_name}=")
+            controller.send "#{method_name}=", args.first
+          elsif controller.respond_to?(method_name)
+            controller.send method_name
           end
-        EOS
-      end
+        end
 
-      option :destroy, true
-      option :model, nil
-      option :scope, {}
+      end
 
     end
   end

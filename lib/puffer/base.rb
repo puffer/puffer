@@ -2,44 +2,45 @@ module Puffer
   class Base < ApplicationController
     unloadable
 
+    include Puffer::Controller::Mutate
+    include Puffer::Controller::Helpers
+    include Puffer::Controller::Dsl
+    include Puffer::Controller::Config
+
     respond_to :html, :js
 
-    include Puffer::Controller::Mutate
-    include Puffer::Controller::Dsl
-    include Puffer::Controller::Helpers
-
     def index
-      @records = current_resource.collection
+      @records = resource.collection
     end
 
     def show
-      @record = current_resource.member
+      @record = resource.member
     end
 
     def new
-      @record = current_resource.new_member
+      @record = resource.new_member
     end
 
     def edit
-      @record = current_resource.member
+      @record = resource.member
     end
 
     def create
-      @record = current_resource.new_member
+      @record = resource.new_member
       @record.save
-      respond_with @record, :location => current_resource.path
+      respond_with @record, :location => resource.path
     end
 
     def update
-      @record = current_resource.member
-      @record.update_attributes current_resource.attributes
-      respond_with @record, :location => current_resource.path
+      @record = resource.member
+      @record.update_attributes resource.attributes
+      respond_with @record, :location => resource.path
     end
 
     def destroy
-      @record = current_resource.member
+      @record = resource.member
       @record.destroy
-      redirect_to current_resource.path
+      redirect_to resource.path
     end
 
   end

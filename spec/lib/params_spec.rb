@@ -23,7 +23,7 @@ describe "Params" do
 =end
 
   before :each do
-    @resource = mock(Puffer::Resource, :collection => [], :member => nil, :template => {:nothing => true}, :includes => nil)
+    @resource = mock(Puffer::Resource, :collection => [], :member => nil, :template => {:nothing => true}, :includes => nil, :prefix => 'admin')
     Puffer::Resource.stub(:new) {@resource}
   end
 

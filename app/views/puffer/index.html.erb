@@ -1,13 +1,13 @@
-<% @title = current_resource.human %>
+<% @title = resource.human %>
 <h1><%= @title %></h1>
 <% if respond_to? :will_paginate %>
-  <%= will_paginate @records, :url => current_resource.index_path(:page => '') %>
+  <%= will_paginate @records, :url => resource.index_path(:page => '') %>
 <% end %>
 <div class="columns">
   <div class="row">
     <div class="column left_column">
     <% if @records.empty? %>
-      <p>Sorry, but there is no records in <%= current_resource.human %></p>
+      <p>Sorry, but there is no records in <%= resource.human %></p>
     <% else %>
       <table class="list_table">
         <thead>
@@ -25,10 +25,10 @@
             <td><%= render_field record, field %></td>
           <% end -%>
             <td class="actions">
-              <%= link_to 'show', current_resource.path(record), :class => 'show_entry' if controller.show_fields || resource_children.present? %>
-              <%= link_to 'edit', current_resource.edit_path(record), :class => 'edit_entry' if controller.update_fields || controller.form_fields %>
-              <%= link_to 'destroy', current_resource.path(record), :confirm => "Are you sure?", :method => :delete, :class => 'remove_entry' if current_config.destroy %>
-              <% current_resource.children(:post_id => record.id).each do |child| %>
+              <%= link_to 'show', resource.path(record), :class => 'show_entry' if controller.show_fields || resource_children.present? %>
+              <%= link_to 'edit', resource.edit_path(record), :class => 'edit_entry' if controller.update_fields || controller.form_fields %>
+              <%= link_to 'destroy', resource.path(record), :confirm => "Are you sure?", :method => :delete, :class => 'remove_entry' if configuration.destroy %>
+              <% resource.children(:post_id => record.id).each do |child| %>
                 <% if child.plural? %>
                   <p><%= link_to "#{child.human}(#{child.collection.size})", child.index_path %></p>
                 <% else %>
@@ -46,11 +46,11 @@
       <dl>
         <dt>Search</dt>
         <dd>
-        <%= form_tag current_resource.index_path, {:method => :get} do %>
+        <%= form_tag resource.index_path, {:method => :get} do %>
           <%= text_field_tag :query, resource_session[:query] %>
           <%= submit_tag 'Search' %>
           <% if resource_session[:query].present? %>
-            <%= link_to 'clear', current_resource.index_path(:query => '') %>
+            <%= link_to 'clear', resource.index_path(:query => '') %>
           <% end %>
         <% end %>
         </dd>
@@ -59,7 +59,7 @@
           <dd>
             <ul>
               <% [['All', nil], ['Yes', '1'], ['No', '0'], ['Not set', 'nil']].each do |option| %>
-                <li><%= link_to_unless resource_session[:boolean][field.query_column] == option[1], option[0], current_resource.index_path(:boolean => { field.query_column => option[1]}) %></li>
+                <li><%= link_to_unless resource_session[:boolean][field.query_column] == option[1], option[0], resource.index_path(:boolean => { field.query_column => option[1]}) %></li>
               <% end %>
             </ul>
           </dd>
@@ -69,15 +69,15 @@
   </div>
 </div>
 <% if respond_to? :will_paginate %>
-  <%= will_paginate @records, :url => current_resource.index_path(:page => '') %>
+  <%= will_paginate @records, :url => resource.index_path(:page => '') %>
 <% end %>
 
 <% content_for :additional_navigation do %>
   <ul class="buttons">
-    <% current_resource.ancestors.each do |resource| %>
+    <% resource.ancestors.each do |resource| %>
       <%= link_to resource.plural? ? resource.human : resource.member.to_title, resource.index_path %>
       <%= link_to resource.member.to_title, resource.path unless resource.plural? %>
     <% end %>
-    <%= link_to current_resource.plural? ? current_resource.human : current_resource.member.to_title, current_resource.index_path %>
+    <%= link_to resource.plural? ? resource.human : resource.member.to_title, resource.index_path %>
   </ul>
 <% end %>

@@ -21,6 +21,14 @@ module Puffer
           puffer_resources(*resources, &block) || original_resources(*resources, &block)
         end
 
+        def puffer_controller controller
+          puffer = Rails.application.routes.puffer
+          prefix = @scope[:module]
+          puffer[prefix] ||= ActiveSupport::OrderedHash.new
+          puffer[prefix][controller.configuration.group] ||= []
+          puffer[prefix][controller.configuration.group] << controller
+        end
+
         def puffer_resource(*resources, &block)
           options = resources.extract_options!
 
@@ -35,6 +43,8 @@ module Puffer
 
           @scope[:ancestors] ||= []
           @scope[:children] ||= []
+
+          puffer_controller controller if @scope[:ancestors] == []
 
           resource_scope(resource) do
             siblings = @scope[:children].dup
@@ -83,6 +93,8 @@ module Puffer
           @scope[:ancestors] ||= []
           @scope[:children] ||= []
 
+          puffer_controller controller if @scope[:ancestors] == []
+
           resource_scope(resource) do
             siblings = @scope[:children].dup
             @scope[:children] = []
@@ -119,7 +131,31 @@ module Puffer
       end
 
     end
+
+    module RouteSet
+
+      def self.included base
+        base.class_eval do
+          alias_method :original_clear!, :clear!
+          attr_accessor_with_default :puffer, {}
+
+          include InstanceMethods
+        end
+      end
+
+      module InstanceMethods
+
+        def clear!
+          self.puffer = {}
+          original_clear!
+        end
+
+      end
+
+    end
+
   end
 end
 
+ActionDispatch::Routing::RouteSet.send :include, Puffer::Extensions::RouteSet
 ActionDispatch::Routing::Mapper.send :include, Puffer::Extensions::Mapper

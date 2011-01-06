@@ -1,5 +1,9 @@
 class Admin::UsersController < Puffer::Base
 
+  configure do
+    group :users
+  end
+
   index do
     field :email
     field :password

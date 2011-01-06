@@ -1,5 +1,9 @@
 class Admin::ProfilesController < Puffer::Base
 
+  configure do
+    group :users
+  end
+
   index do
     field :user
     field :name

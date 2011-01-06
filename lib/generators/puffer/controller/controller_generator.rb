@@ -11,7 +11,7 @@ class Puffer::ControllerGenerator < Rails::Generators::NamedBase
 private
 
   def controller_name
-    ((@modules.presence || ['Admin']) << @model_name.pluralize).join('::')
+    [(swallow_nil{@modules.first} || 'Admin'), @model_name.pluralize].join('::')
   end
 
   def attributes

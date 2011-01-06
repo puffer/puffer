@@ -13,5 +13,7 @@ group :development, :test do
   gem 'fabrication'
 
   gem "jeweler"
+
+  gem "mongrel"
 end
 

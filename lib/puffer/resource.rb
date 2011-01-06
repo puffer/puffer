@@ -16,11 +16,11 @@ module Puffer
     def initialize params, request = nil
       @action = params.delete :action
       @controller = "#{params[:controller]}_controller".classify.constantize
+      @controller_name = controller.controller_name
       controller_segments = params.delete(:controller).split('/')
       @prefix = controller_segments.first
-      @controller_name = controller_segments.last
-      @model_name = (controller.current_config.model || controller_name.singularize).to_s
-      @model = model_name.classify.constantize
+      @model_name = controller.model_name
+      @model = controller.model
       @params = params
       @request = request
     end
