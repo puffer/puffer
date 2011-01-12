@@ -42,30 +42,6 @@
       </table>
     <% end %>
     </div>
-    <div class="column right_column panel">
-      <dl>
-        <dt>Search</dt>
-        <dd>
-        <%= form_tag resource.index_path, {:method => :get} do %>
-          <%= text_field_tag :query, resource_session[:query] %>
-          <%= submit_tag 'Search' %>
-          <% if resource_session[:query].present? %>
-            <%= link_to 'clear', resource.index_path(:query => '') %>
-          <% end %>
-        <% end %>
-        </dd>
-        <% index_fields.boolean.each do |field| %>
-          <dt><%= field.label %></dt>
-          <dd>
-            <ul>
-              <% [['All', nil], ['Yes', '1'], ['No', '0'], ['Not set', 'nil']].each do |option| %>
-                <li><%= link_to_unless resource_session[:boolean][field.query_column] == option[1], option[0], resource.index_path(:boolean => { field.query_column => option[1]}) %></li>
-              <% end %>
-            </ul>
-          </dd>
-        <% end %>
-      </dl>
-    </div>
   </div>
 </div>
 <% if respond_to? :will_paginate %>
@@ -80,4 +56,19 @@
     <% end %>
     <%= link_to resource.plural? ? resource.human : resource.member.to_title, resource.index_path %>
   </ul>
+<% end %>
+
+<% content_for :additional do %>
+  <dl>
+    <dt>Search</dt>
+    <dd>
+    <%= form_tag resource.index_path, {:method => :get} do %>
+      <%= text_field_tag :query, resource_session[:query] %>
+      <%= submit_tag 'Search' %>
+      <% if resource_session[:query].present? %>
+        <%= link_to 'clear', resource.index_path(:query => '') %>
+      <% end %>
+    <% end %>
+    </dd>
+  </dl>
 <% end %>

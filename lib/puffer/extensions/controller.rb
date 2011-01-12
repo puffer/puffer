@@ -6,14 +6,16 @@ module Puffer
         def self.included base
           base.class_eval do
             extend ClassMethods
+
+            helper_method :puffer?
           end
         end
 
+        def puffer?; false; end
+
         module ClassMethods
 
-          def puffer?
-            false
-          end
+          def puffer?; false; end
 
         end
 

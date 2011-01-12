@@ -23,8 +23,29 @@
         <div class="logout">
         </div>
       </div>
-      <div class="content">
-        <%= yield %>
+      <div class="columns">
+        <div class="column sidebar">
+          <div class="padder">
+            <ul class="navigation">
+              <% sidebar_puffer_navigation do |title, path, current| %>
+                <li<%= raw(current ? ' class="selected"' : '') %>>
+                  <%= link_to title, path %>
+                  <% if current && yield(:additional).present? %>
+                    <div class="additional">
+                      <%= yield :additional %>
+                    </div>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+            <%= yield :sidebar %>
+          </div>
+        </div>
+        <div class="column">
+          <div class="content">
+            <%= yield %>
+          </div>
+        </div>
       </div>
     </div>
   </body>

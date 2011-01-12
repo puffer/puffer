@@ -7,18 +7,17 @@ module Puffer
           extend ClassMethods
 
           layout 'puffer'
+          helper_method :puffer?
 
-          rescue_from ActionView::MissingTemplate do |exception|
-            render resource.template(exception.path.split('/').last)
-          end
+          self.view_paths = Puffer::PathSet.new view_paths
         end
       end
 
+      def puffer?; true; end
+
       module ClassMethods
 
-        def puffer?
-          true
-        end
+        def puffer?; true; end
 
       end
 

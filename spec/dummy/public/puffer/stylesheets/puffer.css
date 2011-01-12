@@ -32,7 +32,7 @@ a:hover
 
 .header
 {
-	height: 110px;
+	height: 120px;
 	position: relative;
 }
 
@@ -40,7 +40,7 @@ a:hover
 {
 	position: absolute;
     top: 10px;
-    left: 10px;
+    left: 20px;
 }
 
 .logo a
@@ -55,8 +55,8 @@ a:hover
 .navigation
 {
     position: absolute;
-    left: 14px;
-    bottom: 10px;
+    left: 12px;
+    bottom: 20px;
 }
 
 .navigation li
@@ -64,9 +64,8 @@ a:hover
     display: inline-block;
     *display: inline;
     zoom: 1;
-    padding: 3px 12px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
 }
 
 .navigation li:hover, .navigation li.selected
@@ -79,22 +78,47 @@ a:hover
 
 .navigation li a
 {
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
     color: #ddd;
+    padding: 3px 12px;
     font-size: 11pt;
     text-decoration: none;
     text-shadow: #304759 -1px -1px 0;
 }
 
-.content
+.sidebar .navigation
+{
+    position: static;
+}
+
+.sidebar .navigation li
+{
+    display: block;
+    margin-bottom: 5px;
+}
+
+.sidebar .navigation li a
+{
+    display: block;
+}
+
+.sidebar .navigation li .additional
+{
+    padding: 10px 12px;
+    background: #eee;
+    -moz-border-radius-bottomleft: 3px;
+    -moz-border-radius-bottomright: 3px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.columns
 {
 	width: 100%;
 	display: table;
 	clear: both;
-}
-
-.row
-{
-	display: table-row;
 }
 
 .column
@@ -107,26 +131,38 @@ a:hover
 {
 	display: inline;
 	vertical-align: top;
+    width: expression(function(t){
+      var sum = 0;
+      for (var i = 0; i < t.parentNode.childNodes.length; i++) {
+        if (t.parentNode.childNodes[i] != t) {
+          sum += t.parentNode.childNodes[i].offsetWidth;
+        }
+      }
+      return t.parentNode.clientWidth - sum + 'px';
+	}(this));
 	zoom: 1;
 }
 
-.left
-{
-	width: 630px;
-	padding-right: 40px;
-}
-
-.right
+.sidebar
 {
 	width: 250px;
 }
 
-.footer
+.padder
 {
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	height: 90px;
-	border-top: 2px solid #676766;
-	width: 100%;
+    padding: 0 12px;
+}
+
+.content
+{
+    min-height: 300px;
+    -moz-box-shadow: -1px -1px 0 #0A2337;
+    -webkit-box-shadow: -1px -1px 0 #0A2337;
+    box-shadow: -1px -1px 0 #304759;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background: #fff;
+    padding: 15px;
 }

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Params" do
 
-  include RSpec::Rails::RequestExampleGroup
+  include RSpec::Rails::RoutingExampleGroup
 
 =begin
   params_examples = [
@@ -22,98 +22,99 @@ describe "Params" do
   end
 =end
 
-  before :each do
-    @resource = mock(Puffer::Resource, :collection => [], :member => nil, :template => {:nothing => true}, :includes => nil, :prefix => 'admin')
-    Puffer::Resource.stub(:new) {@resource}
-  end
-
   describe "GET /admin/users" do
     it "should set proper params" do
-      get admin_users_url
-
-      request.params[:plural].should be_true
-      request.params[:ancestors].should == []
-      request.params[:children].should == [:profile, :posts]
+      assert_recognizes({"ancestors"=>[],
+        "action"=>"index",
+        "plural"=>true,
+        "controller"=>"admin/users",
+        "children"=>[:profile, :posts]}, '/admin/users')
     end
   end
 
   describe "GET /admin/users/1/profile" do
     it "should set proper params" do
-      get admin_user_profile_url(1)
-
-      request.params[:plural].should be_false
-      request.params[:ancestors].should == [:users]
-      request.params[:children].should == [:tags]
+      assert_recognizes({"ancestors"=>[:users],
+        "action"=>"show",
+        "user_id"=>"1",
+        "plural"=>false,
+        "controller"=>"admin/profiles",
+        "children"=>[:tags]}, '/admin/users/1/profile')
     end
   end
 
   describe "get /admin/users/1/posts" do
     it "should set proper params" do
-      get admin_user_posts_url(1)
-
-      request.params[:plural].should be_true
-      request.params[:ancestors].should == [:users]
-      request.params[:children].should == [:categories, :tags]
+      assert_recognizes({"ancestors"=>[:users],
+        "action"=>"index",
+        "user_id"=>"1",
+        "plural"=>true,
+        "controller"=>"admin/posts",
+        "children"=>[:categories, :tags]}, '/admin/users/1/posts')
     end
   end
 
   describe "GET /admin/users/1/posts/1/categories" do
     it "should set proper params" do
-      get admin_user_post_categories_url(1, 1)
-
-      request.params[:plural].should be_true
-      request.params[:ancestors].should == [:users, :posts]
-      request.params[:children].should == []
+      assert_recognizes({"ancestors"=>[:users, :posts],
+        "action"=>"index",
+        "post_id"=>"1",
+        "user_id"=>"1",
+        "plural"=>true,
+        "controller"=>"admin/categories",
+        "children"=>[]}, '/admin/users/1/posts/1/categories')
     end
   end
 
-  describe "GET /profiles" do
+  describe "GET /admin/profiles" do
     it "should set proper params" do
-      get admin_profiles_url
-
-      request.params[:plural].should be_true
-      request.params[:ancestors].should == []
-      request.params[:children].should == [:tags]
+      assert_recognizes({"ancestors"=>[],
+        "action"=>"index",
+        "plural"=>true,
+        "controller"=>"admin/profiles",
+        "children"=>[:tags]}, '/admin/profiles')
     end
   end
 
-  describe "GET /posts" do
+  describe "GET /admin/posts" do
     it "should set proper params" do
-      get admin_posts_url
-
-      request.params[:plural].should be_true
-      request.params[:ancestors].should == []
-      request.params[:children].should == [:user, :categories]
+      assert_recognizes({"ancestors"=>[],
+        "action"=>"index",
+        "plural"=>true,
+        "controller"=>"admin/posts",
+        "children"=>[:user, :categories]}, '/admin/posts')
     end
   end
 
   describe "GET /admin/posts/1/categories" do
     it "should set proper params" do
-      get admin_post_categories_url(1)
-
-      request.params[:plural].should be_true
-      request.params[:ancestors].should == [:posts]
-      request.params[:children].should == []
+      assert_recognizes({"ancestors"=>[:posts],
+        "action"=>"index",
+        "post_id"=>"1",
+        "plural"=>true,
+        "controller"=>"admin/categories",
+        "children"=>[]}, '/admin/posts/1/categories')
     end
   end
 
-  describe "GET /categories" do
+  describe "GET /admin/categories" do
     it "should set proper params" do
-      get admin_categories_url
-
-      request.params[:plural].should be_true
-      request.params[:ancestors].should == []
-      request.params[:children].should == [:posts]
+      assert_recognizes({"ancestors"=>[],
+        "action"=>"index",
+        "plural"=>true,
+        "controller"=>"admin/categories",
+        "children"=>[:posts]}, '/admin/categories')
     end
   end
 
   describe "GET /admin/categories/1/posts" do
     it "should set proper params" do
-      get admin_category_posts_url(1)
-
-      request.params[:plural].should be_true
-      request.params[:ancestors].should == [:categories]
-      request.params[:children].should == []
+      assert_recognizes({"ancestors"=>[:categories],
+        "action"=>"index",
+        "category_id"=>"1",
+        "plural"=>true,
+        "controller"=>"admin/posts",
+        "children"=>[]}, '/admin/categories/1/posts')
     end
   end
 end

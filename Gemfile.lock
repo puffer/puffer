@@ -43,6 +43,7 @@ GEM
       selenium-webdriver (>= 0.0.27)
       xpath (~> 0.1.2)
     celerity (0.8.6)
+    cells (3.4.2)
     cgi_multipart_eof_fix (2.5.0)
     childprocess (0.1.6)
       ffi (~> 0.6.3)
@@ -130,6 +131,7 @@ PLATFORMS
 DEPENDENCIES
   autotest
   capybara (>= 0.4.0)
+  cells
   fabrication
   forgery
   jeweler

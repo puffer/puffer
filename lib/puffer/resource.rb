@@ -35,7 +35,7 @@ module Puffer
 
     def parent
       @parent ||= begin
-        parent_ancestors = params[:ancestors].dup
+        parent_ancestors = params[:ancestors].dup rescue []
         parent_name = parent_ancestors.pop
         if parent_name
           parent_params = ActiveSupport::HashWithIndifferentAccess.new({
@@ -68,6 +68,10 @@ module Puffer
         end
         ancestors
       end
+    end
+
+    def root
+      @root ||= (ancestors.first || self)
     end
 
     def children(custom_params = {})

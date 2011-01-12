@@ -1,9 +1,9 @@
 class Admin::DashboardController < ApplicationController
   unloadable
 
-  include Puffer::Controller::Mutate
+  layout 'puffer'
+
   include Puffer::Controller::Helpers
-  include Puffer::Controller::Config
 
   def index
     p Rails.application.routes.puffer
