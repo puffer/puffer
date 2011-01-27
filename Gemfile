@@ -2,7 +2,7 @@ source "http://rubygems.org"
 
 gem 'rails', '~> 3.0.3'
 gem 'will_paginate', '~> 3.0.pre2'
-gem 'cells'
+gem 'cells', '~> 3.4.4'
 
 group :development, :test do
   gem "capybara", ">= 0.4.0"

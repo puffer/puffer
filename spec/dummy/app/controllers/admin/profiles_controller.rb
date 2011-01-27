@@ -16,6 +16,7 @@ class Admin::ProfilesController < Puffer::Base
     field :name
     field :surname
     field :birth_date
+    field :created_at
   end
 
 end

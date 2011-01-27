@@ -1,19 +1,11 @@
-<%= f.error_messages %>
-
 <ul>
-  <% case action
-     when 'new' then
-       @fields = controller.create_fields || controller.form_fields
-     when 'edit' then
-       @fields = controller.update_fields || controller.form_fields
-     end %>
-<% @fields.each do |field| -%>
-  <li><%= f.terbium_field field %></li>
+<% (action == 'new' ? create_fields : update_fields).each do |field| -%>
+  <li><%= f.puffer_field field %></li>
 <% end -%>
 </ul>
 
 <div class="buttons">
   <%= f.submit 'Save' %>
   <%= f.submit 'Save and exit' %>
-  <%= link_to 'cancel', request.referer %>
+  <%= link_to 'cancel', (request.referer || resource.index_path) %>
 </div>

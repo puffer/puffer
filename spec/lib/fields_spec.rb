@@ -11,6 +11,8 @@ describe "Field" do
     field.model.should == Profile
     field = Puffer::Fields::Field.new Post, 'user.email'
     field.model.should == User
+    field = Puffer::Fields::Field.new Post, 'user'
+    field.model.should == Post
     field = Puffer::Fields::Field.new Post, 'title'
     field.model.should == Post
   end

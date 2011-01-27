@@ -19,7 +19,7 @@ module Puffer
       end
 
       def label
-        @label ||= options[:label] || model.human_attribute_name(name)
+        @label ||= resource.human_attribute_name(field)
       end
 
       def order
@@ -27,18 +27,23 @@ module Puffer
       end
 
       def type
-        @type ||= options[:type] ? options[:type].to_sym : (column ? column.type : :string)
+        @type ||= options[:type] ? options[:type].to_sym : (Puffer::Fields.offered_type(self) || (column ? column.type : :string))
       end
 
       def to_s
         field
       end
 
+      def input_options
+        {}
+      end
+
       def model
         unless @model
           @model = resource
           associations = field.split('.')
-          while @model.reflect_on_association(association = associations.shift.to_sym) do
+          associations.pop
+          while @model.reflect_on_association(association = swallow_nil{associations.shift.to_sym}) do
             @model = @model.reflect_on_association(association).klass
           end
         end

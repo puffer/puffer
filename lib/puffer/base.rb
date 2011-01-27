@@ -28,13 +28,13 @@ module Puffer
     def create
       @record = resource.new_member
       @record.save
-      respond_with @record, :location => resource.path
+      respond_with @record, :location => resource.index_path
     end
 
     def update
       @record = resource.member
       @record.update_attributes resource.attributes
-      respond_with @record, :location => resource.path
+      respond_with @record, :location => resource.index_path
     end
 
     def destroy

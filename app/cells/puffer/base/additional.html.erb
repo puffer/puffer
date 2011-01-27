@@ -1,0 +1,17 @@
+<dl>
+  <dt>Links</dt>
+  <dd>
+    <%= link_to_unless_current t(:list, :target => resource.human), resource.index_path %>
+    <%= link_to_unless_current t(:add, :target => resource.human), resource.new_path %>
+  </dd>
+  <dt>Search</dt>
+  <dd>
+  <%= form_tag resource.index_path, {:method => :get} do %>
+    <%= text_field_tag :query, resource_session[:query] %>
+    <%= submit_tag 'Search' %>
+    <% if resource_session[:query].present? %>
+      <%= link_to 'clear', resource.index_path(:query => '') %>
+    <% end %>
+  <% end %>
+  </dd>
+</dl>

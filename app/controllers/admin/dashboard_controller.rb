@@ -6,7 +6,6 @@ class Admin::DashboardController < ApplicationController
   include Puffer::Controller::Helpers
 
   def index
-    p Rails.application.routes.puffer
     @title = 'Dashboard'
   end
 

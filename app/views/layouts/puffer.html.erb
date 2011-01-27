@@ -7,6 +7,10 @@
     <%= stylesheet_link_tag '/puffer/stylesheets/reset' %>
     <%= stylesheet_link_tag '/puffer/stylesheets/puffer' %>
     <%= yield :stylesheet %>
+
+    <%= javascript_include_tag '/puffer/javascripts/right-src' %>
+    <%= javascript_include_tag '/puffer/javascripts/rails-src' %>
+    <%= javascript_include_tag '/puffer/javascripts/right-calendar-src' %>
     <%= yield :javascript %>
   </head>
   <body>
@@ -30,9 +34,9 @@
               <% sidebar_puffer_navigation do |title, path, current| %>
                 <li<%= raw(current ? ' class="selected"' : '') %>>
                   <%= link_to title, path %>
-                  <% if current && yield(:additional).present? %>
+                  <% if current && (additional = render_cell('puffer/base', 'additional')).present? %>
                     <div class="additional">
-                      <%= yield :additional %>
+                      <%= additional %>
                     </div>
                   <% end %>
                 </li>

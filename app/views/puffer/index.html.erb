@@ -1,8 +1,6 @@
 <% @title = resource.human %>
 <h1><%= @title %></h1>
-<% if respond_to? :will_paginate %>
-  <%= will_paginate @records, :url => resource.index_path(:page => '') %>
-<% end %>
+<%= will_paginate @records, :url => resource.index_path(:page => '') %>
 <div class="columns">
   <div class="row">
     <div class="column left_column">
@@ -44,9 +42,7 @@
     </div>
   </div>
 </div>
-<% if respond_to? :will_paginate %>
-  <%= will_paginate @records, :url => resource.index_path(:page => '') %>
-<% end %>
+<%= will_paginate @records, :url => resource.index_path(:page => '') %>
 
 <% content_for :additional_navigation do %>
   <ul class="buttons">
@@ -58,17 +54,3 @@
   </ul>
 <% end %>
 
-<% content_for :additional do %>
-  <dl>
-    <dt>Search</dt>
-    <dd>
-    <%= form_tag resource.index_path, {:method => :get} do %>
-      <%= text_field_tag :query, resource_session[:query] %>
-      <%= submit_tag 'Search' %>
-      <% if resource_session[:query].present? %>
-        <%= link_to 'clear', resource.index_path(:query => '') %>
-      <% end %>
-    <% end %>
-    </dd>
-  </dl>
-<% end %>

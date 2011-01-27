@@ -52,7 +52,7 @@ module Puffer
           end
           parent_params.merge! :id => params[parent_name.to_s.singularize.foreign_key]
 
-          self.class.new parent_params, request
+          Resource.new parent_params, request
         else
           nil
         end
@@ -90,7 +90,7 @@ module Puffer
         end
         child_params.merge! controller_name.singularize.foreign_key => params[:id] if params[:id]
 
-        self.class.new child_params, request
+        Resource.new child_params, request
       end
     end
 
@@ -124,20 +124,16 @@ module Puffer
     end
 
     def attributes
-      params[model_name] || {}
-    end
-
-    def template suggest = nil
-      "puffer/#{suggest || action}"
+      params[model_name]
     end
 
     def method_missing method, *args, &block
       method = method.to_s
-      if method.match(/path$/)
+      if method.match(/path$/) && respond_to?(method.gsub(/path$/, 'url'))
         options = args.extract_options!
-        return send method.gsub(/path$/, 'url'), *(args << options.merge(:routing_type => :path)) if defined? method.gsub(/path$/, 'url')
+        return send method.gsub(/path$/, 'url'), *(args << options.merge(:routing_type => :path))
       end
-      model.send method, *args, &block
+      model.send method, *args, &block if model.respond_to? method
     end
 
   end
