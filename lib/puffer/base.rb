@@ -40,7 +40,7 @@ module Puffer
     def destroy
       @record = resource.member
       @record.destroy
-      redirect_to resource.path
+      redirect_to (request.referrer || resource.index_path)
     end
 
   end

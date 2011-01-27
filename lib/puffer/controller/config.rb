@@ -9,7 +9,7 @@ module Puffer
 
           puffer_class_attribute :group, :default
           puffer_class_attribute :model
-          puffer_class_attribute :destroy, false
+          puffer_class_attribute :destroy, true
 
           helper_method :configuration
         end

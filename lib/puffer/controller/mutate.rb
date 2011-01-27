@@ -7,6 +7,7 @@ module Puffer
           extend ClassMethods
 
           layout 'puffer'
+          helper 'puffer'
           helper_method :puffer?
 
           self.view_paths = Puffer::PathSet.new view_paths

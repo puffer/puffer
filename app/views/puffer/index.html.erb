@@ -1,12 +1,10 @@
 <% @title = resource.human %>
 <h1><%= @title %></h1>
-<%= will_paginate @records, :url => resource.index_path(:page => '') %>
+<%= will_paginate records, :url => resource.index_path(:page => '') %>
 <div class="columns">
   <div class="row">
     <div class="column left_column">
-    <% if @records.empty? %>
-      <p>Sorry, but there is no records in <%= resource.human %></p>
-    <% else %>
+    <% if records.present? %>
       <table class="list_table">
         <thead>
           <tr>
@@ -17,33 +15,29 @@
           </tr>
         </thead>
         <tbody>
-        <% @records.each do |record| -%>
+        <% records.each do |record| -%>
           <tr>
           <% index_fields.each do |field| -%>
-            <td><%= render_field record, field %></td>
+            <td><%= render_field field, record %></td>
           <% end -%>
             <td class="actions">
-              <%= link_to 'show', resource.path(record), :class => 'show_entry' if controller.show_fields || resource_children.present? %>
-              <%= link_to 'edit', resource.edit_path(record), :class => 'edit_entry' if controller.update_fields || controller.form_fields %>
+              <%= link_to 'show', resource.path(record), :class => 'show_entry' if show_fields.present? || resource.children.present? %>
+              <%= link_to 'edit', resource.edit_path(record), :class => 'edit_entry' if update_fields.present? %>
               <%= link_to 'destroy', resource.path(record), :confirm => "Are you sure?", :method => :delete, :class => 'remove_entry' if configuration.destroy %>
-              <% resource.children(:post_id => record.id).each do |child| %>
-                <% if child.plural? %>
-                  <p><%= link_to "#{child.human}(#{child.collection.size})", child.index_path %></p>
-                <% else %>
-                  <p><%= link_to "#{child.member ? 'Edit' : 'Add'} #{child.human}", child.index_path %></p>
-                <% end %>
-              <% end %>
             </td>
           </tr>
         <% end -%>
         </tbody>
       </table>
+    <% else %>
+      <p>Sorry, but there is no records in <%= resource.human %></p>
     <% end %>
     </div>
   </div>
 </div>
-<%= will_paginate @records, :url => resource.index_path(:page => '') %>
+<%= will_paginate records, :url => resource.index_path(:page => '') %>
 
+<% if false %>
 <% content_for :additional_navigation do %>
   <ul class="buttons">
     <% resource.ancestors.each do |resource| %>
@@ -52,5 +46,6 @@
     <% end %>
     <%= link_to resource.plural? ? resource.human : resource.member.to_title, resource.index_path %>
   </ul>
+<% end %>
 <% end %>
 

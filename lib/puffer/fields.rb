@@ -19,7 +19,7 @@ module Puffer
       :password if field.name =~ /password/
     end
     offer_type do |field|
-      field.model.reflect_on_association(name.to_sym).macro if field.model.reflect_on_association name.to_sym
+      field.model.reflect_on_association(field.name.to_sym).macro if field.model.reflect_on_association field.name.to_sym
     end
 
     def field *args
