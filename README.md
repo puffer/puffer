@@ -41,15 +41,17 @@ end
 </pre>
 
 Also, you have two models:
+
 <pre>
-class User < ActiveRecord::Base
+class User &lt; ActiveRecord::Base
   has_many :posts
   validates_presence_of :email, :password
   validates_length_of :password, :minimum => 6
 end
 </pre>
+
 <pre>
-class Profile < ActiveRecord::Base
+class Profile &lt; ActiveRecord::Base
   belongs_to :user
   validates_presence_of :name, :surname
 end
@@ -62,7 +64,7 @@ and
 
 This will generate a kind of:
 <pre>
-class Admin::PostsController < Puffer::Base
+class Admin::PostsController &lt; Puffer::Base
   before_filter :i_didnt_forget_to_protect_this
 
   index do
