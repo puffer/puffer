@@ -1,15 +1,15 @@
-h1. Puffer - YARAI (Yet Another Rails Admin Interface). Rails 3 only.
+# Puffer - YARAI (Yet Another Rails Admin Interface). Rails 3 only.
 
 Puffer was created to help project owner or moderators view and edit all the project`s data models. It is rails 3 only
 
-h2. Keyfeatures
+## Keyfeatures
 
 * Full rails integration. Puffer has no configs, just DSL to create interfaces. And this DLS depends on rails convensions.
 * Flexibility. Puffer designed to be as flexible as possible, so you can create your own modules easily.
 * I18n. Surely.
 * Bla bla
 
-h2. Installation.
+## Installation.
 
 You can instal puffer as a gem:
 <pre>gem install puffer</pre>
@@ -19,7 +19,7 @@ Next step is:
 <pre>rails g puffer:install</pre>
 This will install main puffer config file in your initializers and some css/js.
 
-h2. Introduction.
+## Introduction.
 
 So, you have some data structure of your project. Let it`ll be like this:
 
