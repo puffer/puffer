@@ -86,3 +86,20 @@ class Admin::PostsController &lt; Puffer::Base
   end
 end
 </pre>
+
+Puffer controller`s DSL creates all the actions we need. Next step - routing
+
+<pre>
+resources :users do
+  resources :posts
+end
+resources :posts
+</pre>
+
+Let me explain this feature. Puffer tracks all the nested resources. So, with this routing structure we can access, for example, only specified user`s posts:
+
+<pre>
+/admin/users/1/post
+</pre>
+
+Routing nesting defines admin interface resources nesting.
