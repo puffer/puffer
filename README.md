@@ -90,10 +90,12 @@ end
 Puffer controller`s DSL creates all the actions we need. Next step - routing
 
 <pre>
-resources :users do
+namespace :admin
+  resources :users do
+    resources :posts
+  end
   resources :posts
 end
-resources :posts
 </pre>
 
 Let me explain this feature. Puffer tracks all the nested resources. So, with this routing structure we can access, for example, only specified user`s posts:
@@ -103,3 +105,45 @@ Let me explain this feature. Puffer tracks all the nested resources. So, with th
 </pre>
 
 Routing nesting defines admin interface resources nesting.
+
+## Advanced usage
+
+Puffer can be used in other namespaces, then admin:
+
+<pre>rails g puffer:controller moderator/posts</pre>
+
+And we`ll get posts controller for moderator:
+
+<pre>
+class Moderator::PostsController &lt; Puffer::Base
+  before_filter :require_moderator
+
+  config do
+    destroy false
+    group :posting
+  end
+
+  index do
+    field :user_id
+    field :title
+    field :body
+  end
+
+  form do
+    field :user_id
+    field :title
+    field :body
+    field :created_at
+    field :updated_at
+  end
+end
+</pre>
+
+As you can see, moderators can not destroy posts, also moderator`s posts controller placed at Posting tab of admin interface.
+And don`t forget about routing:
+
+<pre>
+namespace :moderator do
+  resources :posts
+end
+</pre>
