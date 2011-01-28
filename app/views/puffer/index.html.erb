@@ -1,40 +1,34 @@
 <% @title = resource.human %>
 <h1><%= @title %></h1>
 <%= will_paginate records, :url => resource.index_path(:page => '') %>
-<div class="columns">
-  <div class="row">
-    <div class="column left_column">
-    <% if records.present? %>
-      <table class="list_table">
-        <thead>
-          <tr>
-          <% index_fields.each do |field| -%>
-            <th><%= render_head field %></th>
-          <% end -%>
-            <th class="actions">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-        <% records.each do |record| -%>
-          <tr>
-          <% index_fields.each do |field| -%>
-            <td><%= render_field field, record %></td>
-          <% end -%>
-            <td class="actions">
-              <%= link_to 'show', resource.path(record), :class => 'show_entry' if show_fields.present? || resource.children.present? %>
-              <%= link_to 'edit', resource.edit_path(record), :class => 'edit_entry' if update_fields.present? %>
-              <%= link_to 'destroy', resource.path(record), :confirm => "Are you sure?", :method => :delete, :class => 'remove_entry' if configuration.destroy %>
-            </td>
-          </tr>
-        <% end -%>
-        </tbody>
-      </table>
-    <% else %>
-      <p>Sorry, but there is no records in <%= resource.human %></p>
-    <% end %>
-    </div>
-  </div>
-</div>
+<% if records.present? %>
+  <table class="list_table">
+    <thead>
+      <tr>
+      <% index_fields.each do |field| -%>
+        <th><%= render_head field %></th>
+      <% end -%>
+        <th class="actions">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% records.each do |record| -%>
+      <tr>
+      <% index_fields.each do |field| -%>
+        <td><%= render_field field, record %></td>
+      <% end -%>
+        <td class="actions">
+          <%= link_to 'show', resource.path(record), :class => 'show_entry' if show_fields.present? || resource.children.present? %>
+          <%= link_to 'edit', resource.edit_path(record), :class => 'edit_entry' if update_fields.present? %>
+          <%= link_to 'destroy', resource.path(record), :confirm => "Are you sure?", :method => :delete, :class => 'remove_entry' if configuration.destroy %>
+        </td>
+      </tr>
+    <% end -%>
+    </tbody>
+  </table>
+<% else %>
+  <p>Sorry, but there is no records in <%= resource.human %></p>
+<% end %>
 <%= will_paginate records, :url => resource.index_path(:page => '') %>
 
 <% if false %>

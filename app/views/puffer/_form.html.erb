@@ -1,4 +1,4 @@
-<ul>
+<ul class="form">
 <% (action == 'new' ? create_fields : update_fields).each do |field| -%>
   <li><%= f.puffer_field field %></li>
 <% end -%>

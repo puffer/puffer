@@ -20,6 +20,12 @@ a:hover
 	text-decoration: none;
 }
 
+h1
+{
+    font-size: 21px;
+    margin-bottom: 10px;
+}
+
 .body
 {
 	position: relative;
@@ -165,4 +171,119 @@ a:hover
     border-bottom-left-radius: 5px;
     background: #fff;
     padding: 15px;
+}
+
+.list_table
+{
+    width: 100%;
+    margin: 0;
+    line-height: 140%;
+    border-collapse: separate;
+    border-spacing: 0px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+.list_table tr
+{
+    vertical-align: top;
+}
+
+.list_table th.actions
+{
+    position: static;
+}
+
+.list_table td.actions
+{
+    position: static;
+    white-space: nowrap;
+    width: 100px;
+}
+
+.list_table td.actions a
+{
+    line-height: 140%;
+}
+
+.list_table th
+{
+    text-align: left;
+    background: #eee;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 15px;
+}
+
+.list_table th a
+{
+    text-decoration: none;
+    border-bottom: 1px dotted #333;
+}
+
+.list_table th a:hover
+{
+    border-bottom: none;
+}
+
+.list_table td, .list_table th
+{
+    padding: 5px;
+}
+
+.list_table td:first-child, .list_table th:first-child
+{
+    padding-left: 10px;
+}
+
+.list_table td:last-child, .list_table th:last-child
+{
+    padding-right: 10px;
+}
+.list_table td
+{
+    border-bottom: 1px solid #ddd;
+    vertical-align: top;
+}
+
+.list_table tr:last-child td
+{
+    border: none;
+}
+
+.list_table tbody tr:hover
+{
+    background: #f4f4f4;
+}
+
+.form
+{
+    margin-bottom: 30px;
+}
+
+.form li
+{
+    list-style: none;
+    margin-bottom: 8px;
+}
+
+.form li label
+{
+    display: block;
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+.form li input[type=text], .form li input[type=password], .form li textarea
+{
+    border: #ccc solid 1px;
+    width: 100%;
+    font-size: 12pt;
+}
+
+ .form li textarea
+{
+    height: 60px;
 }
