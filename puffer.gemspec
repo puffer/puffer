@@ -9,11 +9,11 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["pyromaniac"]
-  s.date = %q{2011-01-27}
+  s.date = %q{2011-01-28}
   s.description = %q{In Soviet Russia puffer admins you}
   s.email = %q{kinwizard@gmail.com}
   s.extra_rdoc_files = [
-    "README.rdoc"
+    "README.md"
   ]
   s.files = [
     ".rspec",
@@ -21,12 +21,13 @@ Gem::Specification.new do |s|
     "Gemfile",
     "Gemfile.lock",
     "MIT-LICENSE",
-    "README.rdoc",
+    "README.md",
     "Rakefile",
     "VERSION",
     "app/cells/puffer/base/additional.html.erb",
     "app/cells/puffer/base_cell.rb",
     "app/controllers/admin/dashboard_controller.rb",
+    "app/helpers/puffer_helper.rb",
     "app/views/admin/dashboard/index.html.erb",
     "app/views/layouts/puffer.html.erb",
     "app/views/puffer/_form.html.erb",
