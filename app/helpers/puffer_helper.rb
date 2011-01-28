@@ -16,6 +16,7 @@ module PufferHelper
     else
       res = h(record.call_chain(field.name))
     end
+    #res = link_to res, url if url && field.association?
   end
 
 end

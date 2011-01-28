@@ -10,7 +10,7 @@ module Puffer
 
           %w(index show form create update).each do |action|
             class_attribute "_#{action}_fields"
-            send "_#{action}_fields=", Puffer::Fields.new unless send("_#{action}_fields").present?
+            send "_#{action}_fields=", Puffer::Fields.new unless send("_#{action}_fields?")
             helper_method "#{action}_fields"
           end
         end
@@ -20,10 +20,9 @@ module Puffer
 
         %w(index show form create update).each do |action|
           define_method action do |&block|
-            @_fields = send "_#{action}_fields"
-            @_fields.clear
+            @_fields = send("_#{action}_fields=", Puffer::Fields.new)
             block.call if block
-            @_fields = nil
+            remove_instance_variable :@_fields
           end
         end
 
