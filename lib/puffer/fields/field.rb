@@ -15,7 +15,11 @@ module Puffer
       end
 
       def name
-        field.split('.').last
+        @name ||= field.split('.').last
+      end
+
+      def path
+        @path ||= field.split('.')[0..-2].join('.')
       end
 
       def label
@@ -34,6 +38,14 @@ module Puffer
         field
       end
 
+      def reflection
+        @reflection ||= model.reflect_on_association(name.to_sym)
+      end
+
+      def collection?
+        [:has_many, :has_and_belongs_to_many].include? type
+      end
+
       def input_options
         {}
       end
@@ -48,6 +60,17 @@ module Puffer
           end
         end
         @model
+      end
+
+      def association_fields
+        raise "Can`t find records for association building. Please set :search_fields option for '#{field}' field." unless options[:search_fields].present?
+        @reflection_fields ||= begin
+          fields = Puffer::Fields.new
+          options[:search_fields].each do |field_name|
+            fields.field reflection.klass, field_name
+          end
+          fields
+        end
       end
 
       def column

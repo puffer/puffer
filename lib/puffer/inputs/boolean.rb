@@ -2,7 +2,7 @@ module Puffer
   module Inputs
     class Boolean < Puffer::Inputs::Base
 
-      def template
+      def html
         <<-INPUT
           #{input}
           #{label}

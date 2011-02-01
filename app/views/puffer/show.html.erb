@@ -5,7 +5,7 @@
     <li>
       <h2>Associations</h2>
       <% resource.children.each do |child| %>
-        <%= link_to child.human, child.index_path %>
+        <%= link_to child.human, child.collection_path %>
       <% end %>
     </li>
   <% end %>
@@ -14,7 +14,7 @@
   <li>
     <h2><%= field.label %></h2>
     <div>
-      <%= render_field record, field %>
+      <%= render_field field, record %>
     </div>
   </li>
 <% end if show_fields && record -%>
@@ -22,8 +22,8 @@
 <% content_for :additional_navigation do %>
   <ul class="buttons">
     <% (resource.ancestors + [resource]).each do |resource| %>
-      <%= link_to resource.plural? ? resource.human : resource.member.to_title, resource.index_path %>
-      <%= link_to resource.member.to_title, resource.path unless resource.plural? %>
+      <%= link_to resource.plural? ? resource.human : resource.member.to_title, resource.collection_path %>
+      <%= link_to resource.member.to_title, resource.member_path unless resource.plural? %>
     <% end %>
   </ul>
 <% end %>

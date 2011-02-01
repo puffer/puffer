@@ -6,7 +6,6 @@ module Puffer
 
     def self.map_type *args
       to = args.extract_options![:to]
-      raise ArgumentError, "You need to give :to as option to map_type" unless to
       args.each { |type| mappings[type] = to }
     end
 
@@ -15,8 +14,7 @@ module Puffer
     map_type :date, :time, :datetime, :timestamp, :to => Puffer::Inputs::DateTime
 
     def self.map_field field
-      mappings[field.type] || (const_defined?(field.type.to_s.classify) ?
-        "Puffer::Inputs::#{field.type.to_s.classify}".constantize : Puffer::Inputs::Base)
+      mappings[field.type] || ("Puffer::Inputs::#{field.type.to_s.classify}".constantize rescue Puffer::Inputs::Base)
     end
 
   end

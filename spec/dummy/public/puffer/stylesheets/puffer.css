@@ -88,7 +88,7 @@ h1
     *display: inline;
     zoom: 1;
     color: #ddd;
-    padding: 3px 12px;
+    padding: 7px 12px;
     font-size: 11pt;
     text-decoration: none;
     text-shadow: #304759 -1px -1px 0;
@@ -118,6 +118,16 @@ h1
     -moz-border-radius-bottomright: 3px;
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
+}
+
+.sidebar .navigation li .additional dt
+{
+    margin-bottom: 2px;
+}
+
+.sidebar .navigation li .additional dd
+{
+    margin-bottom: 8px;
 }
 
 .columns
@@ -170,7 +180,7 @@ h1
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     background: #fff;
-    padding: 15px;
+    padding: 30px;
 }
 
 .list_table
@@ -184,6 +194,11 @@ h1
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
+}
+
+.list_table *
+{
+    font-size: 8pt;
 }
 
 .list_table tr
@@ -258,6 +273,40 @@ h1
     background: #f4f4f4;
 }
 
+label, input, textarea
+{
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+input[type=text], input[type=password], textarea
+{
+    border: #ccc solid 1px;
+    font-size: 11pt;
+    padding: 3px 0;
+    border-radius: 3px;
+}
+
+input[type=text]:focus, input[type=password]:focus, textarea:focus
+{
+    border: #536C80 solid 1px;
+}
+
+input[type=submit]
+{
+    border: 0;
+    border-radius: 3px;
+    background: #536C80;
+    color: #ddd;
+    text-shadow: -1px -1px 0 #304759;
+    padding: 3px 10px;
+    font-size: 11pt;
+}
+
+#search
+{
+    width: 120px;
+}
+
 .form
 {
     margin-bottom: 30px;
@@ -269,21 +318,73 @@ h1
     margin-bottom: 8px;
 }
 
+.form li .label
+{
+    margin-bottom: 3px;
+}
+
+.form li .label *
+{
+    display: inline;
+}
+
 .form li label
 {
-    display: block;
-    font-size: 11pt;
+    font-size: 10pt;
     font-weight: bold;
 }
 
 .form li input[type=text], .form li input[type=password], .form li textarea
 {
-    border: #ccc solid 1px;
     width: 100%;
-    font-size: 12pt;
 }
 
  .form li textarea
 {
     height: 60px;
+}
+
+.field_error
+{
+    color: #C83E3E;
+}
+
+.association
+{
+    position: relative;
+}
+
+.association input[disabled]
+{
+    text-indent: 25px;
+}
+
+.association .association_clear
+{
+    position: absolute;
+    top: 4px;
+    left: 9px;
+    cursor: pointer;
+    display: none;
+}
+
+.association .association_clear:hover
+{
+    color: #b00;
+    text-shadow: 1px 1px 2px #555;
+}
+
+.association input[disabled] ~ .association_clear
+{
+    display: block;
+}
+
+.association .rui-autocompleter li .description
+{
+    display: none;
+}
+
+.association .rui-autocompleter li:hover .description
+{
+    display: block;
 }

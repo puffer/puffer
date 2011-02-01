@@ -1,6 +1,6 @@
 <% @title = "New #{resource.human}" %>
 <h1><%= @title %></h1>
-<%= form_for record, :url => resource.index_path, :html => {:multipart => true} do |f| %>
+<%= form_for record, :url => resource.collection_path, :html => {:multipart => true} do |f| %>
   <%= render :partial => 'terbium/form', :locals => { :f => f, :action => 'new' } %>
 <% end %>
 

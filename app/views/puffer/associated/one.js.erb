@@ -1,0 +1,9 @@
+<ul>
+<% primary_key = @field.reflection.primary_key_column.name.to_sym %>
+<% records.each do |record| %>
+  <li data-id="<%= record[primary_key] %>">
+    <div class="title"><strong><%= record[primary_key] %></strong> — <%= record.to_title %></div>
+    <div class="description">record.password</div>
+  </li>
+<% end %>
+</ul>

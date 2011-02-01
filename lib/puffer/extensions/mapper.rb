@@ -60,6 +60,11 @@ module Puffer
 
             collection do
               post :create, options
+              controller._collections.each do |args|
+                opts = args.extract_options!.dup
+                args.push options.reverse_merge(opts)
+                send *args
+              end
             end
 
             new do
@@ -71,6 +76,11 @@ module Puffer
               get    :show, options
               put    :update, options
               delete :destroy, options
+              controller._members.each do |args|
+                opts = args.extract_options!.dup
+                args.push options.reverse_merge(opts)
+                send *args
+              end
             end
 
           end
@@ -111,6 +121,11 @@ module Puffer
             collection do
               get  :index, options
               post :create, options
+              controller._collections.each do |args|
+                opts = args.extract_options!.dup
+                args.push options.reverse_merge(opts)
+                send *args
+              end
             end
 
             new do
@@ -122,6 +137,11 @@ module Puffer
               get    :show, options
               put    :update, options
               delete :destroy, options
+              controller._members.each do |args|
+                opts = args.extract_options!.dup
+                args.push options.reverse_merge(opts)
+                send *args
+              end
             end
           end
 

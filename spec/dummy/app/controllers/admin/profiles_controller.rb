@@ -5,14 +5,14 @@ class Admin::ProfilesController < Puffer::Base
   end
 
   index do
-    field :user
+    field 'user.email'
     field :name
     field :surname
     field :birth_date
   end
 
   form do
-    field :user
+    field :user, :search_fields => [:email, :password]
     field :name
     field :surname
     field :birth_date

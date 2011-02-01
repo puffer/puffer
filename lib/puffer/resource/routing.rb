@@ -5,11 +5,11 @@ module Puffer
       include ActionController::UrlFor
       include Rails.application.routes.url_helpers
 
-      def index_url *args
+      def collection_url *args
         polymorphic_url *route_args(route_member(controller_name), *args)
       end
 
-      def url *args
+      def member_url *args
         suggest = args.shift if args.first.is_a? ActiveRecord::Base
         polymorphic_url *route_args(route_member(suggest), *args)
       end

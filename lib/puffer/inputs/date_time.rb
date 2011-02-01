@@ -8,7 +8,7 @@ module Puffer
           when :time                    then '%H:%M:%S'
           when :datetime, :timestamp    then '%Y-%m-%d %H:%M:%S'
         end
-        builder.text_field field, field.input_options.merge("data-calendar" => "{showButtons: true, listYears: true, format: '#{format}'}")
+        builder.text_field field, field.input_options.merge("data-calendar" => "{showButtons: true, listYears: true, format: '#{format}'}", :autocomplete => :off)
       end
 
     end

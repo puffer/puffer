@@ -11,13 +11,17 @@ module Puffer
       end
 
       def render
-        template.html_safe
+        html.html_safe
       end
 
-      def template
+      def html
         <<-INPUT
-          #{label}
-          #{error}
+          <div class="label">
+            #{label}
+            <div class="field_error">
+              #{error}
+            </div>
+          </div>
           #{input}
         INPUT
       end
@@ -32,6 +36,10 @@ module Puffer
 
       def error
         builder.object.errors[field.name.to_sym].first
+      end
+
+      def method_missing method, *args, &block
+        template.send method, *args, &block if template.respond_to? method
       end
 
     end

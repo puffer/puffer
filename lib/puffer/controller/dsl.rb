@@ -13,10 +13,29 @@ module Puffer
             send "_#{action}_fields=", Puffer::Fields.new unless send("_#{action}_fields?")
             helper_method "#{action}_fields"
           end
+
+          class_attribute :_members
+          self._members = Puffer::Controller::Actions.new
+          class_attribute :_collections
+          self._collections = Puffer::Controller::Actions.new
         end
       end
 
       module ClassMethods
+
+        def inherited klass
+          klass._members = _members.dup
+          klass._collections = _collections.dup
+          super
+        end
+
+        def member &block
+          block.bind(_members).call if block_given?
+        end
+
+        def collection &block
+          block.bind(_collections).call if block_given?
+        end
 
         %w(index show form create update).each do |action|
           define_method action do |&block|
@@ -28,7 +47,7 @@ module Puffer
 
         def field name, options = {}
           field = @_fields.field(model, name, options) if @_fields
-          #generate_association_actions field if field.association?
+          generate_association_actions field if field.reflection
           #generate_change_actions field if field.toggable?
         end
 

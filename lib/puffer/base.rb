@@ -6,6 +6,7 @@ module Puffer
     include Puffer::Controller::Helpers
     include Puffer::Controller::Dsl
     include Puffer::Controller::Config
+    include Puffer::Controller::Generated
 
     respond_to :html, :js
 
@@ -28,19 +29,19 @@ module Puffer
     def create
       @record = resource.new_member
       @record.save
-      respond_with @record, :location => resource.index_path
+      respond_with @record, :location => resource.collection_path
     end
 
     def update
       @record = resource.member
       @record.update_attributes resource.attributes
-      respond_with @record, :location => resource.index_path
+      respond_with @record, :location => resource.collection_path
     end
 
     def destroy
       @record = resource.member
       @record.destroy
-      redirect_to (request.referrer || resource.index_path)
+      redirect_to (request.referrer || resource.collection_path)
     end
 
   end

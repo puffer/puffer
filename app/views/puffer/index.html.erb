@@ -1,6 +1,6 @@
 <% @title = resource.human %>
 <h1><%= @title %></h1>
-<%= will_paginate records, :url => resource.index_path(:page => '') %>
+<%= will_paginate records, :url => resource.collection_path(:page => '') %>
 <% if records.present? %>
   <table class="list_table">
     <thead>
@@ -18,9 +18,9 @@
         <td><%= render_field field, record %></td>
       <% end -%>
         <td class="actions">
-          <%= link_to 'show', resource.path(record), :class => 'show_entry' if show_fields.present? || resource.children.present? %>
+          <%= link_to 'show', resource.member_path(record), :class => 'show_entry' if show_fields.present? || resource.children.present? %>
           <%= link_to 'edit', resource.edit_path(record), :class => 'edit_entry' if update_fields.present? %>
-          <%= link_to 'destroy', resource.path(record), :confirm => "Are you sure?", :method => :delete, :class => 'remove_entry' if configuration.destroy %>
+          <%= link_to 'destroy', resource.member_path(record), :confirm => "Are you sure?", :method => :delete, :class => 'remove_entry' if configuration.destroy %>
         </td>
       </tr>
     <% end -%>
@@ -29,16 +29,16 @@
 <% else %>
   <p>Sorry, but there is no records in <%= resource.human %></p>
 <% end %>
-<%= will_paginate records, :url => resource.index_path(:page => '') %>
+<%= will_paginate records, :url => resource.collection_path(:page => '') %>
 
 <% if false %>
 <% content_for :additional_navigation do %>
   <ul class="buttons">
     <% resource.ancestors.each do |resource| %>
-      <%= link_to resource.plural? ? resource.human : resource.member.to_title, resource.index_path %>
-      <%= link_to resource.member.to_title, resource.path unless resource.plural? %>
+      <%= link_to resource.plural? ? resource.human : resource.member.to_title, resource.collection_path %>
+      <%= link_to resource.member.to_title, resource.member_path unless resource.plural? %>
     <% end %>
-    <%= link_to resource.plural? ? resource.human : resource.member.to_title, resource.index_path %>
+    <%= link_to resource.plural? ? resource.human : resource.member.to_title, resource.collection_path %>
   </ul>
 <% end %>
 <% end %>

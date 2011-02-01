@@ -14,9 +14,13 @@ module PufferHelper
       else ''
       end
     else
-      res = h(record.call_chain(field.name))
+      res = record.call_chain(field.field)
     end
-    #res = link_to res, url if url && field.association?
+    unless field.native?
+      url = edit_polymorphic_path [resource.prefix, record.call_chain(field.path)] rescue nil
+      res = link_to res, url if url
+    end
+    res
   end
 
 end
