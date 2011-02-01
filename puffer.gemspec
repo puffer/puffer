@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{puffer}
-  s.version = "0.0.7"
+  s.version = "0.0.8"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["pyromaniac"]
-  s.date = %q{2011-01-28}
+  s.date = %q{2011-02-02}
   s.description = %q{In Soviet Russia puffer admins you}
   s.email = %q{kinwizard@gmail.com}
   s.extra_rdoc_files = [
@@ -34,6 +34,7 @@ Gem::Specification.new do |s|
     "app/views/puffer/associated/_many.html.erb",
     "app/views/puffer/associated/_one.html.erb",
     "app/views/puffer/associated/many.rjs",
+    "app/views/puffer/associated/one.js.erb",
     "app/views/puffer/associated/one.rjs",
     "app/views/puffer/association/_many.html.erb",
     "app/views/puffer/association/_one.html.erb",
@@ -50,8 +51,11 @@ Gem::Specification.new do |s|
     "lib/generators/puffer/install/USAGE",
     "lib/generators/puffer/install/install_generator.rb",
     "lib/generators/puffer/install/templates/puffer.rb",
+    "lib/generators/puffer/install/templates/puffer/javascripts/application.js",
     "lib/generators/puffer/install/templates/puffer/javascripts/rails-src.js",
-    "lib/generators/puffer/install/templates/puffer/javascripts/rails.js",
+    "lib/generators/puffer/install/templates/puffer/javascripts/right-autocompleter-src.js",
+    "lib/generators/puffer/install/templates/puffer/javascripts/right-autocompleter.js",
+    "lib/generators/puffer/install/templates/puffer/javascripts/right-autocompleter.js.gz",
     "lib/generators/puffer/install/templates/puffer/javascripts/right-calendar-src.js",
     "lib/generators/puffer/install/templates/puffer/javascripts/right-calendar.js",
     "lib/generators/puffer/install/templates/puffer/javascripts/right-calendar.js.gz",
@@ -77,6 +81,7 @@ Gem::Specification.new do |s|
     "lib/puffer/controller/actions.rb",
     "lib/puffer/controller/config.rb",
     "lib/puffer/controller/dsl.rb",
+    "lib/puffer/controller/generated.rb",
     "lib/puffer/controller/helpers.rb",
     "lib/puffer/controller/mutate.rb",
     "lib/puffer/engine.rb",
@@ -154,8 +159,11 @@ Gem::Specification.new do |s|
     "spec/dummy/public/javascripts/effects.js",
     "spec/dummy/public/javascripts/prototype.js",
     "spec/dummy/public/javascripts/rails.js",
+    "spec/dummy/public/puffer/javascripts/application.js",
     "spec/dummy/public/puffer/javascripts/rails-src.js",
-    "spec/dummy/public/puffer/javascripts/rails.js",
+    "spec/dummy/public/puffer/javascripts/right-autocompleter-src.js",
+    "spec/dummy/public/puffer/javascripts/right-autocompleter.js",
+    "spec/dummy/public/puffer/javascripts/right-autocompleter.js.gz",
     "spec/dummy/public/puffer/javascripts/right-calendar-src.js",
     "spec/dummy/public/puffer/javascripts/right-calendar.js",
     "spec/dummy/public/puffer/javascripts/right-calendar.js.gz",
@@ -184,6 +192,7 @@ Gem::Specification.new do |s|
     "spec/fabricators/tags_fabricator.rb",
     "spec/fabricators/users_fabricator.rb",
     "spec/integration/navigation_spec.rb",
+    "spec/lib/extensions/core_spec.rb",
     "spec/lib/fields_spec.rb",
     "spec/lib/params_spec.rb",
     "spec/lib/render_fallback_spec.rb",
@@ -194,7 +203,7 @@ Gem::Specification.new do |s|
   ]
   s.homepage = %q{http://github.com/puffer/puffer}
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.4.1}
+  s.rubygems_version = %q{1.4.2}
   s.summary = %q{Admin interface builder}
   s.test_files = [
     "spec/dummy/app/controllers/admin/categories_controller.rb",
@@ -240,6 +249,7 @@ Gem::Specification.new do |s|
     "spec/fabricators/tags_fabricator.rb",
     "spec/fabricators/users_fabricator.rb",
     "spec/integration/navigation_spec.rb",
+    "spec/lib/extensions/core_spec.rb",
     "spec/lib/fields_spec.rb",
     "spec/lib/params_spec.rb",
     "spec/lib/render_fallback_spec.rb",
