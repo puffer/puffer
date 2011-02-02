@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{puffer}
-  s.version = "0.0.8"
+  s.version = "0.0.9"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["pyromaniac"]
@@ -32,12 +32,9 @@ Gem::Specification.new do |s|
     "app/views/layouts/puffer.html.erb",
     "app/views/puffer/_form.html.erb",
     "app/views/puffer/associated/_many.html.erb",
-    "app/views/puffer/associated/_one.html.erb",
     "app/views/puffer/associated/many.rjs",
     "app/views/puffer/associated/one.js.erb",
-    "app/views/puffer/associated/one.rjs",
     "app/views/puffer/association/_many.html.erb",
-    "app/views/puffer/association/_one.html.erb",
     "app/views/puffer/edit.html.erb",
     "app/views/puffer/index.html.erb",
     "app/views/puffer/new.html.erb",
