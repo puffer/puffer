@@ -382,6 +382,13 @@ input[type=submit]
 .association .rui-autocompleter li .description
 {
     display: none;
+    margin: 5px 10px;
+}
+
+.association .rui-autocompleter li .description li
+{
+    margin: 0;
+    padding: 0;
 }
 
 .association .rui-autocompleter li:hover .description

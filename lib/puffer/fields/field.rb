@@ -62,11 +62,11 @@ module Puffer
         @model
       end
 
-      def association_fields
-        raise "Can`t find records for association building. Please set :search_fields option for '#{field}' field." unless options[:search_fields].present?
+      def association_columns
+        raise "Can`t find records for association building. Please set :columns option for '#{field}' field." unless options[:columns].present?
         @reflection_fields ||= begin
           fields = Puffer::Fields.new
-          options[:search_fields].each do |field_name|
+          options[:columns].each do |field_name|
             fields.field reflection.klass, field_name
           end
           fields

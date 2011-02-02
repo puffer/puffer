@@ -18,7 +18,7 @@ module Puffer
           define_method "associated_#{field}_choosing" do
             @field = field
             @record = resource.member if params[:id]
-            @records = field.reflection.klass.includes(field.association_fields.includes).joins(field.association_fields.includes).where(field.association_fields.searches(params[:search])).limit(100).all
+            @records = field.reflection.klass.includes(field.association_columns.includes).where(field.association_columns.searches(params[:search])).limit(100).all
             render 'puffer/associated/one'
           end
 

@@ -12,7 +12,7 @@ class Admin::ProfilesController < Puffer::Base
   end
 
   form do
-    field :user, :search_fields => [:email, :password]
+    field :user, :columns => [:email, :password]
     field :name
     field :surname
     field :birth_date
