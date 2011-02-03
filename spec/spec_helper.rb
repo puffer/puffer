@@ -1,10 +1,11 @@
 # Configure Rails Envinronment
 ENV["RAILS_ENV"] ||= "test"
-Bundler.require(:default, ENV["RAILS_ENV"])
 
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require "rails/test_help"
 require "rspec/rails"
+
+Bundler.require(:default, ENV["RAILS_ENV"])
 
 ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true
