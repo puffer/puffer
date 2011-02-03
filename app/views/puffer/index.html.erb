@@ -18,7 +18,6 @@
         <td><%= render_field field, record %></td>
       <% end -%>
         <td class="actions">
-          <%= link_to 'show', resource.member_path(record), :class => 'show_entry' if show_fields.present? || resource.children.present? %>
           <%= link_to 'edit', resource.edit_path(record), :class => 'edit_entry' if update_fields.present? %>
           <%= link_to 'destroy', resource.member_path(record), :confirm => "Are you sure?", :method => :delete, :class => 'remove_entry' if configuration.destroy %>
         </td>
