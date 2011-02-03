@@ -273,7 +273,7 @@ h1
     background: #f4f4f4;
 }
 
-label, input, textarea
+label, input, textarea, select
 {
 	font-family: Helvetica, Arial, sans-serif;
 }
@@ -299,6 +299,11 @@ input[type=submit]
     color: #ddd;
     text-shadow: -1px -1px 0 #304759;
     padding: 3px 10px;
+    font-size: 11pt;
+}
+
+select
+{
     font-size: 11pt;
 }
 
