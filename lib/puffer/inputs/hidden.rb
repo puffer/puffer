@@ -6,6 +6,10 @@ module Puffer
         builder.hidden_field field, field.input_options
       end
 
+      def html
+        input
+      end
+
     end
   end
 end
