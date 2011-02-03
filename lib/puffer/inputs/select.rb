@@ -3,7 +3,7 @@ module Puffer
     class Select < Puffer::Inputs::Base
 
       def input
-        builder.select field, field.options[:select], field.input_options
+        builder.select field, field.options[:select], {:include_blank => field.options[:include_blank]}, field.input_options
       end
 
     end

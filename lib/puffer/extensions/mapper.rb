@@ -4,21 +4,20 @@ module Puffer
 
       def self.included base
         base.class_eval do
-          alias_method :original_resource, :resource
-          alias_method :original_resources, :resources
-
           include InstanceMethods
+          alias_method_chain :resource, :puffer
+          alias_method_chain :resources, :puffer
         end
       end
 
       module InstanceMethods
 
-        def resource *resources, &block
-          puffer_resource(*resources, &block) || original_resource(*resources, &block)
+        def resource_with_puffer *resources, &block
+          puffer_resource(*resources, &block) || resource_without_puffer(*resources, &block)
         end
 
-        def resources *resources, &block
-          puffer_resources(*resources, &block) || original_resources(*resources, &block)
+        def resources_with_puffer *resources, &block
+          puffer_resources(*resources, &block) || resources_without_puffer(*resources, &block)
         end
 
         def puffer_controller controller
@@ -156,18 +155,18 @@ module Puffer
 
       def self.included base
         base.class_eval do
-          alias_method :original_clear!, :clear!
-          attr_accessor_with_default :puffer, {}
-
           include InstanceMethods
+
+          alias_method_chain :clear!, :puffer
+          attr_accessor_with_default :puffer, {}
         end
       end
 
       module InstanceMethods
 
-        def clear!
+        def clear_with_puffer!
           self.puffer = {}
-          original_clear!
+          clear_without_puffer!
         end
 
       end

@@ -1,8 +1,8 @@
 <dl>
   <dt>Links</dt>
   <dd>
-    <%= link_to_unless_current t(:list, :target => resource.human), resource.collection_path %>
-    <%= link_to_unless_current t(:add, :target => resource.human), resource.new_path %>
+    <%= link_to t(:list, :target => resource.human), resource.collection_path %>
+    <%= link_to t(:add, :target => resource.human), resource.new_path %>
   </dd>
   <dt>Search</dt>
   <dd>
