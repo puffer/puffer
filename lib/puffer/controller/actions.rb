@@ -16,6 +16,7 @@ module Puffer
         super *args
         options = extract_options!
         @display = options.key?(:display) ? options.delete(:display) : true
+        @label = options.delete(:label)
         push options
       end
 
@@ -25,6 +26,10 @@ module Puffer
 
       def action
         second
+      end
+
+      def label
+        @label || second
       end
 
       def display?
