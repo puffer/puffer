@@ -15,7 +15,7 @@ module Puffer
 
     def initialize params, request = nil
       @action = params.delete :action
-      @controller = "#{params[:controller]}_controller".classify.constantize
+      @controller = "#{params[:controller]}_controller".camelize.constantize
       @controller_name = controller.controller_name
       controller_segments = params.delete(:controller).split('/')
       @prefix = controller_segments.first

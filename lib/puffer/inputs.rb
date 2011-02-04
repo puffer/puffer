@@ -14,7 +14,7 @@ module Puffer
     map_type :date, :time, :datetime, :timestamp, :to => Puffer::Inputs::DateTime
 
     def self.map_field field
-      mappings[field.type] || ("Puffer::Inputs::#{field.type.to_s.classify}".constantize rescue Puffer::Inputs::Base)
+      mappings[field.type] || ("Puffer::Inputs::#{field.type.to_s.camelize}".constantize rescue Puffer::Inputs::Base)
     end
 
   end

@@ -36,7 +36,7 @@ module Puffer
           end
 
           resource = ActionDispatch::Routing::Mapper::Resources::SingletonResource.new(resources.pop, options)
-          controller = "#{[@scope[:module], resource.controller].compact.join("/")}_controller".classify.constantize rescue nil
+          controller = "#{[@scope[:module], resource.controller].compact.join("/")}_controller".camelize.constantize rescue nil
 
           return if controller.nil? || (controller && !controller.puffer?)
 
@@ -95,7 +95,7 @@ module Puffer
           end
 
           resource = ActionDispatch::Routing::Mapper::Resources::Resource.new(resources.pop, options)
-          controller = "#{[@scope[:module], resource.controller].compact.join("/")}_controller".classify.constantize rescue nil
+          controller = "#{[@scope[:module], resource.controller].compact.join("/")}_controller".camelize.constantize rescue nil
 
           return if controller.nil? || (controller && !controller.puffer?)
 
