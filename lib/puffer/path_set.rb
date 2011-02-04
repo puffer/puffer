@@ -1,16 +1,23 @@
 module Puffer
   class PathSet < ::ActionView::PathSet
 
+    class_attribute :_fallbacks
+    self._fallbacks = []
+
     def find(path, prefix = nil, partial = false, details = {}, key = nil)
+      prefixes = [prefix].concat _fallbacks
+      paths = prefixes.map {|prefix| "#{prefix}/#{path}"}.join(', ')
+
       begin
-        super(path, prefix, partial, details, key)
-      rescue ::ActionView::MissingTemplate => e
-        begin
-          super(path, 'puffer', partial, details, key)
-        rescue ::ActionView::MissingTemplate => ee
-          raise e
+        template = begin
+          super(path, prefixes.shift.to_s, partial, details, key)
+        rescue ::ActionView::MissingTemplate => e
+          nil
         end
-      end
+      end until prefixes.empty? || template
+
+      raise ::ActionView::MissingTemplate.new(self, paths, details, partial) unless template
+      template
     end
 
   end
