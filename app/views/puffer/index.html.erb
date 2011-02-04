@@ -18,8 +18,11 @@
         <td><%= render_field field, record %></td>
       <% end -%>
         <td class="actions">
-          <%= link_to 'edit', resource.edit_path(record), :class => 'edit_entry' if update_fields.present? %>
-          <%= link_to 'destroy', resource.member_path(record), :confirm => "Are you sure?", :method => :delete, :class => 'remove_entry' if configuration.destroy %>
+          <%= link_to 'edit', resource.edit_path(record) if update_fields.present? %>
+          <% controller._members.each do |member| %>
+            <%= link_to member.action, resource.member_path(record, :action => member.action) if member.display? %>
+          <% end %>
+          <%= link_to 'destroy', resource.member_path(record), :confirm => "Are you sure?", :method => :delete if configuration.destroy %>
         </td>
       </tr>
     <% end -%>

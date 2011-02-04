@@ -206,21 +206,10 @@ h1
     vertical-align: top;
 }
 
-.list_table th.actions
-{
-    position: static;
-}
-
 .list_table td.actions
 {
-    position: static;
     white-space: nowrap;
-    width: 100px;
-}
-
-.list_table td.actions a
-{
-    line-height: 140%;
+    width: 50px;
 }
 
 .list_table th
