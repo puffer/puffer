@@ -6,6 +6,6 @@ Puffer.setup do |config|
   # config.javascripts += %w(path/to/my/javascript)
 
   # Puffer logo text. At the top-left of the layout. Default - `Puffer`
-  # config.logo = 'My cool application'
+  #config.logo = 'My cool application'
 
 end

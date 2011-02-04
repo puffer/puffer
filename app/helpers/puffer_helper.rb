@@ -1,5 +1,13 @@
 module PufferHelper
 
+  def puffer_stylesheets
+    stylesheet_link_tag *Puffer.stylesheets.uniq.compact
+  end
+
+  def puffer_javascripts
+    javascript_include_tag *Puffer.javascripts.uniq.compact
+  end
+
   def render_head field
     field.label
   end

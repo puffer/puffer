@@ -6,7 +6,7 @@ class Puffer::InstallGenerator < Rails::Generators::Base
   end
 
   def generate_config
-    copy_file 'puffer.rb', 'config/puffer.rb'
+    copy_file 'puffer.rb', 'config/initializers/puffer.rb'
   end
 
 end
