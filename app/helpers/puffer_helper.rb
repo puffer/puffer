@@ -1,11 +1,11 @@
 module PufferHelper
 
   def puffer_stylesheets
-    stylesheet_link_tag *Puffer.stylesheets.uniq.compact
+    stylesheet_link_tag *Puffer.stylesheets.map {|path| "/puffer/stylesheets/#{path}"}.uniq.compact
   end
 
   def puffer_javascripts
-    javascript_include_tag *Puffer.javascripts.uniq.compact
+    javascript_include_tag *Puffer.javascripts.map {|path| "/puffer/javascripts/#{path}"}.uniq.compact
   end
 
   def render_head field
