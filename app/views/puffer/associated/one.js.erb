@@ -3,11 +3,11 @@
 <% records.each do |record| %>
   <li data-id="<%= record[primary_key] %>">
     <div class="title"><strong><%= record[primary_key] %></strong> — <%= record.to_title %></div>
-    <ul class="description">
+    <div class="description">
       <% @field.association_columns.searchable.each do |column| %>
-        <li><strong><%= column.label %>:</strong> <%= render_field column, record %></li>
+        <div><strong><%= column.label %>:</strong> <%= render_field column, record %></div>
       <% end %>
-    </ul>
+    </div>
   </li>
 <% end %>
 </ul>
