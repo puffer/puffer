@@ -47,7 +47,7 @@ module Puffer
       end
 
       def input_options
-        {}
+        options[:html] || {}
       end
 
       def model
