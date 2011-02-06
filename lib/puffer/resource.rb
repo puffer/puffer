@@ -94,9 +94,12 @@ module Puffer
       end
     end
 
+    def collection_scope
+      parent ? parent.member.send(model_name.pluralize) : model
+    end
+
     def collection
-      scope = parent ? parent.member.send(model_name.pluralize) : model
-      scope.includes(includes).where(searches(params[:search])).order(order).paginate :page => params[:page]
+      collection_scope.includes(includes).where(searches(params[:search])).order(order).paginate :page => params[:page]
     end
 
     def member
