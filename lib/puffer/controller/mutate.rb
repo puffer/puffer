@@ -24,6 +24,14 @@ module Puffer
           self.view_paths = temp
         end
 
+        def view_paths_fallbacks_prepend *args
+          view_paths_fallbacks args, view_paths._fallbacks
+        end
+
+        def view_paths_fallbacks_append *args
+          view_paths_fallbacks view_paths._fallbacks, args
+        end
+
         def puffer?; true; end
 
       end

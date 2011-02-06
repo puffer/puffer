@@ -23,7 +23,7 @@ module Puffer
           end
 
           collection do
-            get "associated_#{field}_choosing"
+            get "associated_#{field}_choosing", :display => false
           end
         end
 
@@ -44,8 +44,8 @@ module Puffer
           end
 
           collection do
-            get "associated_#{field}"
-            get "associated_#{field}_choosing"
+            get "associated_#{field}", :display => false
+            get "associated_#{field}_choosing", :display => false
           end
         end
 

@@ -2,6 +2,7 @@ class Admin::DashboardController < ApplicationController
   unloadable
 
   layout 'puffer'
+  helper :puffer
 
   include Puffer::Controller::Helpers
 
