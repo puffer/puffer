@@ -4,7 +4,7 @@ Puffer was created to help project owner or moderators view and edit all the pro
 
 ## Keyfeatures
 
-* Full rails integration. Puffer has no configs, just DSL to create interfaces. And this DLS depends on rails convensions.
+* Full rails integration. Puffer has no configs, just DSL to create interfaces. And this DSL depends on rails convensions.
 * Flexibility. Puffer designed to be as flexible as possible, so you can create your own modules easily.
 * I18n. Surely.
 * Bla bla
@@ -147,3 +147,4 @@ namespace :moderator do
   resources :posts
 end
 </pre>
+
