@@ -18,7 +18,7 @@ module Puffer
         end
 
         def model
-          @model ||= model_name.classify.constantize rescue nil
+          @model ||= model_name.classify.constantize
         end
 
       end
