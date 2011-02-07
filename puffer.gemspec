@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{puffer}
-  s.version = "0.0.12"
+  s.version = "0.0.13"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["pyromaniac"]
-  s.date = %q{2011-02-05}
+  s.date = %q{2011-02-07}
   s.description = %q{In Soviet Russia puffer admins you}
   s.email = %q{kinwizard@gmail.com}
   s.extra_rdoc_files = [
@@ -61,6 +61,7 @@ Gem::Specification.new do |s|
     "lib/puffer/controller/dsl.rb",
     "lib/puffer/controller/generated.rb",
     "lib/puffer/controller/helpers.rb",
+    "lib/puffer/controller/mapping.rb",
     "lib/puffer/controller/mutate.rb",
     "lib/puffer/engine.rb",
     "lib/puffer/extensions/activerecord.rb",
