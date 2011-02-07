@@ -18,6 +18,14 @@ module Puffer
 
       module ClassMethods
 
+        def model_name
+          @model_name ||= ((puffer? and configuration.model) || controller_name.singularize).to_s
+        end
+
+        def model
+          @model ||= model_name.classify.constantize if model_name.present?
+        end
+
         def view_paths_fallbacks *args
           temp = Puffer::PathSet.new view_paths
           temp._fallbacks = args.flatten

@@ -19,8 +19,8 @@ module Puffer
       @controller_name = controller.controller_name
       controller_segments = params.delete(:controller).split('/')
       @prefix = controller_segments.first
-      @model_name = controller.model_name
-      @model = controller.model
+      @model_name = controller.model_name if controller.puffer?
+      @model = controller.model if controller.puffer?
       @params = params
       @request = request
     end
