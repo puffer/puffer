@@ -29,6 +29,7 @@ module Puffer
         end
 
         def puffer_resource(*resources, &block)
+          resources = resources.dup
           options = resources.extract_options!
 
           if apply_common_behavior_for(:resource, resources, options, &block)
@@ -88,6 +89,7 @@ module Puffer
         end
 
         def puffer_resources(*resources, &block)
+          resources = resources.dup
           options = resources.extract_options!
 
           if apply_common_behavior_for(:resources, resources, options, &block)
