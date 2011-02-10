@@ -15,6 +15,9 @@ module Puffer
 
 end
 
+require 'will_paginate'
+require 'cells'
+
 require 'puffer/engine'
 require 'puffer/extensions/activerecord'
 require 'puffer/extensions/controller'
