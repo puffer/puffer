@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{puffer}
-  s.version = "0.0.15"
+  s.version = "0.0.16"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["pyromaniac"]
-  s.date = %q{2011-02-10}
+  s.date = %q{2011-02-12}
   s.description = %q{In Soviet Russia puffer admins you}
   s.email = %q{kinwizard@gmail.com}
   s.extra_rdoc_files = [
@@ -25,10 +25,12 @@ Gem::Specification.new do |s|
     "VERSION",
     "app/cells/puffer/base/additional.html.erb",
     "app/cells/puffer/base_cell.rb",
-    "app/controllers/admin/dashboard_controller.rb",
+    "app/controllers/puffer/dashboard_base.rb",
+    "app/controllers/puffer/sessions_base.rb",
     "app/helpers/puffer_helper.rb",
-    "app/views/admin/dashboard/index.html.erb",
     "app/views/layouts/puffer.html.erb",
+    "app/views/layouts/puffer_dashboard.html.erb",
+    "app/views/layouts/puffer_sessions.html.erb",
     "app/views/puffer/_form.html.erb",
     "app/views/puffer/associated/_many.html.erb",
     "app/views/puffer/associated/many.rjs",
@@ -38,7 +40,8 @@ Gem::Specification.new do |s|
     "app/views/puffer/index.html.erb",
     "app/views/puffer/new.html.erb",
     "app/views/puffer/show.html.erb",
-    "app/views/puffer/toggle.rjs",
+    "app/views/puffer_dashboard/index.html.erb",
+    "app/views/puffer_sessions/new.html.erb",
     "autotest/discover.rb",
     "config/routes.rb",
     "lib/generators/puffer/controller/USAGE",
@@ -46,6 +49,7 @@ Gem::Specification.new do |s|
     "lib/generators/puffer/controller/templates/controller.rb",
     "lib/generators/puffer/install/USAGE",
     "lib/generators/puffer/install/install_generator.rb",
+    "lib/generators/puffer/install/templates/dashboard_controller.rb",
     "lib/generators/puffer/install/templates/puffer.rb",
     "lib/generators/puffer/install/templates/puffer/javascripts/puffer.js",
     "lib/generators/puffer/install/templates/puffer/javascripts/rails.js",
@@ -54,6 +58,7 @@ Gem::Specification.new do |s|
     "lib/generators/puffer/install/templates/puffer/javascripts/right.js",
     "lib/generators/puffer/install/templates/puffer/stylesheets/puffer.css",
     "lib/generators/puffer/install/templates/puffer/stylesheets/reset.css",
+    "lib/generators/puffer/install/templates/sessions_controller.rb",
     "lib/puffer.rb",
     "lib/puffer/base.rb",
     "lib/puffer/controller/actions.rb",
@@ -94,6 +99,8 @@ Gem::Specification.new do |s|
     "spec/dummy/app/controllers/admin/tags_controller.rb",
     "spec/dummy/app/controllers/admin/users_controller.rb",
     "spec/dummy/app/controllers/application_controller.rb",
+    "spec/dummy/app/controllers/puffer/dashboard_controller.rb",
+    "spec/dummy/app/controllers/puffer/sessions_controller.rb",
     "spec/dummy/app/helpers/application_helper.rb",
     "spec/dummy/app/models/category.rb",
     "spec/dummy/app/models/friendship.rb",
@@ -174,6 +181,8 @@ Gem::Specification.new do |s|
     "spec/dummy/app/controllers/admin/tags_controller.rb",
     "spec/dummy/app/controllers/admin/users_controller.rb",
     "spec/dummy/app/controllers/application_controller.rb",
+    "spec/dummy/app/controllers/puffer/dashboard_controller.rb",
+    "spec/dummy/app/controllers/puffer/sessions_controller.rb",
     "spec/dummy/app/helpers/application_helper.rb",
     "spec/dummy/app/models/category.rb",
     "spec/dummy/app/models/friendship.rb",
