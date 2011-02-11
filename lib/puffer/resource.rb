@@ -11,14 +11,14 @@ module Puffer
     include Routing
     include Scoping
 
-    attr_reader :request, :params, :prefix, :action, :controller_name, :model_name, :controller, :model
+    attr_reader :request, :params, :namespace, :action, :controller_name, :model_name, :controller, :model
 
     def initialize params, request = nil
+      params = Marshal.load Marshal.dump(params)
       @action = params.delete :action
-      @controller = "#{params[:controller]}_controller".camelize.constantize
+      @controller = "#{params.delete :controller}_controller".camelize.constantize
       @controller_name = controller.controller_name
-      controller_segments = params.delete(:controller).split('/')
-      @prefix = controller_segments.first
+      @namespace = controller.namespace
       @model_name = controller.model_name if controller.puffer?
       @model = controller.model if controller.puffer?
       @params = params
@@ -39,7 +39,7 @@ module Puffer
         parent_name = parent_ancestors.pop
         if parent_name
           parent_params = ActiveSupport::HashWithIndifferentAccess.new({
-            :controller => "#{prefix}/#{parent_name.to_s.pluralize}",
+            :controller => "#{namespace}/#{parent_name.to_s.pluralize}",
             :action => 'index',
             :plural => parent_name.plural?,
             :ancestors => parent_ancestors,
@@ -77,7 +77,7 @@ module Puffer
     def children(custom_params = {})
       @children ||= params[:children].map do |child_name|
         child_params = ActiveSupport::HashWithIndifferentAccess.new(custom_params.deep_merge({
-          :controller => "#{prefix}/#{child_name.to_s.pluralize}",
+          :controller => "#{namespace}/#{child_name.to_s.pluralize}",
           :action => 'index',
           :plural => child_name.plural?,
           :ancestors => params[:ancestors].dup.push((plural? ? controller_name : controller_name.singularize).to_sym),

@@ -4,10 +4,10 @@ module Puffer
 
       attr_accessor :resource, :field, :options
 
-      def initialize resource, field, options = {}
-        @resource = resource
+      def initialize field, *resource_and_options
         @field = field.to_s
-        @options = options
+        @options = resource_and_options.extract_options!
+        @resource = resource_and_options.first
       end
 
       def native?
@@ -39,7 +39,7 @@ module Puffer
       end
 
       def reflection
-        @reflection ||= model.reflect_on_association(name.to_sym)
+        @reflection ||= model && model.reflect_on_association(name.to_sym)
       end
 
       def collection?
@@ -51,15 +51,15 @@ module Puffer
       end
 
       def model
-        unless @model
-          @model = resource
+        @model ||= begin
           associations = field.split('.')
           associations.pop
-          while @model.reflect_on_association(association = swallow_nil{associations.shift.to_sym}) do
-            @model = @model.reflect_on_association(association).klass
+          temp = resource
+          while temp.reflect_on_association(association = swallow_nil{associations.shift.to_sym}) do
+            temp = temp.reflect_on_association(association).klass
           end
-        end
-        @model
+          temp
+        end if resource
       end
 
       def association_columns
@@ -67,14 +67,14 @@ module Puffer
         @reflection_fields ||= begin
           fields = Puffer::Fields.new
           options[:columns].each do |field_name|
-            fields.field reflection.klass, field_name
+            fields.field field_name, reflection.klass
           end
           fields
         end
       end
 
       def column
-        @column ||= model.columns_hash[name]
+        @column ||= model && model.columns_hash[name]
       end
 
       def query_column

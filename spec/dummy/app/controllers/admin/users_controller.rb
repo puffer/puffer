@@ -1,6 +1,6 @@
 class Admin::UsersController < Puffer::Base
 
-  configure do
+  setup do
     group :users
   end
 

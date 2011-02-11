@@ -49,7 +49,7 @@ h1
     left: 20px;
 }
 
-.logo a
+.logo a, .logo span
 {
     color: #ddd;
     font-size: 30pt;
@@ -181,6 +181,18 @@ h1
     border-bottom-left-radius: 5px;
     background: #fff;
     padding: 30px;
+}
+
+.sessions
+{
+    min-height: 10px;
+    margin: 50px auto 0 auto;
+    width: 400px;
+}
+
+.dashboard
+{
+    margin-left: 20px;
 }
 
 .list_table

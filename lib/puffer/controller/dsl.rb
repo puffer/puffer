@@ -54,7 +54,7 @@ module Puffer
         end
 
         def field name, options = {}
-          field = @_fields.field(model, name, options) if @_fields
+          field = @_fields.field(name, model, options) if @_fields
           generate_association_actions field if field.reflection
           #generate_change_actions field if field.toggable?
         end

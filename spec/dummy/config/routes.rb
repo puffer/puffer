@@ -1,5 +1,10 @@
 Dummy::Application.routes.draw do
 
+  namespace :puffer do
+    root :to => 'dashboard#index'
+    resource :session
+  end
+
   namespace :admin do
     resources :users do
       resource :profile do

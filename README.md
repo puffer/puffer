@@ -65,7 +65,9 @@ and
 This will generate a kind of:
 <pre>
 class Admin::PostsController &lt; Puffer::Base
-  before_filter :i_didnt_forget_to_protect_this
+  setup do
+    group :posts
+  end
 
   index do
     field :id
@@ -84,6 +86,7 @@ class Admin::PostsController &lt; Puffer::Base
     field :created_at
     field :updated_at
   end
+
 end
 </pre>
 
@@ -118,7 +121,7 @@ And we`ll get posts controller for moderator:
 class Moderator::PostsController &lt; Puffer::Base
   before_filter :require_moderator
 
-  config do
+  setup do
     destroy false
     group :posting
   end

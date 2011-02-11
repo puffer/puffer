@@ -26,7 +26,7 @@ module Puffer
       def route_args *args
         options = args.extract_options!
         resource = args.shift
-        return args + [prefix] + ancestors.map(&:route_member) + [resource], options
+        return args + [namespace] + ancestors.map(&:route_member) + [resource], options
       end
 
       def route_member suggest = nil

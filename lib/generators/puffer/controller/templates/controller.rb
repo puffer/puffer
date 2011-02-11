@@ -1,5 +1,8 @@
 class <%= controller_name %>Controller < Puffer::Base
-  before_filter :i_didnt_forget_to_protect_this
+
+  setup do
+    group :<%= @model_name.underscore.pluralize %>
+  end
 
   index do
 <% attributes.each do |attribute| -%>

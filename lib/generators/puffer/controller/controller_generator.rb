@@ -5,7 +5,7 @@ class Puffer::ControllerGenerator < Rails::Generators::NamedBase
     @modules = name.classify.split('::')
     @model_name = @modules.delete_at(-1)
 
-    template('controller.rb', "app/controllers/#{controller_name.underscore}_controller.rb")
+    template 'controller.rb', "app/controllers/#{controller_name.underscore}_controller.rb"
   end
 
 private

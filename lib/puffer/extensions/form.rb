@@ -6,8 +6,10 @@ module Puffer
         field = if args.first.is_a? Puffer::Fields::Field
           args.first
         else
-          Puffer::Fields::Field.new object.class, *args
+          options = args.extract_options!
+          Puffer::Fields::Field.new args, options
         end
+        field.resource = object.class
         input = Puffer::Inputs.map_field field
         input.new(self, @template, field).render
       end

@@ -2,13 +2,8 @@ module Puffer
   class Base < ApplicationController
     unloadable
 
-    include Puffer::Controller::Mutate
-    include Puffer::Controller::Helpers
-    include Puffer::Controller::Dsl
-    include Puffer::Controller::Mapping
-    include Puffer::Controller::Config
-    include Puffer::Controller::Generated
-
+    pufferize!
+    view_paths_fallbacks :puffer
     define_fields :index, :show, :form, :create, :update
 
     respond_to :html, :js

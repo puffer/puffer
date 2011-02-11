@@ -1,0 +1,12 @@
+<%= form_for record, :url => puffer_session_path do |f| %>
+  <ul class="form">
+  <% create_fields.each do |field| -%>
+    <li><%= f.puffer_field field %></li>
+  <% end -%>
+  </ul>
+
+  <div class="buttons">
+    <%= f.submit 'Login' %>
+  </div>
+<% end %>
+

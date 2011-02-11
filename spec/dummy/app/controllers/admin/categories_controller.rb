@@ -1,6 +1,6 @@
 class Admin::CategoriesController < Puffer::Base
 
-  configure do
+  setup do
     group :posting
   end
 

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= [@title, 'Puffer'].compact.join(' - ') %></title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <%= csrf_meta_tag %>
+    <%= puffer_stylesheets %>
+  </head>
+  <body>
+    <div class="body">
+      <div class="header">
+        <div class="logo">
+          <%= link_to Puffer.logo, puffer_root_path %>
+        </div>
+        <div class="logout">
+        </div>
+      </div>
+      <div class="content dashboard">
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>

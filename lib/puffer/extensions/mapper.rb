@@ -21,11 +21,13 @@ module Puffer
         end
 
         def puffer_controller controller
-          puffer = Rails.application.routes.puffer
-          prefix = @scope[:module]
-          puffer[prefix] ||= ActiveSupport::OrderedHash.new
-          puffer[prefix][controller.configuration.group] ||= []
-          puffer[prefix][controller.configuration.group] << controller
+          if controller.configuration.group
+            puffer = Rails.application.routes.puffer
+            namespace = @scope[:module]
+            puffer[namespace] ||= ActiveSupport::OrderedHash.new
+            puffer[namespace][controller.configuration.group] ||= []
+            puffer[namespace][controller.configuration.group] << controller
+          end
         end
 
         def puffer_resource(*resources, &block)
@@ -158,14 +160,14 @@ module Puffer
           include InstanceMethods
 
           alias_method_chain :clear!, :puffer
-          attr_accessor_with_default :puffer, {}
+          attr_accessor_with_default :puffer, ActiveSupport::OrderedHash.new
         end
       end
 
       module InstanceMethods
 
         def clear_with_puffer!
-          self.puffer = {}
+          self.puffer = ActiveSupport::OrderedHash.new
           clear_without_puffer!
         end
 

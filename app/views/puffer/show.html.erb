@@ -19,11 +19,4 @@
   </li>
 <% end if show_fields && record -%>
 </ul>
-<% content_for :additional_navigation do %>
-  <ul class="buttons">
-    <% (resource.ancestors + [resource]).each do |resource| %>
-      <%= link_to resource.plural? ? resource.human : resource.member.to_title, resource.collection_path %>
-      <%= link_to resource.member.to_title, resource.member_path unless resource.plural? %>
-    <% end %>
-  </ul>
-<% end %>
+

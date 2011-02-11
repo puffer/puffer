@@ -5,25 +5,42 @@ module Puffer
       def self.included base
         base.class_eval do
           extend ClassMethods
+          include InstanceMethods
 
           layout 'puffer'
           helper :puffer
-          helper_method :puffer?
-
-          view_paths_fallbacks :puffer
+          helper_method :puffer?, :namespace
         end
       end
 
-      def puffer?; true; end
+      module InstanceMethods
+
+        def puffer?
+          self.class.puffer?
+        end
+
+        def namespace
+          self.class.namespace
+        end
+
+      end
 
       module ClassMethods
 
+        def puffer?
+          true
+        end
+
+        def namespace
+          to_s.underscore.split('/').first
+        end
+
         def model_name
-          @model_name ||= ((puffer? and configuration.model) || controller_name.singularize).to_s
+          @model_name ||= (configuration.model_name || controller_name.singularize).to_s
         end
 
         def model
-          @model ||= model_name.classify.constantize if model_name.present?
+          @model ||= model_name.classify.constantize rescue nil
         end
 
         def view_paths_fallbacks *args
@@ -39,8 +56,6 @@ module Puffer
         def view_paths_fallbacks_append *args
           view_paths_fallbacks view_paths._fallbacks, args
         end
-
-        def puffer?; true; end
 
       end
 

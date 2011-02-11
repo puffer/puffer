@@ -7,8 +7,8 @@ module Puffer
           extend ClassMethods
           include InstanceMethods
 
-          puffer_class_attribute :group, :default
-          puffer_class_attribute :model
+          puffer_class_attribute :group
+          puffer_class_attribute :model_name
           puffer_class_attribute :destroy, true
 
           helper_method :configuration
@@ -18,7 +18,7 @@ module Puffer
       module InstanceMethods
 
         def configuration
-          @configuration ||= Config.new(self.class)
+          self.class.configuration
         end
 
       end
@@ -30,7 +30,7 @@ module Puffer
           send "_puffer_attribute_#{name}=", default
         end
 
-        def configure &block
+        def setup &block
           block.bind(Config.new(self)).call
         end
 
