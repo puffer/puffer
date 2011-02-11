@@ -64,6 +64,13 @@ h2
     text-shadow: #0A2337 -1px -1px 0;
 }
 
+.logout
+{
+    position: absolute;
+    top: 35px;
+    right: 10px;
+}
+
 .navigation
 {
     position: absolute;
