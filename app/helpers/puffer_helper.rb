@@ -1,5 +1,15 @@
 module PufferHelper
 
+  def puffer_namespaces
+    Rails.application.routes.puffer.each do |(prefix, groups)|
+      controller = groups.values.first.first
+      title = prefix.to_s.humanize
+      path = send("#{prefix}_#{controller.controller_name}_path")
+      current = controller.namespace == namespace
+      yield title, path, current
+    end
+  end
+
   def puffer_navigation
     Rails.application.routes.puffer[namespace].values.map(&:first).each do |controller|
       title = controller.configuration.group.to_s.humanize

@@ -15,6 +15,11 @@
         <div class="logo">
           <%= link_to Puffer.logo, puffer_root_path %>
         </div>
+        <ul class="namespaces">
+          <% puffer_namespaces do |title, path, current| %>
+            <li<%= raw(current ? ' class="selected"' : '') %>><%= link_to title, path %></li>
+          <% end %>
+        </ul>
         <ul class="navigation">
           <% puffer_navigation do |title, path, current| %>
             <li<%= raw(current ? ' class="selected"' : '') %>><%= link_to title, path %></li>

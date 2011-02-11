@@ -1,1 +1,17 @@
-Dashboard
+<% Rails.application.routes.puffer.each do |(namespace, groups)| %>
+  <h2><%= namespace.to_s.humanize %></h2>
+  <ul class="navigation">
+    <% groups.each do |(group, controllers)| %>
+      <li>
+        <span><%= group.to_s.humanize %></span>
+        <ul class="additional">
+          <% controllers.each do |controller| %>
+            <li>
+              <%= link_to controller.model.model_name.human, send("#{namespace}_#{controller.controller_name}_path") %>
+            </li>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
