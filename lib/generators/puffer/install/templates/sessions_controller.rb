@@ -11,6 +11,7 @@ class Puffer::SessionsController < Puffer::SessionsBase
   #   end
   #
   # By default defined <tt>email<tt> and <tt>password<tt> fields.
+  # If puffer can`t calculate field type, just set it manually.
 
   def new
     # @record = UserSession.new
@@ -18,7 +19,11 @@ class Puffer::SessionsController < Puffer::SessionsBase
 
   def create
     # @record = UserSession.new params[:user_session]
-    # respond_with record, :location => puffer_root_url
+    # if @record.save
+    #   redirect_back_or_default puffer_root_url
+    # else
+    #   render 'new'
+    # end
   end
 
   def destroy

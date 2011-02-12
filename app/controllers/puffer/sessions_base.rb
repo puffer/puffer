@@ -10,8 +10,8 @@ class Puffer::SessionsBase < ApplicationController
   respond_to :html
 
   create do
-    field :email
-    field :password
+    field :email, :type => :string
+    field :password, :type => :password
   end
 
 end
