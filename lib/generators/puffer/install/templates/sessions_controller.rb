@@ -22,8 +22,8 @@ class Puffer::SessionsController < Puffer::SessionsBase
   end
 
   def destroy
-    # @record = UserSession.find
-    # @record.destroy
+    # current_user_session.destroy
+    # redirect_to new_puffer_session_url
   end
 
 end
