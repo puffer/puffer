@@ -13,6 +13,10 @@ module Puffer
     yield self
   end
 
+  def self.customs
+    Puffer::Customs
+  end
+
 end
 
 require 'will_paginate'

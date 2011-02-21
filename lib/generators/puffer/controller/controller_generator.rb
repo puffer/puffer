@@ -2,7 +2,7 @@ class Puffer::ControllerGenerator < Rails::Generators::NamedBase
   source_root File.expand_path('../templates', __FILE__)
 
   def generate_controller
-    @modules = name.classify.split('::')
+    @modules = name.camelize.split('::')
     @model_name = @modules.delete_at(-1)
 
     template 'controller.rb', "app/controllers/#{controller_name.underscore}_controller.rb"

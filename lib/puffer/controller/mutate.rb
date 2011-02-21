@@ -40,7 +40,7 @@ module Puffer
         end
 
         def model
-          @model ||= model_name.classify.constantize rescue nil
+          @model ||= model_name.camelize.constantize rescue nil
         end
 
         def view_paths_fallbacks *args

@@ -31,7 +31,7 @@ module Puffer
       end
 
       def type
-        @type ||= options[:type] ? options[:type].to_sym : (Puffer::Fields.offered_type(self) || (column ? column.type : :string))
+        @type ||= options[:type] ? options[:type].to_sym : (Puffer::Customs.type_for(self) || (column ? column.type : :string))
       end
 
       def to_s
@@ -48,6 +48,10 @@ module Puffer
 
       def input_options
         options[:html] || {}
+      end
+
+      def input builder
+        Puffer::Customs.input_for(self).render builder, self
       end
 
       def model

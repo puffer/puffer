@@ -4,10 +4,14 @@ module Puffer
 
       attr_accessor :builder, :template, :field
 
-      def initialize builder, template, field
+      def self.render *args
+        new(*args).render
+      end
+
+      def initialize builder, field
         @builder = builder
         @field = field
-        @template = template
+        @template = builder.instance_variable_get :@template
       end
 
       def render

@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem 'rails', '~> 3.0.3'
+gem 'rails', '~> 3.0.4'
 gem 'will_paginate', '~> 3.0.pre2'
 gem 'cells', '~> 3.4.4'
 

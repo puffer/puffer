@@ -10,8 +10,7 @@ module Puffer
           Puffer::Fields::Field.new args, options
         end
         field.resource = object.class
-        input = Puffer::Inputs.map_field field
-        input.new(self, @template, field).render
+        field.input self
       end
 
     end
