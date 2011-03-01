@@ -27,19 +27,25 @@ module Puffer
     def create
       @record = resource.new_member
       @record.save
-      respond_with @record, :location => resource.collection_path
+      respond_with @record, :location => save_location
     end
 
     def update
       @record = resource.member
       @record.update_attributes resource.attributes
-      respond_with @record, :location => resource.collection_path
+      respond_with @record, :location => save_location
     end
 
     def destroy
       @record = resource.member
       @record.destroy
       redirect_to (request.referrer || resource.collection_path)
+    end
+
+  private
+
+    def save_location
+      params[:commit] == t('puffer.save') ? resource.edit_path(record) : resource.collection_path
     end
 
   end
