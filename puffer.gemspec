@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{puffer}
-  s.version = "0.0.18"
+  s.version = "0.0.19"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["pyromaniac"]
-  s.date = %q{2011-02-12}
+  s.date = %q{2011-03-01}
   s.description = %q{In Soviet Russia puffer admins you}
   s.email = %q{kinwizard@gmail.com}
   s.extra_rdoc_files = [
@@ -68,6 +68,7 @@ Gem::Specification.new do |s|
     "lib/puffer/controller/helpers.rb",
     "lib/puffer/controller/mapping.rb",
     "lib/puffer/controller/mutate.rb",
+    "lib/puffer/customs.rb",
     "lib/puffer/engine.rb",
     "lib/puffer/extensions/activerecord.rb",
     "lib/puffer/extensions/controller.rb",
@@ -76,7 +77,6 @@ Gem::Specification.new do |s|
     "lib/puffer/extensions/mapper.rb",
     "lib/puffer/fields.rb",
     "lib/puffer/fields/field.rb",
-    "lib/puffer/inputs.rb",
     "lib/puffer/inputs/association.rb",
     "lib/puffer/inputs/base.rb",
     "lib/puffer/inputs/boolean.rb",
@@ -94,6 +94,7 @@ Gem::Specification.new do |s|
     "puffer.gemspec",
     "spec/dummy/Rakefile",
     "spec/dummy/app/controllers/admin/categories_controller.rb",
+    "spec/dummy/app/controllers/admin/news_controller.rb",
     "spec/dummy/app/controllers/admin/posts_controller.rb",
     "spec/dummy/app/controllers/admin/profiles_controller.rb",
     "spec/dummy/app/controllers/admin/tags_controller.rb",
@@ -104,6 +105,7 @@ Gem::Specification.new do |s|
     "spec/dummy/app/helpers/application_helper.rb",
     "spec/dummy/app/models/category.rb",
     "spec/dummy/app/models/friendship.rb",
+    "spec/dummy/app/models/news.rb",
     "spec/dummy/app/models/post.rb",
     "spec/dummy/app/models/post_category.rb",
     "spec/dummy/app/models/profile.rb",
@@ -135,6 +137,7 @@ Gem::Specification.new do |s|
     "spec/dummy/db/migrate/20101011155830_create_tags.rb",
     "spec/dummy/db/migrate/20101011160326_create_taggings.rb",
     "spec/dummy/db/migrate/20110107082706_create_friendships.rb",
+    "spec/dummy/db/migrate/20110301072545_create_news.rb",
     "spec/dummy/db/schema.rb",
     "spec/dummy/public/404.html",
     "spec/dummy/public/422.html",
@@ -156,6 +159,7 @@ Gem::Specification.new do |s|
     "spec/dummy/public/stylesheets/.gitkeep",
     "spec/dummy/script/rails",
     "spec/fabricators/categories_fabricator.rb",
+    "spec/fabricators/news_fabricator.rb",
     "spec/fabricators/posts_fabricator.rb",
     "spec/fabricators/profiles_fabricator.rb",
     "spec/fabricators/tags_fabricator.rb",
@@ -176,6 +180,7 @@ Gem::Specification.new do |s|
   s.summary = %q{Admin interface builder}
   s.test_files = [
     "spec/dummy/app/controllers/admin/categories_controller.rb",
+    "spec/dummy/app/controllers/admin/news_controller.rb",
     "spec/dummy/app/controllers/admin/posts_controller.rb",
     "spec/dummy/app/controllers/admin/profiles_controller.rb",
     "spec/dummy/app/controllers/admin/tags_controller.rb",
@@ -186,6 +191,7 @@ Gem::Specification.new do |s|
     "spec/dummy/app/helpers/application_helper.rb",
     "spec/dummy/app/models/category.rb",
     "spec/dummy/app/models/friendship.rb",
+    "spec/dummy/app/models/news.rb",
     "spec/dummy/app/models/post.rb",
     "spec/dummy/app/models/post_category.rb",
     "spec/dummy/app/models/profile.rb",
@@ -213,8 +219,10 @@ Gem::Specification.new do |s|
     "spec/dummy/db/migrate/20101011155830_create_tags.rb",
     "spec/dummy/db/migrate/20101011160326_create_taggings.rb",
     "spec/dummy/db/migrate/20110107082706_create_friendships.rb",
+    "spec/dummy/db/migrate/20110301072545_create_news.rb",
     "spec/dummy/db/schema.rb",
     "spec/fabricators/categories_fabricator.rb",
+    "spec/fabricators/news_fabricator.rb",
     "spec/fabricators/posts_fabricator.rb",
     "spec/fabricators/profiles_fabricator.rb",
     "spec/fabricators/tags_fabricator.rb",
@@ -234,7 +242,7 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<rails>, ["~> 3.0.3"])
+      s.add_runtime_dependency(%q<rails>, ["~> 3.0.4"])
       s.add_runtime_dependency(%q<will_paginate>, ["~> 3.0.pre2"])
       s.add_runtime_dependency(%q<cells>, ["~> 3.4.4"])
       s.add_development_dependency(%q<capybara>, [">= 0.4.0"])
@@ -246,7 +254,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_development_dependency(%q<mongrel>, [">= 0"])
     else
-      s.add_dependency(%q<rails>, ["~> 3.0.3"])
+      s.add_dependency(%q<rails>, ["~> 3.0.4"])
       s.add_dependency(%q<will_paginate>, ["~> 3.0.pre2"])
       s.add_dependency(%q<cells>, ["~> 3.4.4"])
       s.add_dependency(%q<capybara>, [">= 0.4.0"])
@@ -259,7 +267,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<mongrel>, [">= 0"])
     end
   else
-    s.add_dependency(%q<rails>, ["~> 3.0.3"])
+    s.add_dependency(%q<rails>, ["~> 3.0.4"])
     s.add_dependency(%q<will_paginate>, ["~> 3.0.pre2"])
     s.add_dependency(%q<cells>, ["~> 3.4.4"])
     s.add_dependency(%q<capybara>, [">= 0.4.0"])
