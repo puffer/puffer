@@ -7,7 +7,7 @@
         <ul class="additional">
           <% controllers.each do |controller| %>
             <li>
-              <%= link_to controller.model.model_name.human, send("#{namespace}_#{controller.controller_name}_path") %>
+              <%= link_to controller.model.model_name.human, polymorphic_url([namespace, controller.model]) %>
             </li>
           <% end %>
         </ul>

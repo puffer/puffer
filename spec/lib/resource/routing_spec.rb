@@ -19,6 +19,21 @@ describe Puffer::Resource do
     resource.edit_path(@mock_category).should == edit_admin_category_path(@mock_category)
   end
 
+  it "regular path with plural model name" do
+    @news = Fabricate :news
+    @mock_news = mock_model News, :id => 42
+
+    get admin_news_path(@news)
+    resource = Puffer::Resource.new request.params.merge(:controller => 'admin/news', :action => 'show'), request
+
+    resource.collection_path.should == admin_news_index_path
+    resource.member_path.should == admin_news_path(@news)
+    resource.member_path(@mock_news).should == admin_news_path(@mock_news)
+    resource.new_path.should == new_admin_news_path
+    resource.edit_path.should == edit_admin_news_path(@news)
+    resource.edit_path(@mock_news).should == edit_admin_news_path(@mock_news)
+  end
+
   it "plural path" do
     @post = Fabricate :post_with_categories
     @category = @post.categories.first

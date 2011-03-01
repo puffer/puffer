@@ -1,5 +1,7 @@
 Dummy::Application.routes.draw do
 
+  match '/admin' => 'puffer/dashboard#index', :as => :admin
+
   namespace :puffer do
     root :to => 'dashboard#index'
     resource :session
@@ -25,6 +27,7 @@ Dummy::Application.routes.draw do
     resources :categories do
       resources :posts
     end
+    resources :news
   end
 
 end

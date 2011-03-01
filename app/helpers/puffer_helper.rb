@@ -13,7 +13,7 @@ module PufferHelper
   def puffer_navigation
     Rails.application.routes.puffer[namespace].values.map(&:first).each do |controller|
       title = controller.configuration.group.to_s.humanize
-      path = send("#{namespace}_#{controller.controller_name}_path")
+      path = polymorphic_url [namespace, controller.model]
       current = configuration.group && resource.root.controller.configuration.group == controller.configuration.group
       yield title, path, current
     end
@@ -22,7 +22,7 @@ module PufferHelper
   def sidebar_puffer_navigation
     (Rails.application.routes.puffer[namespace][configuration.group] || []).each do |controller|
       title = controller.model.model_name.human
-      path = send("#{namespace}_#{controller.controller_name}_path")
+      path = polymorphic_url [namespace, controller.model]
       current = controller.controller_name == resource.root.controller_name
       yield title, path, current
     end

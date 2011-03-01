@@ -6,7 +6,7 @@ module Puffer
       include Rails.application.routes.url_helpers
 
       def collection_url *args
-        polymorphic_url *route_args(route_member(controller_name), *args)
+        polymorphic_url *route_args(route_member(model), *args)
       end
 
       def member_url *args
