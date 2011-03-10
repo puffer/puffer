@@ -14,7 +14,7 @@ module Puffer
     attr_reader :request, :params, :namespace, :action, :controller_name, :model_name, :controller, :model
 
     def initialize params, request = nil
-      params = Marshal.load Marshal.dump(params)
+      params = ActiveSupport::HashWithIndifferentAccess.new.deep_merge params
       @action = params.delete :action
       @controller = "#{params.delete :controller}_controller".camelize.constantize
       @controller_name = controller.controller_name
