@@ -27,13 +27,13 @@ module Puffer
     def create
       @record = resource.new_member
       @record.save
-      respond_with @record, :location => save_location
+      respond_with @record, :location => puffer_saving_location
     end
 
     def update
       @record = resource.member
       @record.update_attributes resource.attributes
-      respond_with @record, :location => save_location
+      respond_with @record, :location => puffer_saving_location
     end
 
     def destroy
@@ -44,7 +44,7 @@ module Puffer
 
   private
 
-    def save_location
+    def puffer_saving_location
       params[:commit] == t('puffer.save') ? resource.edit_path(record) : resource.collection_path
     end
 

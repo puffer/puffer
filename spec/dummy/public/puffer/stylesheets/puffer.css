@@ -434,8 +434,9 @@ select
 .association .association_clear
 {
     position: absolute;
-    top: 4px;
+    top: 0;
     left: 9px;
+    line-height: 22pt;
     cursor: pointer;
     display: none;
 }

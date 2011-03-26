@@ -54,6 +54,8 @@ module Puffer
             controller.send "#{method_name}=", args.first
           elsif controller.respond_to?(method_name)
             controller.send method_name
+          else
+            super
           end
         end
 
