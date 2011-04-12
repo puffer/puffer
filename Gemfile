@@ -1,8 +1,8 @@
 source "http://rubygems.org"
 
-gem 'rails', '~> 3.0.4'
-gem 'will_paginate', '~> 3.0.pre2'
-gem 'cells', '~> 3.4.4'
+gem 'rails', '>= 3.0.6'
+gem 'will_paginate', '>= 3.0.pre2'
+gem 'cells', '>= 3.4.4'
 
 group :development, :test do
   gem "capybara", ">= 0.4.0"
@@ -13,6 +13,5 @@ group :development, :test do
   gem 'forgery'
   gem 'fabrication'
   gem "jeweler"
-  gem "mongrel"
 end
 
