@@ -1,3 +1,4 @@
+# coding: utf-8
 module Puffer
   module Inputs
     class Association < Puffer::Inputs::Base
