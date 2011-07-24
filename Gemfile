@@ -1,17 +1,19 @@
 source "http://rubygems.org"
 
-gem 'rails', '>= 3.0.6'
-gem 'will_paginate', '>= 3.0.pre2'
+gem 'rails', '>= 3.1.0.rc4'
+gem 'kaminari'
 gem 'cells', '>= 3.5.6'
 
 group :development, :test do
-  gem "capybara", ">= 0.4.0"
-  gem "sqlite3-ruby", :require => "sqlite3"
+  gem "sqlite3"
 
   gem "rspec-rails"
-  gem "autotest"
+  gem "capybara"
+
+  gem 'guard'
+  gem 'guard-rspec'
+
   gem 'forgery'
   gem 'fabrication'
   gem "jeweler"
 end
-
