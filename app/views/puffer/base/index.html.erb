@@ -1,6 +1,6 @@
 <% @title = resource.human %>
 <h1><%= @title %></h1>
-<%= will_paginate records, :url => resource.collection_path(:page => '') %>
+<%= paginate records, :url => resource.collection_path(:page => '') %>
 <% if records.present? %>
   <table class="list_table">
     <thead>
@@ -31,5 +31,5 @@
 <% else %>
   <p>Sorry, but there is no records in <%= resource.human %></p>
 <% end %>
-<%= will_paginate records, :url => resource.collection_path(:page => '') %>
+<%= paginate records, :url => resource.collection_path(:page => '') %>
 

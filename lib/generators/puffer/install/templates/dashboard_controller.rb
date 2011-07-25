@@ -1,3 +1,3 @@
-class Puffer::DashboardController < Puffer::DashboardBase
+class Puffer::DashboardController < Puffer::Dashboard
 
 end

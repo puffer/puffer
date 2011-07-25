@@ -1,4 +1,4 @@
-class Puffer::SessionsBase < ApplicationController
+class Puffer::Sessions < ApplicationController
   unloadable
 
   pufferize!
