@@ -160,7 +160,11 @@ module Puffer
           include InstanceMethods
 
           alias_method_chain :clear!, :puffer
-          attr_accessor_with_default :puffer, ActiveSupport::OrderedHash.new
+          attr_writer :puffer
+
+          def puffer
+            @puffer ||= ActiveSupport::OrderedHash.new
+          end
         end
       end
 

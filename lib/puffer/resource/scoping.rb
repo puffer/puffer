@@ -3,7 +3,7 @@ module Puffer
     module Scoping
 
       def includes
-        controller.index_fields.includes
+        controller_class.index_fields.includes
       end
 
       def order
@@ -11,7 +11,7 @@ module Puffer
       end
 
       def searches query
-        controller.index_fields.searches query
+        controller_class.index_fields.searches query
       end
 
     end

@@ -13,7 +13,7 @@ module Puffer
       module InstanceMethods
 
         def resource
-          @resource ||= Puffer::Resource.new params, request
+          @resource ||= Puffer::Resource.new params, self
         end
 
         def record

@@ -3,7 +3,6 @@ module Puffer
     unloadable
 
     pufferize!
-    view_paths_fallbacks :puffer
     define_fields :index, :show, :form, :create, :update
 
     respond_to :html, :js

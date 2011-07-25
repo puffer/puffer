@@ -65,165 +65,114 @@ describe Puffer::Resource do
 
   describe "#collection" do
 
-    before :all do
+    before do
       @post = Fabricate :post_with_categories
-      @category = Fabricate :category
       @user = Fabricate :user_with_profile_and_tags
     end
 
     it "no parent" do
       resource = Puffer::Resource.new default_params
-
-      resource.collection.should == Category.limit(30).all
+      resource.collection.should == Category.limit(25).all
     end
 
     it "plural parent" do
-      resource = Puffer::Resource.new default_params.merge(:ancestors => [:posts], :post_id => 42)
-
-      Post.stub(:find).with(42) {@post}
-      resource.collection.should == @post.categories.limit(30).all
+      resource = Puffer::Resource.new default_params.merge(:ancestors => [:posts], :post_id => @post.id)
+      resource.collection.should == @post.categories.limit(25).all
     end
 
     it "singular parent" do
-      resource = Puffer::Resource.new default_params.merge(:controller => 'admin/tags', :ancestors => [:users, :profile], :user_id => 42)
-
-      User.stub(:find).with(42) {@user}
-      resource.collection.should == @user.profile.tags.limit(30).all
+      resource = Puffer::Resource.new default_params.merge(:controller => 'admin/tags', :ancestors => [:users, :profile], :user_id => @user.id)
+      resource.collection.should == @user.profile.tags.limit(25).all
     end
 
   end
 
   describe "#member" do
 
-    before :all do
+    before do
       @post = Fabricate :post_with_categories
       @category = Fabricate :category
       @user = Fabricate :user_with_profile_and_tags
     end
 
     it "no parent" do
-      resource = Puffer::Resource.new default_params.merge(:id => 42)
-
-      Category.stub(:find).with(42) {@category}
+      resource = Puffer::Resource.new default_params.merge(:id => @category.id)
       resource.member.should == @category
     end
 
     it "plural parent" do
-      resource = Puffer::Resource.new default_params.merge(:ancestors => [:posts], :post_id => 42, :id => 37)
-
-      @categories = @post.categories
-
-      Post.stub(:find).with(42) {@post}
-      @categories.stub(:find).with(37) {@category}
-      resource.member.should == @category
+      resource = Puffer::Resource.new default_params.merge(:ancestors => [:posts], :post_id => @post.id, :id => @post.categories.first.id)
+      resource.member.should == @post.categories.first
     end
 
     it "singular" do
-      resource = Puffer::Resource.new default_params.merge(:controller => 'admin/profiles', :plural => false, :ancestors => [:users], :user_id => 42)
-
-      @profile = @user.profile
-
-      User.stub(:find).with(42) {@user}
-      @user.stub(:profile) {@profile}
-
-      resource.member.should == @profile
+      resource = Puffer::Resource.new default_params.merge(:controller => 'admin/profiles', :plural => false, :ancestors => [:users], :user_id => @user.id)
+      resource.member.should == @user.profile
     end
 
     it "singular parent" do
-      resource = Puffer::Resource.new default_params.merge(:controller => 'admin/tags', :ancestors => [:users, :profile], :user_id => 42, :id => 37)
-
-      @profile = @user.profile
-      @tag = @profile.tags.first
-
-      User.stub(:find).with(42) {@user}
-      @user.stub(:profile) {@profile}
-      @profile.tags.stub(:find).with(37) {@tag}
-
-      resource.member.should == @tag
+      resource = Puffer::Resource.new default_params.merge(:controller => 'admin/tags', :ancestors => [:users, :profile], :user_id => @user.id, :id => @user.profile.tags.first.id)
+      resource.member.should == @user.profile.tags.first
     end
 
   end
 
   describe "#new_member" do
 
-    before :all do
+    before do
       @post = Fabricate :post_with_categories
-      @category = Fabricate :category
       @user = Fabricate :user_with_profile_and_tags
     end
 
     it "no parent" do
       resource = Puffer::Resource.new default_params
-
-      Category.stub(:new) {@category}
-
-      resource.new_member.should == @category
+      resource.new_member.should be_new_record
+      resource.new_member.should be_instance_of(Category)
     end
 
     it "no parent with attributes" do
       resource = Puffer::Resource.new default_params.merge(:category => {:title => 'my new title'})
-
+      resource.new_member.should be_new_record
+      resource.new_member.should be_instance_of(Category)
       resource.new_member.title.should == 'my new title'
     end
 
     it "plural parent" do
-      resource = Puffer::Resource.new default_params.merge(:ancestors => [:posts], :post_id => 42)
-
-      @categories = @post.categories
-      Post.stub(:find).with(42) {@post}
-      @categories.stub(:new) {@category}
-
-      resource.new_member.should == @category
+      resource = Puffer::Resource.new default_params.merge(:ancestors => [:posts], :post_id => @post.id)
+      resource.new_member.should be_new_record
+      resource.new_member.should be_instance_of(Category)
     end
 
     it "plural parent with attributes" do
-      resource = Puffer::Resource.new default_params.merge(:ancestors => [:posts], :post_id => 42, :category => {:title => 'my new title'})
-
-      @categories = @post.categories
-      Post.stub(:find).with(42) {@post}
-
+      resource = Puffer::Resource.new default_params.merge(:ancestors => [:posts], :post_id => @post.id, :category => {:title => 'my new title'})
+      resource.new_member.should be_new_record
+      resource.new_member.should be_instance_of(Category)
       resource.new_member.title.should == 'my new title'
     end
 
     it "singular" do
-      resource = Puffer::Resource.new default_params.merge(:controller => 'admin/profiles', :plural => false, :ancestors => [:users], :user_id => 42)
-
-      @profile = @user.profile
-      User.stub(:find).with(42) {@user}
-      @user.stub(:build_profile) {@profile}
-
-      resource.new_member.should == @profile
+      resource = Puffer::Resource.new default_params.merge(:controller => 'admin/profiles', :plural => false, :ancestors => [:users], :user_id => @user.id)
+      resource.new_member.should be_new_record
+      resource.new_member.should be_instance_of(Profile)
     end
 
     it "singular with attributes" do
-      resource = Puffer::Resource.new default_params.merge(:controller => 'admin/profiles', :plural => false, :ancestors => [:users], :user_id => 42, :profile => {:name => 'my new name'})
-
-      @profile = @user.profile
-      User.stub(:find).with(42) {@user}
-
+      resource = Puffer::Resource.new default_params.merge(:controller => 'admin/profiles', :plural => false, :ancestors => [:users], :user_id => @user.id, :profile => {:name => 'my new name'})
+      resource.new_member.should be_new_record
+      resource.new_member.should be_instance_of(Profile)
       resource.new_member.name.should == 'my new name'
     end
 
     it "singular parent" do
-      resource = Puffer::Resource.new default_params.merge(:controller => 'admin/tags', :ancestors => [:users, :profile], :user_id => 42)
-
-      @profile = @user.profile
-      @tag = @profile.tags.first
-      User.stub(:find).with(42) {@user}
-      @user.stub(:profile) {@profile}
-      @profile.tags.stub(:new) {@tag}
-
-      resource.new_member.should == @tag
+      resource = Puffer::Resource.new default_params.merge(:controller => 'admin/tags', :ancestors => [:users, :profile], :user_id => @user.id)
+      resource.new_member.should be_new_record
+      resource.new_member.should be_instance_of(Tag)
     end
 
     it "singular parent with attributes" do
-      resource = Puffer::Resource.new default_params.merge(:controller => 'admin/tags', :ancestors => [:users, :profile], :user_id => 42, :tag => {:name => 'my new name'})
-
-      @profile = @user.profile
-      @tag = @profile.tags.first
-      User.stub(:find).with(42) {@user}
-      @user.stub(:profile) {@profile}
-
+      resource = Puffer::Resource.new default_params.merge(:controller => 'admin/tags', :ancestors => [:users, :profile], :user_id => @user.id, :tag => {:name => 'my new name'})
+      resource.new_member.should be_new_record
+      resource.new_member.should be_instance_of(Tag)
       resource.new_member.name.should == 'my new name'
     end
 

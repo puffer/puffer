@@ -9,8 +9,10 @@ group :development, :test do
 
   gem "rspec-rails"
   gem "capybara"
+  gem 'database_cleaner'
 
   gem 'guard'
+  gem 'libnotify'
   gem 'guard-rspec'
 
   gem 'forgery'

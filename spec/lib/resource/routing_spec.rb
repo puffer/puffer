@@ -9,7 +9,7 @@ describe Puffer::Resource do
     @mock_category = mock_model Category, :id => 42
 
     get admin_category_path(@category)
-    resource = Puffer::Resource.new request.params.merge(:controller => 'admin/categories', :action => 'show'), request
+    resource = Puffer::Resource.new request.params.merge(:controller => 'admin/categories', :action => 'show'), controller
 
     resource.collection_path.should == admin_categories_path
     resource.member_path.should == admin_category_path(@category)
@@ -24,7 +24,7 @@ describe Puffer::Resource do
     @mock_news = mock_model News, :id => 42
 
     get admin_news_path(@news)
-    resource = Puffer::Resource.new request.params.merge(:controller => 'admin/news', :action => 'show'), request
+    resource = Puffer::Resource.new request.params.merge(:controller => 'admin/news', :action => 'show'), controller
 
     resource.collection_path.should == admin_news_index_path
     resource.member_path.should == admin_news_path(@news)
@@ -40,7 +40,7 @@ describe Puffer::Resource do
     @mock_category = mock_model Category, :id => 42
 
     get admin_post_category_path(@post, @category)
-    resource = Puffer::Resource.new request.params.merge(:controller => 'admin/categories', :action => 'show'), request
+    resource = Puffer::Resource.new request.params.merge(:controller => 'admin/categories', :action => 'show'), controller
 
     resource.collection_path.should == admin_post_categories_path(@post)
     resource.member_path.should == admin_post_category_path(@post, @category)
@@ -55,7 +55,7 @@ describe Puffer::Resource do
     @profile = @user.profile
 
     get admin_user_profile_path(@user)
-    resource = Puffer::Resource.new request.params.merge(:controller => 'admin/profiles', :action => 'show'), request
+    resource = Puffer::Resource.new request.params.merge(:controller => 'admin/profiles', :action => 'show'), controller
 
     resource.collection_path.should == admin_user_profile_path(@user)
     resource.member_path.should == admin_user_profile_path(@user)
@@ -69,7 +69,7 @@ describe Puffer::Resource do
     @mock_tag = mock_model Tag, :id => 42
 
     get admin_user_profile_tag_path(@user, @tag)
-    resource = Puffer::Resource.new request.params.merge(:controller => 'admin/tags', :action => 'show'), request
+    resource = Puffer::Resource.new request.params.merge(:controller => 'admin/tags', :action => 'show'), controller
 
     resource.collection_path.should == admin_user_profile_tags_path(@user)
     resource.member_path.should == admin_user_profile_tag_path(@user, @tag)

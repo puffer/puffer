@@ -1,25 +1,12 @@
 module Puffer
 
-  mattr_accessor :stylesheets
-  self.stylesheets = %w(reset puffer)
-
-  mattr_accessor :javascripts
-  self.javascripts = %w(right right-calendar right-autocompleter rails puffer)
-
-  mattr_accessor :logo
-  self.logo = 'Puffer'
-
-  def self.setup
-    yield self
-  end
-
   def self.customs
     Puffer::Customs
   end
 
 end
 
-require 'will_paginate'
+require 'kaminari'
 require 'cells'
 
 require 'puffer/engine'

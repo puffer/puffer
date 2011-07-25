@@ -34,7 +34,7 @@ module Puffer
       end
 
       def default_url_options *args
-        Puffer::Base.default_url_options *args
+        Puffer::Base.default_url_options(*args)
       end
 
     end

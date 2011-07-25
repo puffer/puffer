@@ -43,20 +43,6 @@ module Puffer
           @model ||= model_name.camelize.constantize rescue nil
         end
 
-        def view_paths_fallbacks *args
-          temp = Puffer::PathSet.new view_paths
-          temp._fallbacks = args.flatten
-          self.view_paths = temp
-        end
-
-        def view_paths_fallbacks_prepend *args
-          view_paths_fallbacks args, view_paths._fallbacks
-        end
-
-        def view_paths_fallbacks_append *args
-          view_paths_fallbacks view_paths._fallbacks, args
-        end
-
       end
 
     end

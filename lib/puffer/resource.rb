@@ -11,18 +11,19 @@ module Puffer
     include Routing
     include Scoping
 
-    attr_reader :request, :params, :namespace, :action, :controller_name, :model_name, :controller, :model
+    attr_reader :controller, :params, :namespace, :action, :controller_name, :model_name, :controller_class, :model
+    delegate :env, :request, :to => :controller, :allow_nil => true
 
-    def initialize params, request = nil
+    def initialize params, controller = nil
       params = ActiveSupport::HashWithIndifferentAccess.new.deep_merge params
       @action = params.delete :action
-      @controller = "#{params.delete :controller}_controller".camelize.constantize
-      @controller_name = controller.controller_name
-      @namespace = controller.namespace
-      @model_name = controller.model_name if controller.puffer?
-      @model = controller.model if controller.puffer?
+      @controller_class = "#{params.delete :controller}_controller".camelize.constantize
+      @controller_name = controller_class.controller_name
+      @namespace = controller_class.namespace
+      @model_name = controller_class.model_name if controller_class.puffer?
+      @model = controller_class.model if controller_class.puffer?
       @params = params
-      @request = request
+      @controller = controller
     end
 
     def plural?
@@ -52,7 +53,7 @@ module Puffer
           end
           parent_params.merge! :id => params[parent_name.to_s.singularize.foreign_key]
 
-          Resource.new parent_params, request
+          self.class.new parent_params, controller
         else
           nil
         end
@@ -90,7 +91,7 @@ module Puffer
         end
         child_params.merge! controller_name.singularize.foreign_key => params[:id] if params[:id]
 
-        Resource.new child_params, request
+        self.class.new child_params, controller
       end
     end
 
@@ -99,7 +100,7 @@ module Puffer
     end
 
     def collection
-      collection_scope.includes(includes).where(searches(params[:search])).order(order).paginate :page => params[:page]
+      collection_scope.includes(includes).where(searches(params[:search])).order(order).page(params[:page])
     end
 
     def member
