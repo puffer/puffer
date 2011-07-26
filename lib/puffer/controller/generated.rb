@@ -19,7 +19,7 @@ module Puffer
             @field = field
             @record = resource.member if params[:id]
             @records = field.reflection.klass.includes(field.association_columns.includes).where(field.association_columns.searches(params[:search])).limit(100).all
-            render 'puffer/associated/one'
+            render :action => 'associated/one'
           end
 
           collection do
@@ -32,7 +32,7 @@ module Puffer
             @record = resource.member
             @records = field.association.klass.scoped(:conditions => {:id => params[:ids]}).scoped(:conditions => search_query(field.association_fields)).paginate(:page => params[:page], :include => includes(field.association_fields))
             @field = field
-            render 'puffer/associated/many'
+            render :action => 'associated/many'
           end
 
           define_method "associated_#{field}_choosing" do
@@ -40,7 +40,7 @@ module Puffer
             @records = field.association.klass.scoped(:conditions => search_query(field.association_fields)).paginate(:page => params[:page], :include => includes(field.association_fields))
             @choosen = field.association.klass.scoped(:conditions => {:id => params[:ids]}).scoped(:conditions => search_query(field.association_fields)).paginate(:page => params[:page], :include => includes(field.association_fields))
             @field = field
-            render 'puffer/associated/many'
+            render :action => 'associated/many'
           end
 
           collection do
@@ -54,7 +54,7 @@ module Puffer
             @record = model.find params[:id]
             @field = field
             @record.toggle! field.name.to_sym
-            render 'puffer/toggle'
+            render :action => 'toggle'
           end
         end
 

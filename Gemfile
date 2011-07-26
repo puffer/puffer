@@ -2,7 +2,7 @@ source "http://rubygems.org"
 
 gem 'rails', '>= 3.1.0.rc4'
 gem 'kaminari'
-gem 'cells', '>= 3.5.6'
+gem 'apotomo'
 
 group :development, :test do
   gem "sqlite3"
