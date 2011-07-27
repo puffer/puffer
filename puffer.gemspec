@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{puffer}
-  s.version = "0.0.19"
+  s.version = "0.0.20"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["pyromaniac"]
-  s.date = %q{2011-07-24}
+  s.date = %q{2011-07-27}
   s.description = %q{In Soviet Russia puffer admins you}
   s.email = %q{kinwizard@gmail.com}
   s.extra_rdoc_files = [
@@ -25,26 +25,32 @@ Gem::Specification.new do |s|
     "README.md",
     "Rakefile",
     "VERSION",
-    "app/cells/puffer/base/additional.html.erb",
-    "app/cells/puffer/base_cell.rb",
-    "app/controllers/puffer/dashboard_base.rb",
-    "app/controllers/puffer/sessions_base.rb",
+    "app/assets/javascripts/puffer/application.js",
+    "app/assets/javascripts/puffer/puffer.js",
+    "app/assets/javascripts/puffer/rails.js",
+    "app/assets/javascripts/puffer/right-autocompleter.js",
+    "app/assets/javascripts/puffer/right-calendar.js",
+    "app/assets/javascripts/puffer/right.js",
+    "app/assets/stylesheets/puffer/application.css",
+    "app/assets/stylesheets/puffer/puffer.css",
+    "app/assets/stylesheets/puffer/reset.css",
+    "app/controllers/puffer/dashboard.rb",
+    "app/controllers/puffer/sessions.rb",
     "app/helpers/puffer_helper.rb",
     "app/views/layouts/puffer.html.erb",
     "app/views/layouts/puffer_dashboard.html.erb",
     "app/views/layouts/puffer_sessions.html.erb",
-    "app/views/puffer/_form.html.erb",
-    "app/views/puffer/associated/_many.html.erb",
-    "app/views/puffer/associated/many.rjs",
-    "app/views/puffer/associated/one.js.erb",
-    "app/views/puffer/association/_many.html.erb",
-    "app/views/puffer/edit.html.erb",
-    "app/views/puffer/index.html.erb",
-    "app/views/puffer/new.html.erb",
-    "app/views/puffer/show.html.erb",
-    "app/views/puffer_dashboard/index.html.erb",
-    "app/views/puffer_sessions/new.html.erb",
-    "autotest/discover.rb",
+    "app/views/puffer/base/_form.html.erb",
+    "app/views/puffer/base/associated/_many.html.erb",
+    "app/views/puffer/base/associated/many.rjs",
+    "app/views/puffer/base/associated/one.js.erb",
+    "app/views/puffer/base/association/_many.html.erb",
+    "app/views/puffer/base/edit.html.erb",
+    "app/views/puffer/base/index.html.erb",
+    "app/views/puffer/base/new.html.erb",
+    "app/views/puffer/base/show.html.erb",
+    "app/views/puffer/dashboard/index.html.erb",
+    "app/views/puffer/sessions/new.html.erb",
     "config/locales/puffer.yml",
     "config/routes.rb",
     "lib/generators/puffer/controller/USAGE",
@@ -53,14 +59,6 @@ Gem::Specification.new do |s|
     "lib/generators/puffer/install/USAGE",
     "lib/generators/puffer/install/install_generator.rb",
     "lib/generators/puffer/install/templates/dashboard_controller.rb",
-    "lib/generators/puffer/install/templates/puffer.rb",
-    "lib/generators/puffer/install/templates/puffer/javascripts/puffer.js",
-    "lib/generators/puffer/install/templates/puffer/javascripts/rails.js",
-    "lib/generators/puffer/install/templates/puffer/javascripts/right-autocompleter.js",
-    "lib/generators/puffer/install/templates/puffer/javascripts/right-calendar.js",
-    "lib/generators/puffer/install/templates/puffer/javascripts/right.js",
-    "lib/generators/puffer/install/templates/puffer/stylesheets/puffer.css",
-    "lib/generators/puffer/install/templates/puffer/stylesheets/reset.css",
     "lib/generators/puffer/install/templates/sessions_controller.rb",
     "lib/puffer.rb",
     "lib/puffer/base.rb",
@@ -90,11 +88,11 @@ Gem::Specification.new do |s|
     "lib/puffer/inputs/password.rb",
     "lib/puffer/inputs/select.rb",
     "lib/puffer/inputs/text.rb",
-    "lib/puffer/path_set.rb",
     "lib/puffer/resource.rb",
     "lib/puffer/resource/routing.rb",
     "lib/puffer/resource/scoping.rb",
     "puffer.gemspec",
+    "spec/dummy/.rvmrc",
     "spec/dummy/Rakefile",
     "spec/dummy/app/assets/images/rails.png",
     "spec/dummy/app/assets/javascripts/application.js",
@@ -118,7 +116,6 @@ Gem::Specification.new do |s|
     "spec/dummy/app/models/tag.rb",
     "spec/dummy/app/models/tagging.rb",
     "spec/dummy/app/models/user.rb",
-    "spec/dummy/app/views/admin/users/index.html.erb",
     "spec/dummy/app/views/layouts/application.html.erb",
     "spec/dummy/config.ru",
     "spec/dummy/config/application.rb",
@@ -131,7 +128,6 @@ Gem::Specification.new do |s|
     "spec/dummy/config/initializers/backtrace_silencers.rb",
     "spec/dummy/config/initializers/inflections.rb",
     "spec/dummy/config/initializers/mime_types.rb",
-    "spec/dummy/config/initializers/puffer.rb",
     "spec/dummy/config/initializers/secret_token.rb",
     "spec/dummy/config/initializers/session_store.rb",
     "spec/dummy/config/initializers/wrap_parameters.rb",
@@ -163,7 +159,6 @@ Gem::Specification.new do |s|
     "spec/lib/extensions/core_spec.rb",
     "spec/lib/fields_spec.rb",
     "spec/lib/params_spec.rb",
-    "spec/lib/render_fallback_spec.rb",
     "spec/lib/resource/routing_spec.rb",
     "spec/lib/resource_spec.rb",
     "spec/puffer_spec.rb",
@@ -180,11 +175,13 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<rails>, [">= 3.1.0.rc4"])
       s.add_runtime_dependency(%q<kaminari>, [">= 0"])
-      s.add_runtime_dependency(%q<cells>, [">= 3.5.6"])
+      s.add_runtime_dependency(%q<apotomo>, [">= 0"])
       s.add_development_dependency(%q<sqlite3>, [">= 0"])
       s.add_development_dependency(%q<rspec-rails>, [">= 0"])
       s.add_development_dependency(%q<capybara>, [">= 0"])
+      s.add_development_dependency(%q<database_cleaner>, [">= 0"])
       s.add_development_dependency(%q<guard>, [">= 0"])
+      s.add_development_dependency(%q<libnotify>, [">= 0"])
       s.add_development_dependency(%q<guard-rspec>, [">= 0"])
       s.add_development_dependency(%q<forgery>, [">= 0"])
       s.add_development_dependency(%q<fabrication>, [">= 0"])
@@ -192,11 +189,13 @@ Gem::Specification.new do |s|
     else
       s.add_dependency(%q<rails>, [">= 3.1.0.rc4"])
       s.add_dependency(%q<kaminari>, [">= 0"])
-      s.add_dependency(%q<cells>, [">= 3.5.6"])
+      s.add_dependency(%q<apotomo>, [">= 0"])
       s.add_dependency(%q<sqlite3>, [">= 0"])
       s.add_dependency(%q<rspec-rails>, [">= 0"])
       s.add_dependency(%q<capybara>, [">= 0"])
+      s.add_dependency(%q<database_cleaner>, [">= 0"])
       s.add_dependency(%q<guard>, [">= 0"])
+      s.add_dependency(%q<libnotify>, [">= 0"])
       s.add_dependency(%q<guard-rspec>, [">= 0"])
       s.add_dependency(%q<forgery>, [">= 0"])
       s.add_dependency(%q<fabrication>, [">= 0"])
@@ -205,11 +204,13 @@ Gem::Specification.new do |s|
   else
     s.add_dependency(%q<rails>, [">= 3.1.0.rc4"])
     s.add_dependency(%q<kaminari>, [">= 0"])
-    s.add_dependency(%q<cells>, [">= 3.5.6"])
+    s.add_dependency(%q<apotomo>, [">= 0"])
     s.add_dependency(%q<sqlite3>, [">= 0"])
     s.add_dependency(%q<rspec-rails>, [">= 0"])
     s.add_dependency(%q<capybara>, [">= 0"])
+    s.add_dependency(%q<database_cleaner>, [">= 0"])
     s.add_dependency(%q<guard>, [">= 0"])
+    s.add_dependency(%q<libnotify>, [">= 0"])
     s.add_dependency(%q<guard-rspec>, [">= 0"])
     s.add_dependency(%q<forgery>, [">= 0"])
     s.add_dependency(%q<fabrication>, [">= 0"])
