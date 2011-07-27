@@ -2,12 +2,18 @@ module Puffer
   class Fields
     class Field
 
-      attr_accessor :resource, :field, :options
+      attr_accessor :resource, :field_name, :options, :fields
 
-      def initialize field, *resource_and_options
-        @field = field.to_s
+      def initialize field_name, *resource_and_options, &block
+        @field_name = field_name.to_s
         @options = resource_and_options.extract_options!
         @resource = resource_and_options.first
+        @fields = Puffer::Fields.new
+        block.bind(self).call if block
+      end
+
+      def field name, options = {}, &block
+        @fields.field(name, swallow_nil{reflection.klass}, options, &block)
       end
 
       def native?
@@ -15,15 +21,15 @@ module Puffer
       end
 
       def name
-        @name ||= field.split('.').last
+        @name ||= field_name.split('.').last
       end
 
       def path
-        @path ||= field.split('.')[0..-2].join('.')
+        @path ||= field_name.split('.')[0..-2].join('.')
       end
 
-      def label
-        @label ||= resource.human_attribute_name(field)
+      def human
+        @human ||= model && model.human_attribute_name(name)
       end
 
       def order
@@ -35,7 +41,7 @@ module Puffer
       end
 
       def to_s
-        field
+        field_name
       end
 
       def reflection
@@ -56,7 +62,7 @@ module Puffer
 
       def model
         @model ||= begin
-          associations = field.split('.')
+          associations = field_name.split('.')
           associations.pop
           temp = resource
           while temp.reflect_on_association(association = swallow_nil{associations.shift.to_sym}) do
@@ -67,14 +73,7 @@ module Puffer
       end
 
       def association_columns
-        raise "Can`t find records for association building. Please set :columns option for '#{field}' field." unless options[:columns].present?
-        @reflection_fields ||= begin
-          fields = Puffer::Fields.new
-          options[:columns].each do |field_name|
-            fields.field field_name, reflection.klass
-          end
-          fields
-        end
+        @association_columns ||= fields
       end
 
       def column

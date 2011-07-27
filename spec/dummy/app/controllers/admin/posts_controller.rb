@@ -13,7 +13,9 @@ class Admin::PostsController < Puffer::Base
 
   form do
     field :id
-    field :user, :columns => [:email]
+    field :user do
+      field :email
+    end
     field :title
     field :body
   end

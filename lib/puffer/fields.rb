@@ -1,8 +1,8 @@
 module Puffer
   class Fields < Array
 
-    def field *args
-      push Field.new(*args)
+    def field *args, &block
+      push Field.new(*args, &block)
       last
     end
 

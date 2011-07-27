@@ -5,7 +5,7 @@
     <div class="title"><strong><%= record[primary_key] %></strong> — <%= record.to_title %></div>
     <div class="description">
       <% @field.association_columns.searchable.each do |column| %>
-        <div><strong><%= column.label %>:</strong> <%= render_field column, record %></div>
+        <div><strong><%= column.human %>:</strong> <%= render_field column, record %></div>
       <% end %>
     </div>
   </li>

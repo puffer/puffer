@@ -12,7 +12,7 @@ module Puffer
                 'data-autocompleter' => "{url: '#{resource.collection_path(:action => "associated_#{field}_choosing")}', onDone: association_done}"
               )}
             <div class="association_clear">×</div>
-            #{builder.hidden_field field.reflection.primary_key_name}
+            #{builder.hidden_field field.reflection.foreign_key}
           </div>
         INPUT
       end
@@ -29,7 +29,7 @@ module Puffer
       end
 
       def error
-        builder.object.errors[field.reflection.primary_key_name.to_sym].first ||
+        builder.object.errors[field.reflection.foreign_key.to_sym].first ||
           builder.object.errors[field.name.to_sym].first.presence
       end
 

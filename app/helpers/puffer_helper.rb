@@ -29,7 +29,7 @@ module PufferHelper
   end
 
   def render_head field
-    field.label
+    field.human
   end
 
   def render_field field, record
@@ -42,7 +42,7 @@ module PufferHelper
       else ''
       end
     else
-      res = record.call_chain(field.field)
+      res = record.call_chain(field.to_s)
     end
     unless field.native?
       url = edit_polymorphic_path [resource.namespace, record.call_chain(field.path)] rescue nil
