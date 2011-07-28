@@ -1,4 +1,5 @@
-class Puffer::SessionsController < Puffer::Sessions
+class Puffer::SessionsController < Puffer::SessionsBase
+  unloadable
   # This is example session controller for puffer authentication.
   # You can define your own actions.
   # Also, you can redefine <tt>new<tt> action view as you wish,

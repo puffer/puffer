@@ -1,4 +1,4 @@
-class Puffer::Dashboard < ApplicationController
+class Puffer::DashboardBase < ApplicationController
   unloadable
 
   pufferize!
