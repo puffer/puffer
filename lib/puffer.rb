@@ -6,6 +6,8 @@ module Puffer
 
 end
 
+require 'kaminari'
+
 require 'puffer/engine'
 require 'puffer/extensions/activerecord'
 require 'puffer/extensions/controller'
