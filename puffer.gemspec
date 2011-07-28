@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["pyromaniac"]
-  s.date = %q{2011-07-27}
+  s.date = %q{2011-07-29}
   s.description = %q{In Soviet Russia puffer admins you}
   s.email = %q{kinwizard@gmail.com}
   s.extra_rdoc_files = [
@@ -34,8 +34,10 @@ Gem::Specification.new do |s|
     "app/assets/stylesheets/puffer/application.css",
     "app/assets/stylesheets/puffer/puffer.css",
     "app/assets/stylesheets/puffer/reset.css",
-    "app/controllers/puffer/dashboard.rb",
-    "app/controllers/puffer/sessions.rb",
+    "app/controllers/puffer/dashboard_base.rb",
+    "app/controllers/puffer/dashboard_controller.rb",
+    "app/controllers/puffer/sessions_base.rb",
+    "app/controllers/puffer/sessions_controller.rb",
     "app/helpers/puffer_helper.rb",
     "app/views/layouts/puffer.html.erb",
     "app/views/layouts/puffer_dashboard.html.erb",
@@ -49,17 +51,13 @@ Gem::Specification.new do |s|
     "app/views/puffer/base/index.html.erb",
     "app/views/puffer/base/new.html.erb",
     "app/views/puffer/base/show.html.erb",
-    "app/views/puffer/dashboard/index.html.erb",
-    "app/views/puffer/sessions/new.html.erb",
+    "app/views/puffer/dashboard_base/index.html.erb",
+    "app/views/puffer/sessions_base/new.html.erb",
     "config/locales/puffer.yml",
-    "config/routes.rb",
+    "config/puffer_routes.rb",
     "lib/generators/puffer/controller/USAGE",
     "lib/generators/puffer/controller/controller_generator.rb",
     "lib/generators/puffer/controller/templates/controller.rb",
-    "lib/generators/puffer/install/USAGE",
-    "lib/generators/puffer/install/install_generator.rb",
-    "lib/generators/puffer/install/templates/dashboard_controller.rb",
-    "lib/generators/puffer/install/templates/sessions_controller.rb",
     "lib/puffer.rb",
     "lib/puffer/base.rb",
     "lib/puffer/controller/actions.rb",
@@ -104,7 +102,6 @@ Gem::Specification.new do |s|
     "spec/dummy/app/controllers/admin/tags_controller.rb",
     "spec/dummy/app/controllers/admin/users_controller.rb",
     "spec/dummy/app/controllers/application_controller.rb",
-    "spec/dummy/app/controllers/puffer/dashboard_controller.rb",
     "spec/dummy/app/controllers/puffer/sessions_controller.rb",
     "spec/dummy/app/helpers/application_helper.rb",
     "spec/dummy/app/models/category.rb",
