@@ -1,12 +1,8 @@
 module PufferHelper
 
   def puffer_namespaces
-    Rails.application.routes.puffer.each do |(prefix, groups)|
-      controller = groups.values.first.first
-      title = prefix.to_s.humanize
-      path = send("#{prefix}_#{controller.controller_name}_path")
-      current = controller.namespace == namespace
-      yield title, path, current
+    Rails.application.routes.puffer.keys.each do |prefix|
+      yield prefix.to_s.humanize, send("#{prefix}_root_path"), prefix == namespace
     end
   end
 

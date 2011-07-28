@@ -24,6 +24,13 @@ module Puffer
           if controller.configuration.group
             puffer = Rails.application.routes.puffer
             namespace = @scope[:module]
+
+            unless puffer[namespace]
+              @scope[:module] = 'puffer'
+              root :to => 'dashboard#index'
+              @scope[:module] = namespace
+            end
+
             puffer[namespace] ||= ActiveSupport::OrderedHash.new
             puffer[namespace][controller.configuration.group] ||= []
             puffer[namespace][controller.configuration.group] << controller

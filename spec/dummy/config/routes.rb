@@ -1,12 +1,5 @@
 Dummy::Application.routes.draw do
 
-  match '/admin' => 'puffer/dashboard#index', :as => :admin
-
-  namespace :puffer do
-    root :to => 'dashboard#index'
-    resource :session
-  end
-
   namespace :admin do
     resources :users do
       resource :profile do
