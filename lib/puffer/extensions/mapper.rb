@@ -26,7 +26,7 @@ module Puffer
             namespace = @scope[:module]
 
             unless puffer[namespace]
-              @scope[:module] = 'puffer'
+              @scope[:module] = 'admin'
               root :to => 'dashboard#index'
               @scope[:module] = namespace
             end
