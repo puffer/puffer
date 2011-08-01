@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{puffer}
-  s.version = "0.0.22"
+  s.version = "0.0.23"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["pyromaniac"]
@@ -35,11 +35,11 @@ Gem::Specification.new do |s|
     "app/assets/stylesheets/puffer/puffer.css",
     "app/assets/stylesheets/puffer/puffer_tree.css",
     "app/assets/stylesheets/puffer/reset.css",
+    "app/controllers/admin/dashboard_controller.rb",
+    "app/controllers/admin/sessions_controller.rb",
     "app/controllers/puffer/base.rb",
     "app/controllers/puffer/dashboard_base.rb",
-    "app/controllers/puffer/dashboard_controller.rb",
     "app/controllers/puffer/sessions_base.rb",
-    "app/controllers/puffer/sessions_controller.rb",
     "app/controllers/puffer/tree_base.rb",
     "app/helpers/puffer_helper.rb",
     "app/helpers/puffer_tree_helper.rb",
@@ -62,7 +62,7 @@ Gem::Specification.new do |s|
     "app/views/puffer/tree_base/toggle.js.erb",
     "app/views/puffer/tree_base/tree.html.erb",
     "config/locales/puffer.yml",
-    "config/puffer_routes.rb",
+    "config/routes.rb",
     "lib/generators/puffer/controller/USAGE",
     "lib/generators/puffer/controller/controller_generator.rb",
     "lib/generators/puffer/controller/templates/controller.rb",
