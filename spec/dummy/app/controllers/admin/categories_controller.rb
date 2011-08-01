@@ -1,4 +1,4 @@
-class Admin::CategoriesController < Puffer::Base
+class Admin::CategoriesController < Puffer::TreeBase
 
   setup do
     group :posting
@@ -12,6 +12,9 @@ class Admin::CategoriesController < Puffer::Base
   form do
     field :id
     field :title
+    field :parent do
+      field :title
+    end
   end
 
 end

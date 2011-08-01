@@ -1,7 +1,12 @@
-class CreateAdminCategories < ActiveRecord::Migration
+class CreateCategories < ActiveRecord::Migration
   def self.up
     create_table :categories do |t|
       t.string :title
+
+      t.integer :parent_id
+      t.integer :lft
+      t.integer :rgt
+      t.integer :depth, :default => 0
 
       t.timestamps
     end

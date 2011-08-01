@@ -2,7 +2,7 @@ class Puffer::SessionsBase < ApplicationController
   unloadable
 
   pufferize!
-  define_fields :create
+  define_fieldset :create
 
   layout 'puffer_sessions'
 

@@ -3,7 +3,9 @@ module Puffer
     unloadable
 
     pufferize!
-    define_fields :index, :show, :form, :create, :update
+    define_fieldset :index, :form
+    define_fieldset :show, :fallbacks => :index
+    define_fieldset :create, :update, :fallbacks => :form
 
     respond_to :html, :js
 

@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem 'rails', '>= 3.1.0.rc4'
+gem 'rails', '>= 3.1.0.rc5'
 gem 'kaminari'
 gem 'apotomo'
 
@@ -18,4 +18,6 @@ group :development, :test do
   gem 'forgery'
   gem 'fabrication'
   gem "jeweler"
+
+  gem 'nested_set'
 end

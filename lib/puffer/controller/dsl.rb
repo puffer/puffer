@@ -29,21 +29,28 @@ module Puffer
           block.bind(_collections).call if block_given?
         end
 
-        def define_fields *actions
+        def define_fieldset *actions
+          options = actions.extract_options!
+          fallbacks = Array.wrap(options.delete(:fallbacks))
+
           actions.each do |action|
             class_attribute "_#{action}_fields"
-            send "_#{action}_fields=", Puffer::Fields.new unless send("_#{action}_fields?")
+            send "_#{action}_fields=", Puffer::FieldSet.new unless send("_#{action}_fields?")
             helper_method "#{action}_fields"
 
             self.class.instance_eval do
               define_method action do |&block|
-                @_fields = send("_#{action}_fields=", Puffer::Fields.new)
+                @_fields = send("_#{action}_fields=", Puffer::FieldSet.new)
                 block.call if block
                 remove_instance_variable :@_fields
               end
 
               define_method "#{action}_fields" do
-                send "_#{action}_fields"
+                actions = [action] + fallbacks
+                last = actions.pop
+                actions.map do |action|
+                  send("_#{action}_fields").presence
+                end.compact.first || send("_#{last}_fields")
               end
             end
 

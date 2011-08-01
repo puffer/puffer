@@ -21,7 +21,6 @@ module Puffer
             include Puffer::Controller::Mutate
             include Puffer::Controller::Helpers
             include Puffer::Controller::Dsl
-            include Puffer::Controller::Mapping
             include Puffer::Controller::Config
             include Puffer::Controller::Generated
           end

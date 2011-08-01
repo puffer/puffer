@@ -1,0 +1,9 @@
+<% @title = resource.human %>
+<h1><%= @title %> Tree</h1>
+<% if records.present? %>
+  <%= puffer_tree records, :class => 'puffer_tree' do |record, children| %>
+    <%= render :partial => 'record', :object => record, :locals => {:children => children} %>
+  <% end %>
+<% else %>
+  <p>Sorry, but there is no records in <%= resource.human %></p>
+<% end %>

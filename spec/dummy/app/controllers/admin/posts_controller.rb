@@ -5,14 +5,12 @@ class Admin::PostsController < Puffer::Base
   end
 
   index do
-    field :id
     field 'user.email'
     field :title
     field :body
   end
 
   form do
-    field :id
     field :user do
       field :email
     end

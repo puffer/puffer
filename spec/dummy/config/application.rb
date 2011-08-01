@@ -4,6 +4,7 @@ require 'rails/all'
 
 Bundler.require
 require 'puffer'
+require 'nested_set'
 
 module Dummy
   class Application < Rails::Application
