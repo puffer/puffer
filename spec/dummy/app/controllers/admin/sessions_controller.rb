@@ -1,4 +1,4 @@
-class Puffer::SessionsController < Puffer::SessionsBase
+class Admin::SessionsController < Puffer::SessionsBase
 
   def new
     @record = User.new
