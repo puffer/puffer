@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{puffer}
-  s.version = "0.0.20"
+  s.version = "0.0.21"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["pyromaniac"]
-  s.date = %q{2011-07-29}
+  s.date = %q{2011-08-01}
   s.description = %q{In Soviet Russia puffer admins you}
   s.email = %q{kinwizard@gmail.com}
   s.extra_rdoc_files = [
@@ -33,13 +33,18 @@ Gem::Specification.new do |s|
     "app/assets/javascripts/puffer/right.js",
     "app/assets/stylesheets/puffer/application.css",
     "app/assets/stylesheets/puffer/puffer.css",
+    "app/assets/stylesheets/puffer/puffer_tree.css",
     "app/assets/stylesheets/puffer/reset.css",
+    "app/controllers/puffer/base.rb",
     "app/controllers/puffer/dashboard_base.rb",
     "app/controllers/puffer/dashboard_controller.rb",
     "app/controllers/puffer/sessions_base.rb",
     "app/controllers/puffer/sessions_controller.rb",
+    "app/controllers/puffer/tree_base.rb",
     "app/helpers/puffer_helper.rb",
+    "app/helpers/puffer_tree_helper.rb",
     "app/views/layouts/puffer.html.erb",
+    "app/views/layouts/puffer_base.html.erb",
     "app/views/layouts/puffer_dashboard.html.erb",
     "app/views/layouts/puffer_sessions.html.erb",
     "app/views/puffer/base/_form.html.erb",
@@ -53,19 +58,20 @@ Gem::Specification.new do |s|
     "app/views/puffer/base/show.html.erb",
     "app/views/puffer/dashboard_base/index.html.erb",
     "app/views/puffer/sessions_base/new.html.erb",
+    "app/views/puffer/tree_base/_record.html.erb",
+    "app/views/puffer/tree_base/toggle.js.erb",
+    "app/views/puffer/tree_base/tree.html.erb",
     "config/locales/puffer.yml",
     "config/puffer_routes.rb",
     "lib/generators/puffer/controller/USAGE",
     "lib/generators/puffer/controller/controller_generator.rb",
     "lib/generators/puffer/controller/templates/controller.rb",
     "lib/puffer.rb",
-    "lib/puffer/base.rb",
     "lib/puffer/controller/actions.rb",
     "lib/puffer/controller/config.rb",
     "lib/puffer/controller/dsl.rb",
     "lib/puffer/controller/generated.rb",
     "lib/puffer/controller/helpers.rb",
-    "lib/puffer/controller/mapping.rb",
     "lib/puffer/controller/mutate.rb",
     "lib/puffer/customs.rb",
     "lib/puffer/engine.rb",
@@ -74,8 +80,8 @@ Gem::Specification.new do |s|
     "lib/puffer/extensions/core.rb",
     "lib/puffer/extensions/form.rb",
     "lib/puffer/extensions/mapper.rb",
-    "lib/puffer/fields.rb",
-    "lib/puffer/fields/field.rb",
+    "lib/puffer/field.rb",
+    "lib/puffer/field_set.rb",
     "lib/puffer/inputs/association.rb",
     "lib/puffer/inputs/base.rb",
     "lib/puffer/inputs/boolean.rb",
@@ -130,15 +136,16 @@ Gem::Specification.new do |s|
     "spec/dummy/config/initializers/wrap_parameters.rb",
     "spec/dummy/config/locales/en.yml",
     "spec/dummy/config/routes.rb",
-    "spec/dummy/db/migrate/20100930132559_create_admin_users.rb",
-    "spec/dummy/db/migrate/20100930132656_create_admin_posts.rb",
-    "spec/dummy/db/migrate/20100930132726_create_admin_categories.rb",
+    "spec/dummy/db/migrate/20100930132559_create_users.rb",
+    "spec/dummy/db/migrate/20100930132656_create_posts.rb",
+    "spec/dummy/db/migrate/20100930132726_create_categories.rb",
     "spec/dummy/db/migrate/20100930132837_create_post_categories.rb",
     "spec/dummy/db/migrate/20100930133425_create_admin_profiles.rb",
     "spec/dummy/db/migrate/20101011155830_create_tags.rb",
     "spec/dummy/db/migrate/20101011160326_create_taggings.rb",
     "spec/dummy/db/migrate/20110107082706_create_friendships.rb",
     "spec/dummy/db/migrate/20110301072545_create_news.rb",
+    "spec/dummy/db/schema.rb",
     "spec/dummy/db/seeds.rb",
     "spec/dummy/public/404.html",
     "spec/dummy/public/422.html",
@@ -170,7 +177,7 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<rails>, [">= 3.1.0.rc4"])
+      s.add_runtime_dependency(%q<rails>, [">= 3.1.0.rc5"])
       s.add_runtime_dependency(%q<kaminari>, [">= 0"])
       s.add_runtime_dependency(%q<apotomo>, [">= 0"])
       s.add_development_dependency(%q<sqlite3>, [">= 0"])
@@ -183,8 +190,9 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<forgery>, [">= 0"])
       s.add_development_dependency(%q<fabrication>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
+      s.add_development_dependency(%q<nested_set>, [">= 0"])
     else
-      s.add_dependency(%q<rails>, [">= 3.1.0.rc4"])
+      s.add_dependency(%q<rails>, [">= 3.1.0.rc5"])
       s.add_dependency(%q<kaminari>, [">= 0"])
       s.add_dependency(%q<apotomo>, [">= 0"])
       s.add_dependency(%q<sqlite3>, [">= 0"])
@@ -197,9 +205,10 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<forgery>, [">= 0"])
       s.add_dependency(%q<fabrication>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
+      s.add_dependency(%q<nested_set>, [">= 0"])
     end
   else
-    s.add_dependency(%q<rails>, [">= 3.1.0.rc4"])
+    s.add_dependency(%q<rails>, [">= 3.1.0.rc5"])
     s.add_dependency(%q<kaminari>, [">= 0"])
     s.add_dependency(%q<apotomo>, [">= 0"])
     s.add_dependency(%q<sqlite3>, [">= 0"])
@@ -212,6 +221,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<forgery>, [">= 0"])
     s.add_dependency(%q<fabrication>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
+    s.add_dependency(%q<nested_set>, [">= 0"])
   end
 end
 
