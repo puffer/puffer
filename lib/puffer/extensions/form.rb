@@ -3,7 +3,7 @@ module Puffer
     module FormBuilder
 
       def puffer_field *args
-        field = args.first.is_a?(Puffer::Fields::Field) ? args.first : Puffer::Fields::Field.new(*args)
+        field = args.first.is_a?(Puffer::Field) ? args.first : Puffer::Field.new(*args)
         field.resource = object.class
         field.input self
       end
