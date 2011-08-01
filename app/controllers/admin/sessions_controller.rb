@@ -1,4 +1,4 @@
-class Puffer::SessionsController < Puffer::SessionsBase
+class Admin::SessionsController < Puffer::SessionsBase
   unloadable
   # This is example session controller for puffer authentication.
   # You can define your own actions.

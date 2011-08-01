@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
-  namespace :puffer do
-    root :to => 'dashboard#index'
+  namespace :admin do
     resource :session
   end
   
