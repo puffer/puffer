@@ -5,7 +5,7 @@ class SelectComponent < BaseComponent
       when Symbol then
         parent_controller.view_context.send field.options[:select]
       when Proc then
-        field.options[:select].bind(parent_controller.view_context).call
+        field.options[:select].bind(parent_controller).call
       else
         field.options[:select]
     end
