@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{puffer}
-  s.version = "0.0.24"
+  s.version = "0.0.25"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{pyromaniac}]
@@ -107,6 +107,7 @@ Gem::Specification.new do |s|
     "lib/puffer/extensions/activerecord.rb",
     "lib/puffer/extensions/controller.rb",
     "lib/puffer/extensions/core.rb",
+    "lib/puffer/extensions/engine.rb",
     "lib/puffer/extensions/form.rb",
     "lib/puffer/extensions/mapper.rb",
     "lib/puffer/field.rb",
