@@ -1,8 +1,15 @@
 module Puffer
   class FieldSet < Array
 
-    def field *args, &block
-      push Puffer::Field.new(*args, &block)
+    attr_accessor :name
+
+    def initialize name = nil
+      @name = name
+      super()
+    end
+
+    def field name, resource, options, &block
+      push Puffer::Field.new(name, resource, self, options, &block)
       last
     end
 
@@ -20,6 +27,14 @@ module Puffer
 
     def includes
       @includes ||= map {|f| f.path unless f.native?}.compact.to_includes
+    end
+
+    def [] key
+      if key.is_a?(String) || key.is_a?(Symbol)
+        detect {|f| f.to_s == key.to_s}
+      else
+        super
+      end
     end
 
   end

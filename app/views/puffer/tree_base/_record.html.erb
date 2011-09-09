@@ -12,7 +12,7 @@
       <% end %>
       <span class="handle">⇅</span>
       <% tree_fields.each do |field| -%>
-        <span><%= render_field field, record %></span>
+        <span><%= field.render controller, :tree, :record => record %></span>
       <% end -%>
     </dt>
     <dd class="column">

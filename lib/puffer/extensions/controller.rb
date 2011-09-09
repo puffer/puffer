@@ -2,19 +2,15 @@ module Puffer
   module Extensions
     module ActionController
       module Base
+        extend ActiveSupport::Concern
 
-        def self.included base
-          base.class_eval do
-            extend ClassMethods
+        included do
+          extend ClassMethods
 
-            helper_method :puffer?
-          end
+          helper_method :puffer?, :render_component
         end
 
-        def puffer?; false; end
-
         module ClassMethods
-
           def puffer?; false; end
 
           def pufferize!
@@ -22,9 +18,15 @@ module Puffer
             include Puffer::Controller::Helpers
             include Puffer::Controller::Dsl
             include Puffer::Controller::Config
-            include Puffer::Controller::Generated
           end
+        end
 
+        module InstanceMethods
+          def puffer?; false; end
+
+          def render_component *args
+            Puffer::Component::Base.render_component self, *args
+          end
         end
 
       end

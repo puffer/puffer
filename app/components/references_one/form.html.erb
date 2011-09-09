@@ -1,0 +1,28 @@
+<% content_for :input do %>
+  <% value = [
+            swallow_nil{opts[:form].object.send(field.name)[field.reflection.primary_key_column.name.to_sym]},
+            swallow_nil{opts[:form].object.send(field.name).to_title}
+          ].compact.join(' - ')
+  %>
+
+  <div class="association">
+    <%= text_field_tag field, value, field.input_options.merge(
+        :autocomplete => :off,
+        :disabled => (true if opts[:form].object.send(field.name)),
+        'data-autocompleter' => "{url: '#{event_path :choose}', onDone: association_done}"
+      ) %>
+    <div class="association_clear">×</div>
+    <%= opts[:form].hidden_field field.reflection.foreign_key %>
+  </div>
+<% end %>
+
+<% clean_content_for :input do %>
+  <% link_to "Choose", '#', :"data-dialog-uri" => event_path(:choose) %>
+<% end %>
+
+<% content_for :error do %>
+  <%= opts[:form].object.errors[field.reflection.foreign_key.to_sym].first ||
+    opts[:form].object.errors[field.name.to_sym].first.presence %>
+<% end %>
+
+<%= render :file => 'base/form' %>

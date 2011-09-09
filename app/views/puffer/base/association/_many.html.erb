@@ -1,7 +1,0 @@
-<div id="associated_<%= field %>">
-  <%= link_to "#{t(:choose_associated)} (#{many.size})", '#', :terbium_popup => resource_path(record, "associated_#{field}"), :ids => "$$('#associated_#{field} input[type=hidden]').collect(function(element){return $F(element)})" %>
-  <%= hidden_field_tag "#{model_name}[#{field.to_s.singularize}_ids][]" %>
-  <% many.each do |association| %>
-    <%= hidden_field_tag "#{model_name}[#{field.to_s.singularize}_ids][]", association.id, :id => "associated_#{field}_#{association.id}" %>
-  <% end %>
-</div>

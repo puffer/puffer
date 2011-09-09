@@ -1,0 +1,12 @@
+Description:
+    Create puffer component
+
+Example:
+    rails generate puffer:component password
+
+    This will create:
+        app/components/password_component.rb
+        app/components/password/index.html.erb
+        app/components/password/form.html.erb
+        app/components/password/filter.html.erb
+        spec/app/components/password_component_spec.rb

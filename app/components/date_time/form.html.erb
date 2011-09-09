@@ -1,0 +1,5 @@
+<% content_for :input do %>
+  <%= opts[:form].text_field field, field.input_options.merge("data-calendar" => "{showButtons: true, listYears: true, format: '#{@format}'}", :autocomplete => :off) %>
+<% end %>
+
+<%= render :file => 'base/form' %>

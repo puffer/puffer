@@ -6,6 +6,7 @@ class Admin::PostsController < Puffer::Base
 
   index do
     field 'user.email'
+    field :status
     field :title
     field :body
   end
@@ -14,8 +15,10 @@ class Admin::PostsController < Puffer::Base
     field :user do
       field :email
     end
+    field :status, :select => Post.statuses
     field :title
     field :body
+    field :filename, :type => :file
   end
 
 end

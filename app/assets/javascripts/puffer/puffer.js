@@ -8,3 +8,15 @@ var association_done = function(event) {
   this.prev('input[type=text]').value('').enable();
   this.next('input[type=hidden]').value('');
 });
+
+'a[data-dialog-uri]'.on('click', function(event) {
+  if (event.which != 1) return;
+  event.stop();
+
+  var dialog = event.find('.rui-dialog');
+  if (!dialog || !(dialog instanceof Dialog)) {
+    dialog = new Dialog({expandable: true});
+  }
+
+  dialog.load(this.get('data-dialog-uri'));
+});

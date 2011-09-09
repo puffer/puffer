@@ -1,22 +1,27 @@
 module Puffer
   class Field
 
-    attr_accessor :resource, :field_name, :options, :fields
+    attr_accessor :resource, :field_name, :field_set, :options, :children
 
-    def initialize field_name, *resource_and_options, &block
+    def initialize field_name, resource, *fieldset_and_options, &block
       @field_name = field_name.to_s
-      @options = resource_and_options.extract_options!
-      @resource = resource_and_options.first
-      @fields = Puffer::FieldSet.new
+      @resource = resource
+      @options = fieldset_and_options.extract_options!  
+      @field_set = fieldset_and_options.first
+      @children = Puffer::FieldSet.new swallow_nil{field_set.name}
       block.bind(self).call if block
     end
 
     def field name, options = {}, &block
-      @fields.field(name, swallow_nil{reflection.klass}, options, &block)
+      @children.field(name, swallow_nil{reflection.klass}, options, &block)
     end
 
     def native?
       model == resource
+    end
+
+    def to_s
+      field_name
     end
 
     def name
@@ -36,27 +41,33 @@ module Puffer
     end
 
     def type
-      @type ||= options[:type] ? options[:type].to_sym : (Puffer::Customs.type_for(self) || (column ? column.type : :string))
+      @type ||= options[:type] || custom_type || column_type || :string
     end
 
-    def to_s
-      field_name
+    def custom_type
+      return :select if options.key?(:select)
+      return :password if name =~ /password/
+      return reflection.macro if reflection
     end
 
     def reflection
       @reflection ||= model && model.reflect_on_association(name.to_sym)
     end
 
-    def collection?
-      [:has_many, :has_and_belongs_to_many].include? type
-    end
-
     def input_options
       options[:html] || {}
     end
 
-    def input builder
-      Puffer::Customs.input_for(self).render builder, self
+    def component_class
+      @component_class ||= Puffer::Component.component_for type
+    end
+
+    def component
+      @component ||= component_class.new self
+    end
+
+    def render controller, context, *args
+      component.process controller, context, *args
     end
 
     def model
@@ -71,12 +82,12 @@ module Puffer
       end if resource
     end
 
-    def association_columns
-      @association_columns ||= fields
-    end
-
     def column
       @column ||= model && model.columns_hash[name]
+    end
+
+    def column_type
+      column.type if column
     end
 
     def query_column

@@ -1,0 +1,5 @@
+<% content_for :input do %>
+  <%= opts[:form].select field, @options, {:include_blank => field.options[:include_blank]}, field.input_options %>
+<% end %>
+
+<%= render :file => 'base/form' %>

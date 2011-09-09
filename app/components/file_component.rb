@@ -1,0 +1,3 @@
+class FileComponent < BaseComponent
+
+end

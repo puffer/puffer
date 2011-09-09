@@ -43,6 +43,10 @@ module Puffer
       redirect_to (request.referrer || resource.collection_path)
     end
 
+    def event
+      render :text => fields(params[:fieldset])[params[:field]].render(self, params[:event])
+    end
+
   private
 
     def puffer_saving_location

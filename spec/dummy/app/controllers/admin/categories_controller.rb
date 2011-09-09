@@ -6,15 +6,15 @@ class Admin::CategoriesController < Puffer::TreeBase
 
   index do
     field :id
+    field :hidden
     field :title
   end
 
   form do
     field :id
+    field :hidden
     field :title
-    field :parent do
-      field :title
-    end
+    field :parent_id, :type => :hidden
   end
 
 end

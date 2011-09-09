@@ -67,6 +67,7 @@ module Puffer
             @scope[:children] = siblings
 
             collection do
+              get  '/event/:fieldset/:field/:event(/:identifer)', options.merge(:action => :event, :as => :event)
               post :create, options
               controller._collections.each do |args|
                 opts = args.extract_options!.dup
@@ -128,6 +129,7 @@ module Puffer
 
             collection do
               get  :index, options
+              get  '/event/:fieldset/:field/:event(/:identifer)', options.merge(:action => :event, :as => :event)
               post :create, options
               controller._collections.each do |args|
                 opts = args.extract_options!.dup

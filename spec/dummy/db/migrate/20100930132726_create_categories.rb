@@ -2,6 +2,7 @@ class CreateCategories < ActiveRecord::Migration
   def self.up
     create_table :categories do |t|
       t.string :title
+      t.boolean :hidden
 
       t.integer :parent_id
       t.integer :lft

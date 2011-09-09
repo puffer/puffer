@@ -1,0 +1,25 @@
+<table class="list_table">
+
+  <thead>
+    <tr>
+    <% table_fields.each do |field| -%>
+      <th><%= render_head field %></th>
+    <% end -%>
+      <th class="actions">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% records.each do |record| -%>
+    <tr>
+    <% table_fields.each do |field| -%>
+      <td><%= field.render controller, :index, :record => record %></td>
+    <% end -%>
+      <td class="actions">
+        <%= yield record %>
+      </td>
+    </tr>
+  <% end -%>
+  </tbody>
+
+</table>

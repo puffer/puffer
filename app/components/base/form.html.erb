@@ -1,0 +1,15 @@
+<% content_for :label do %>
+  <%= opts[:form].label field %>
+<% end unless content_for? :label %>
+
+<% content_for :error do %>
+  <%= opts[:form].object.errors[field.name.to_sym].first %>
+<% end unless content_for? :error %>
+
+<div class="label">
+  <%= yield :label %>
+  <div class="field_error">
+    <%= yield :error %>
+  </div>
+</div>
+<%= yield :input %>

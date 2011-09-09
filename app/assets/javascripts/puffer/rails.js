@@ -25,6 +25,7 @@
   });
 
   'a[data-confirm], a[data-method], a[data-remote]'.on('click', function(event) {
+    if (event.which != 1) return;
     if (cancel(this)) { event.stop(); return; }
 
     var method = this.get('data-method') || 'get',

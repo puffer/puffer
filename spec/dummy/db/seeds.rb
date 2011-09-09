@@ -32,3 +32,8 @@ def create_category hash, parent = nil
 end
 
 create_category categories
+
+
+40.times do |i|
+  User.create! :email => "email#{i}@gmail.com", :password => '1'*(rand(7)+6)
+end

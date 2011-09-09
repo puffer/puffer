@@ -1,34 +1,20 @@
 <% @title = resource.human %>
 <h1><%= @title %></h1>
-<%= paginate records, :url => resource.collection_path(:page => '') %>
+
+
 <% if records.present? %>
-  <table class="list_table">
-    <thead>
-      <tr>
-      <% index_fields.each do |field| -%>
-        <th><%= render_head field %></th>
-      <% end -%>
-        <th class="actions">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-    <% records.each do |record| -%>
-      <tr>
-      <% index_fields.each do |field| -%>
-        <td><%= render_field field, record %></td>
-      <% end -%>
-        <td class="actions">
-          <%= link_to 'edit', resource.edit_path(record) if update_fields.present? %>
-          <% controller._members.each do |member| %>
-            <%= link_to member.label, resource.member_path(record, :action => member.action) if member.display? %>
-          <% end %>
-          <%= link_to 'destroy', resource.member_path(record), :confirm => "Are you sure?", :method => :delete if configuration.destroy %>
-        </td>
-      </tr>
-    <% end -%>
-    </tbody>
-  </table>
+  <div class="rui-paginator" data-paginator="{total: <%= records.num_pages %>, current: <%= params[:page] || 1 %>, link: {href: '<%= resource.collection_path(:page => '%{page}') %>'}}"></div>
+
+  <%= render :layout => 'table', :locals => {:table_fields => index_fields} do |record| %>
+    <%= link_to 'edit', resource.edit_path(record) if update_fields.present? %>
+    <% _members.each do |member| %>
+      <%= link_to member.label, resource.member_path(record, :action => member.action) if member.display? %>
+    <% end %>
+    <%= link_to 'destroy', resource.member_path(record), :confirm => "Are you sure?", :method => :delete if configuration.destroy %>
+  <% end %>
+
+  <div class="rui-paginator" data-paginator="{total: <%= records.num_pages %>, current: <%= params[:page] || 1 %>, link: {href: '<%= resource.collection_path(:page => '%{page}') %>'}}"></div>
 <% else %>
   <p>Sorry, but there is no records in <%= resource.human %></p>
 <% end %>
-<%= paginate records, :url => resource.collection_path(:page => '') %>
+

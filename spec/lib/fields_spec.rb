@@ -1,9 +1,5 @@
 require 'spec_helper'
 
-describe "Fields" do
-
-end
-
 describe "Field" do
 
   it "#model" do
