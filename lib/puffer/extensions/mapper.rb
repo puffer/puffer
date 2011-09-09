@@ -22,7 +22,7 @@ module Puffer
 
         def puffer_controller controller
           if controller.configuration.group
-            puffer = Rails.application.routes.puffer
+            puffer = ::Rails.application.routes.puffer
             namespace = @scope[:module]
 
             unless puffer[namespace]

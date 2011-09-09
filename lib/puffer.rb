@@ -1,16 +1,17 @@
 require 'kaminari'
 
-require 'puffer/engine'
 require 'puffer/extensions/activerecord'
 require 'puffer/extensions/controller'
 require 'puffer/extensions/core'
 require 'puffer/extensions/mapper'
 require 'puffer/extensions/form'
+require 'puffer/extensions/engine'
+require 'puffer/engine'
 
 module Puffer
   
   module Component
-  	autoload :Base, 'puffer/component'
+    autoload :Base, 'puffer/component'
 
     mattr_accessor :_mappings
     self._mappings = {}
