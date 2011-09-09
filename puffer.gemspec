@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{puffer}
-  s.version = "0.0.23"
+  s.version = "0.0.24"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["pyromaniac"]
-  s.date = %q{2011-08-01}
+  s.authors = [%q{pyromaniac}]
+  s.date = %q{2011-09-09}
   s.description = %q{In Soviet Russia puffer admins you}
   s.email = %q{kinwizard@gmail.com}
   s.extra_rdoc_files = [
@@ -26,15 +26,44 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "app/assets/javascripts/puffer/application.js",
+    "app/assets/javascripts/puffer/paginator.js",
     "app/assets/javascripts/puffer/puffer.js",
     "app/assets/javascripts/puffer/rails.js",
-    "app/assets/javascripts/puffer/right-autocompleter.js",
-    "app/assets/javascripts/puffer/right-calendar.js",
-    "app/assets/javascripts/puffer/right.js",
+    "app/assets/javascripts/puffer/right-autocompleter-src.js",
+    "app/assets/javascripts/puffer/right-calendar-src.js",
+    "app/assets/javascripts/puffer/right-dialog-src.js",
+    "app/assets/javascripts/puffer/right-slider-src.js",
+    "app/assets/javascripts/puffer/right-src.js",
     "app/assets/stylesheets/puffer/application.css",
+    "app/assets/stylesheets/puffer/paginator.css",
     "app/assets/stylesheets/puffer/puffer.css",
     "app/assets/stylesheets/puffer/puffer_tree.css",
     "app/assets/stylesheets/puffer/reset.css",
+    "app/assets/stylesheets/puffer/right.css",
+    "app/components/base/form.html.erb",
+    "app/components/base_component.rb",
+    "app/components/boolean/form.html.erb",
+    "app/components/boolean/index.html.erb",
+    "app/components/boolean_component.rb",
+    "app/components/date_time/form.html.erb",
+    "app/components/date_time_component.rb",
+    "app/components/file/form.html.erb",
+    "app/components/file_component.rb",
+    "app/components/hidden/form.html.erb",
+    "app/components/hidden_component.rb",
+    "app/components/password/form.html.erb",
+    "app/components/password_component.rb",
+    "app/components/references_many/form.html.erb",
+    "app/components/references_many_component.rb",
+    "app/components/references_one/choose.html.erb",
+    "app/components/references_one/form.html.erb",
+    "app/components/references_one_component.rb",
+    "app/components/select/form.html.erb",
+    "app/components/select_component.rb",
+    "app/components/string/form.html.erb",
+    "app/components/string_component.rb",
+    "app/components/text/form.html.erb",
+    "app/components/text_component.rb",
     "app/controllers/admin/dashboard_controller.rb",
     "app/controllers/admin/sessions_controller.rb",
     "app/controllers/puffer/base.rb",
@@ -48,10 +77,7 @@ Gem::Specification.new do |s|
     "app/views/layouts/puffer_dashboard.html.erb",
     "app/views/layouts/puffer_sessions.html.erb",
     "app/views/puffer/base/_form.html.erb",
-    "app/views/puffer/base/associated/_many.html.erb",
-    "app/views/puffer/base/associated/many.rjs",
-    "app/views/puffer/base/associated/one.js.erb",
-    "app/views/puffer/base/association/_many.html.erb",
+    "app/views/puffer/base/_table.html.erb",
     "app/views/puffer/base/edit.html.erb",
     "app/views/puffer/base/index.html.erb",
     "app/views/puffer/base/new.html.erb",
@@ -63,17 +89,20 @@ Gem::Specification.new do |s|
     "app/views/puffer/tree_base/tree.html.erb",
     "config/locales/puffer.yml",
     "config/routes.rb",
+    "lib/generators/puffer/component/USAGE",
+    "lib/generators/puffer/component/component_generator.rb",
+    "lib/generators/puffer/component/templates/component.rb",
+    "lib/generators/puffer/component/templates/component_spec.rb",
     "lib/generators/puffer/controller/USAGE",
     "lib/generators/puffer/controller/controller_generator.rb",
     "lib/generators/puffer/controller/templates/controller.rb",
     "lib/puffer.rb",
+    "lib/puffer/component.rb",
     "lib/puffer/controller/actions.rb",
     "lib/puffer/controller/config.rb",
     "lib/puffer/controller/dsl.rb",
-    "lib/puffer/controller/generated.rb",
     "lib/puffer/controller/helpers.rb",
     "lib/puffer/controller/mutate.rb",
-    "lib/puffer/customs.rb",
     "lib/puffer/engine.rb",
     "lib/puffer/extensions/activerecord.rb",
     "lib/puffer/extensions/controller.rb",
@@ -82,20 +111,21 @@ Gem::Specification.new do |s|
     "lib/puffer/extensions/mapper.rb",
     "lib/puffer/field.rb",
     "lib/puffer/field_set.rb",
-    "lib/puffer/inputs/association.rb",
-    "lib/puffer/inputs/base.rb",
-    "lib/puffer/inputs/boolean.rb",
-    "lib/puffer/inputs/collection_association.rb",
-    "lib/puffer/inputs/date_time.rb",
-    "lib/puffer/inputs/file.rb",
-    "lib/puffer/inputs/hidden.rb",
-    "lib/puffer/inputs/password.rb",
-    "lib/puffer/inputs/select.rb",
-    "lib/puffer/inputs/text.rb",
     "lib/puffer/resource.rb",
     "lib/puffer/resource/routing.rb",
     "lib/puffer/resource/scoping.rb",
     "puffer.gemspec",
+    "spec/app/components/base_component_spec.rb",
+    "spec/app/components/boolean_component_spec.rb",
+    "spec/app/components/date_time_component_spec.rb",
+    "spec/app/components/file_component_spec.rb",
+    "spec/app/components/hidden_component_spec.rb",
+    "spec/app/components/password_component_spec.rb",
+    "spec/app/components/references_many_component_spec.rb",
+    "spec/app/components/references_one_component_spec.rb",
+    "spec/app/components/select_component_spec.rb",
+    "spec/app/components/string_component_spec.rb",
+    "spec/app/components/text_component_spec.rb",
     "spec/dummy/.rvmrc",
     "spec/dummy/Rakefile",
     "spec/dummy/app/assets/images/rails.png",
@@ -160,6 +190,7 @@ Gem::Specification.new do |s|
     "spec/fabricators/tags_fabricator.rb",
     "spec/fabricators/users_fabricator.rb",
     "spec/integration/navigation_spec.rb",
+    "spec/lib/component_spec.rb",
     "spec/lib/extensions/core_spec.rb",
     "spec/lib/fields_spec.rb",
     "spec/lib/params_spec.rb",
@@ -169,15 +200,15 @@ Gem::Specification.new do |s|
     "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/puffer/puffer}
-  s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.6.2}
+  s.require_paths = [%q{lib}]
+  s.rubygems_version = %q{1.8.6}
   s.summary = %q{Admin interface builder}
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<rails>, [">= 3.1.0.rc5"])
+      s.add_runtime_dependency(%q<rails>, ["~> 3.1.0"])
       s.add_runtime_dependency(%q<kaminari>, [">= 0"])
       s.add_runtime_dependency(%q<apotomo>, [">= 0"])
       s.add_development_dependency(%q<sqlite3>, [">= 0"])
@@ -192,7 +223,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_development_dependency(%q<nested_set>, [">= 0"])
     else
-      s.add_dependency(%q<rails>, [">= 3.1.0.rc5"])
+      s.add_dependency(%q<rails>, ["~> 3.1.0"])
       s.add_dependency(%q<kaminari>, [">= 0"])
       s.add_dependency(%q<apotomo>, [">= 0"])
       s.add_dependency(%q<sqlite3>, [">= 0"])
@@ -208,7 +239,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<nested_set>, [">= 0"])
     end
   else
-    s.add_dependency(%q<rails>, [">= 3.1.0.rc5"])
+    s.add_dependency(%q<rails>, ["~> 3.1.0"])
     s.add_dependency(%q<kaminari>, [">= 0"])
     s.add_dependency(%q<apotomo>, [">= 0"])
     s.add_dependency(%q<sqlite3>, [">= 0"])
