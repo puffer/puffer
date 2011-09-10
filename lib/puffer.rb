@@ -31,4 +31,10 @@ module Puffer
     map_component :integer, :decimal, :to => :StringComponent
   end
 
+  module Controller
+    autoload :Action, 'puffer/controller/actions'
+    autoload :MemberAction, 'puffer/controller/actions'
+    autoload :CollectionAction, 'puffer/controller/actions'
+  end
+
 end

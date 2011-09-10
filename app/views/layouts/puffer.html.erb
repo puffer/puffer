@@ -24,8 +24,15 @@
                   <dl>
                     <dt>Links</dt>
                     <dd>
-                      <%= link_to t(:list, :target => resource.human), resource.collection_path %>
-                      <%= link_to t(:add, :target => resource.human), resource.new_path %>
+                      <p>
+                        <%= link_to t(:list, :target => resource.human), resource.collection_path %>
+                        <%= link_to t(:add, :target => resource.human), resource.new_path %>
+                      </p>
+                      <p>
+                        <% _collections.each do |collection| %>
+                          <%= link_to collection.label, resource.collection_path(:action => collection.action) if collection.display? && [:match, :get].include?(collection.method) %>
+                        <% end %>
+                      </p>
                     </dd>
                     <dt>Search</dt>
                     <dd>

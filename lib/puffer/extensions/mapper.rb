@@ -69,10 +69,10 @@ module Puffer
             collection do
               get  '/event/:fieldset/:field/:event(/:identifer)', options.merge(:action => :event, :as => :event)
               post :create, options
-              controller._collections.each do |args|
-                opts = args.extract_options!.dup
-                args.push options.reverse_merge(opts)
-                send *args
+              controller._collections.each do |action|
+                opts = action.route.extract_options!.dup
+                action.route.push options.reverse_merge(opts)
+                send *action.route
               end
             end
 
@@ -85,10 +85,10 @@ module Puffer
               get    :show, options
               put    :update, options
               delete :destroy, options
-              controller._members.each do |args|
-                opts = args.extract_options!.dup
-                args.push options.reverse_merge(opts)
-                send *args
+              controller._members.each do |action|
+                opts = action.route.extract_options!.dup
+                action.route.push options.reverse_merge(opts)
+                send *action.route
               end
             end
 
@@ -131,10 +131,10 @@ module Puffer
               get  :index, options
               get  '/event/:fieldset/:field/:event(/:identifer)', options.merge(:action => :event, :as => :event)
               post :create, options
-              controller._collections.each do |args|
-                opts = args.extract_options!.dup
-                args.push options.reverse_merge(opts)
-                send *args
+              controller._collections.each do |action|
+                opts = action.route.extract_options!.dup
+                action.route.push options.reverse_merge(opts)
+                send *action.route
               end
             end
 
@@ -147,10 +147,10 @@ module Puffer
               get    :show, options
               put    :update, options
               delete :destroy, options
-              controller._members.each do |args|
-                opts = args.extract_options!.dup
-                args.push options.reverse_merge(opts)
-                send *args
+              controller._members.each do |action|
+                opts = action.route.extract_options!.dup
+                action.route.push options.reverse_merge(opts)
+                send *action.route
               end
             end
           end

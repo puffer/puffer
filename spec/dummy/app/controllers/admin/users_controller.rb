@@ -4,6 +4,14 @@ class Admin::UsersController < Puffer::Base
     group :users
   end
 
+  member do
+    get :hello
+  end
+
+  collection do
+    get :world
+  end
+
   index do
     field :email
     field :password, :type => :password

@@ -135,7 +135,10 @@ var Paginator = new Widget({
 
     this.$super('paginator', element).setOptions(options);
 
-    this.sliderValue = (this.options.current - 1) * 100 / (this.options.total - 1)
+
+    this.sliderValue = (this.options.current - 1) * 100 / (this.options.total - 1);
+    this.sliderValue |= 0;
+
     this.append(
       this.wrapper = new Element('div', {'class': 'rui-paginator-pages-wrapper'}).append(this.pages = new Paginator.Pages(this)),
       this.slider = new Slider({round: 1})

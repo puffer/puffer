@@ -5,9 +5,9 @@ module Puffer
 
       included do
         class_attribute :_members
-        self._members = Puffer::Controller::Actions.new
+        self._members = Puffer::Controller::Actions.new :member
         class_attribute :_collections
-        self._collections = Puffer::Controller::Actions.new
+        self._collections = Puffer::Controller::Actions.new :collection
         class_attribute :_fieldset_fallbacks
         self._fieldset_fallbacks = HashWithIndifferentAccess.new
 
@@ -30,10 +30,12 @@ module Puffer
         end
 
         def member &block
+          _members.controller = self
           block.bind(_members).call if block_given?
         end
 
         def collection &block
+          _collections.controller = self
           block.bind(_collections).call if block_given?
         end
 
