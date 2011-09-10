@@ -7,6 +7,8 @@ class CreatePosts < ActiveRecord::Migration
       t.string :status
       t.string :filename
 
+      t.string :type
+
       t.timestamps
     end
   end

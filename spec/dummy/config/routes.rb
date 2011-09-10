@@ -17,6 +17,11 @@ Dummy::Application.routes.draw do
       resource :user
       resources :categories
     end
+    resources :tagged_posts do
+      resource :user
+      resources :categories
+      resources :tags
+    end
     resources :categories do
       resources :posts
     end

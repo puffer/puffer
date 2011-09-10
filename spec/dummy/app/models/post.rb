@@ -1,8 +1,6 @@
 class Post < ActiveRecord::Base
   has_many :post_categories
-  has_many :categories, :through => :post_categories
-  has_many :taggings, :as => :taggable
-  has_many :tags, :through => :taggings
+  has_many :categories, :through => :post_categoriess
   belongs_to :user
 
   def self.statuses

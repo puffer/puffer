@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -51,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20110301072545) do
     t.text     "body"
     t.string   "status"
     t.string   "filename"
+    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

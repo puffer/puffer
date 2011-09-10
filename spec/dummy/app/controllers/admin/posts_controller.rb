@@ -12,9 +12,7 @@ class Admin::PostsController < Puffer::Base
   end
 
   form do
-    field :user do
-      field :email
-    end
+    field :user
     field :status, :select => Post.statuses
     field :title
     field :body

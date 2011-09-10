@@ -52,9 +52,11 @@ module Puffer
 
             self.class.instance_eval do
               define_method action do |&block|
+                @_super_fields = send("_#{action}_fields")
                 @_fields = send("_#{action}_fields=", Puffer::FieldSet.new(action))
                 block.call if block
                 remove_instance_variable :@_fields
+                remove_instance_variable :@_super_fields
               end
 
               define_method "#{action}_fields" do
@@ -78,7 +80,10 @@ module Puffer
 
         def field name, options = {}, &block
           field = @_fields.field(name, model, options, &block) if @_fields
-          #generate_association_actions field if field.reflection
+        end
+
+        def super_fields
+          @_super_fields.copy_to @_fields, model if @_super_fields && @_fields
         end
 
       end
