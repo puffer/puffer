@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{puffer}
-  s.version = "0.0.25"
+  s.version = "0.0.26"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{pyromaniac}]
-  s.date = %q{2011-09-09}
+  s.date = %q{2011-09-10}
   s.description = %q{In Soviet Russia puffer admins you}
   s.email = %q{kinwizard@gmail.com}
   s.extra_rdoc_files = [
@@ -137,6 +137,7 @@ Gem::Specification.new do |s|
     "spec/dummy/app/controllers/admin/posts_controller.rb",
     "spec/dummy/app/controllers/admin/profiles_controller.rb",
     "spec/dummy/app/controllers/admin/sessions_controller.rb",
+    "spec/dummy/app/controllers/admin/tagged_posts_controller.rb",
     "spec/dummy/app/controllers/admin/tags_controller.rb",
     "spec/dummy/app/controllers/admin/users_controller.rb",
     "spec/dummy/app/controllers/application_controller.rb",
@@ -148,6 +149,7 @@ Gem::Specification.new do |s|
     "spec/dummy/app/models/post_category.rb",
     "spec/dummy/app/models/profile.rb",
     "spec/dummy/app/models/tag.rb",
+    "spec/dummy/app/models/tagged_post.rb",
     "spec/dummy/app/models/tagging.rb",
     "spec/dummy/app/models/user.rb",
     "spec/dummy/app/views/layouts/application.html.erb",
