@@ -24,7 +24,7 @@ module Puffer
 
         included do
           initializer :"puffer.add_view_paths", :after => :add_view_paths do |app|
-            Puffer::Component::Base.prepend_view_path paths["app/components"].existent
+            Puffer::Component::Base.prepend_view_path paths["app/components"].existent if paths["app/components"]
           end
         end
       end
