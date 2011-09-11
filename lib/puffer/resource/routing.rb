@@ -19,7 +19,6 @@ module Puffer
       end
 
       def edit_url *args
-        p args
         suggest = args.shift if args.first.respond_to? :to_key
         edit_polymorphic_url *route_args(route_member(suggest), *args)
       end

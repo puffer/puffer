@@ -2,14 +2,13 @@ source "http://rubygems.org"
 
 gem 'rails', '~> 3.1.0'
 gem 'kaminari'
-gem 'apotomo'
+gem 'orm_adapter'
 
 group :development, :test do
   gem "sqlite3"
   gem "mongoid"
   gem "bson_ext"
 
-  gem 'orm_adapter'
 
   gem "rspec-rails"
   gem "capybara"

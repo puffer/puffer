@@ -29,7 +29,7 @@ describe "Field" do
 
   it "#column" do
     field = Puffer::Field.new 'user.profile.name', Post
-    field.column.name.should == 'name'
+    field.name.should == 'name'
     field = Puffer::Field.new 'user.full_name', Post
     field.column.should == nil
   end
