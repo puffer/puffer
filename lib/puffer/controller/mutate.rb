@@ -1,26 +1,27 @@
 module Puffer
   module Controller
     module Mutate
+      extend ActiveSupport::Concern
 
-      def self.included base
-        base.class_eval do
-          extend ClassMethods
-          include InstanceMethods
-
-          layout 'puffer'
-          helper :puffer
-          helper_method :puffer?, :namespace
-        end
+      included do
+        layout 'puffer'
+        helper :puffer
+        delegate :namespace, :model, :model_name, :to => 'self.class'
+        helper_method :namespace, :resource, :record, :records
       end
 
       module InstanceMethods
 
-        def puffer?
-          self.class.puffer?
+        def resource
+          @resource ||= Puffer::Resource.new params, self
         end
 
-        def namespace
-          self.class.namespace
+        def record
+          @record || instance_variable_get("@#{resource.model_name}")
+        end
+
+        def records
+          @records || instance_variable_get("@#{resource.model_name.pluralize}")
         end
 
       end

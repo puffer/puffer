@@ -6,6 +6,8 @@ gem 'apotomo'
 
 group :development, :test do
   gem "sqlite3"
+  gem "mongoid"
+  gem "bson_ext"
 
   gem "rspec-rails"
   gem "capybara"

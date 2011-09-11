@@ -12,6 +12,8 @@ module Puffer
     # handling and component state changing
     class Base < AbstractController::Base
 
+      abstract!
+
       module ComponentHelper
         def component_wrap name = :span, options = {}, &block
           content_tag name, options.merge(:id => component_id), &block
@@ -28,21 +30,19 @@ module Puffer
         end
       end
 
-      module SingletonMethods
+      module ClassMethods
         def render_component parent_controller, field, context, *args
           klass = "#{field.type}_component".camelize.constantize rescue StringComponent
           component = klass.new field
           component.process parent_controller, context, *args
         end
-      end
 
-      module ClassMethods
         def controller_path
           @controller_path ||= name.sub(/Component$/, '').underscore unless anonymous?
         end
       end
 
-      abstract!
+      extend ClassMethods
 
       include AbstractController::Rendering
       include AbstractController::Helpers
@@ -53,9 +53,6 @@ module Puffer
       include ActionController::RequestForgeryProtection
       include ActionController::UrlFor
       include Rails.application.routes.url_helpers
-
-      extend SingletonMethods
-      extend ClassMethods
 
       helper ComponentHelper, PufferHelper
 

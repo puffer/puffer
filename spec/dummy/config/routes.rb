@@ -28,4 +28,8 @@ Dummy::Application.routes.draw do
     resources :news
   end
 
+  namespace :orms do
+    resources :mongoid_tests
+  end
+
 end

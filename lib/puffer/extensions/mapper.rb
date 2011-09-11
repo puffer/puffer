@@ -1,13 +1,11 @@
 module Puffer
   module Extensions
     module Mapper
+      extend ActiveSupport::Concern
 
-      def self.included base
-        base.class_eval do
-          include InstanceMethods
-          alias_method_chain :resource, :puffer
-          alias_method_chain :resources, :puffer
-        end
+      included do
+        alias_method_chain :resource, :puffer
+        alias_method_chain :resources, :puffer
       end
 
       module InstanceMethods

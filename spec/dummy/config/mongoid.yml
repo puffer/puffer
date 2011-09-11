@@ -1,0 +1,11 @@
+development:
+  host: localhost
+  database: puffer_development
+
+test:
+  host: localhost
+  database: puffer_test
+
+production:
+  host: localhost
+  database: puffer_development

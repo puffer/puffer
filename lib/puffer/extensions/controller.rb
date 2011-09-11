@@ -5,27 +5,19 @@ module Puffer
         extend ActiveSupport::Concern
 
         included do
-          extend ClassMethods
-
-          helper_method :puffer?, :render_component
+          delegate :puffer?, :to => 'self.class'
+          helper_method :puffer?
         end
 
         module ClassMethods
-          def puffer?; false; end
+          def puffer?
+            false
+          end
 
           def pufferize!
             include Puffer::Controller::Mutate
-            include Puffer::Controller::Helpers
             include Puffer::Controller::Dsl
             include Puffer::Controller::Config
-          end
-        end
-
-        module InstanceMethods
-          def puffer?; false; end
-
-          def render_component *args
-            Puffer::Component::Base.render_component self, *args
           end
         end
 

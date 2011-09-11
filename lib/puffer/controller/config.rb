@@ -1,18 +1,14 @@
 module Puffer
   module Controller
     module Config
+      extend ActiveSupport::Concern
 
-      def self.included base
-        base.class_eval do
-          extend ClassMethods
-          include InstanceMethods
+      included do
+        puffer_class_attribute :group
+        puffer_class_attribute :model_name
+        puffer_class_attribute :destroy, true
 
-          puffer_class_attribute :group
-          puffer_class_attribute :model_name
-          puffer_class_attribute :destroy, true
-
-          helper_method :configuration
-        end
+        helper_method :configuration
       end
 
       module InstanceMethods
