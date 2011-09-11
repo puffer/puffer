@@ -92,6 +92,7 @@ GEM
       railties (>= 3.0.0)
     nokogiri (1.5.0)
     onfire (0.2.0)
+    orm_adapter (0.0.5)
     polyglot (0.3.2)
     rack (1.3.2)
     rack-cache (1.0.3)
@@ -170,6 +171,7 @@ DEPENDENCIES
   libnotify
   mongoid
   nested_set
+  orm_adapter
   rails (~> 3.1.0)
   rspec-rails
   sqlite3

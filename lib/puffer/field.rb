@@ -83,11 +83,11 @@ module Puffer
     end
 
     def column
-      @column ||= model && model.columns_hash[name]
+      @column ||= model && model.to_adapter.columns_hash[name]
     end
 
     def column_type
-      column.type if column
+      column[:type] if column
     end
 
     def query_column

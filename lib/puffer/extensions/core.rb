@@ -1,6 +1,12 @@
 module Puffer
   module Extensions
 
+    module Object
+      def call_chain chain
+        swallow_nil{instance_eval(chain.to_s)}
+      end
+    end
+
     module String
       def singular?
         self.singularize == self
@@ -37,6 +43,7 @@ module Puffer
   end
 end
 
+Object.send :include, Puffer::Extensions::Object
 String.send :include, Puffer::Extensions::String
 Symbol.send :include, Puffer::Extensions::Symbol
 Array.send :include, Puffer::Extensions::Array

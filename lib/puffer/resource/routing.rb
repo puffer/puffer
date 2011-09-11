@@ -10,7 +10,7 @@ module Puffer
       end
 
       def member_url *args
-        suggest = args.shift if args.first.is_a? ActiveRecord::Base
+        suggest = args.shift if args.first.respond_to? :to_key
         polymorphic_url *route_args(route_member(suggest), *args)
       end
 
@@ -19,7 +19,8 @@ module Puffer
       end
 
       def edit_url *args
-        suggest = args.shift if args.first.is_a? ActiveRecord::Base
+        p args
+        suggest = args.shift if args.first.respond_to? :to_key
         edit_polymorphic_url *route_args(route_member(suggest), *args)
       end
 

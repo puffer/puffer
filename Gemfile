@@ -9,6 +9,8 @@ group :development, :test do
   gem "mongoid"
   gem "bson_ext"
 
+  gem 'orm_adapter'
+
   gem "rspec-rails"
   gem "capybara"
   gem 'database_cleaner'

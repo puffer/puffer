@@ -1,6 +1,12 @@
 require 'kaminari'
 
-require 'puffer/extensions/activerecord'
+require 'orm_adapter'
+require 'puffer/orm_adapter/base'
+require 'puffer/orm_adapter/active_record' if defined?(ActiveRecord::Base::OrmAdapter)
+require 'puffer/orm_adapter/mongoid' if defined?(Mongoid::Document::OrmAdapter)
+#require 'puffer/orm_adapter/data_mapper' if defined?(DataMapper::Resource::OrmAdapter)
+#require 'puffer/orm_adapter/mongo_mapper' if defined?(MongoMapper::Document::OrmAdapter)
+
 require 'puffer/extensions/controller'
 require 'puffer/extensions/core'
 require 'puffer/extensions/mapper'
@@ -35,6 +41,7 @@ module Puffer
     map_component :has_many, :has_and_belongs_to_many, :to => :ReferencesManyComponent
     map_component :date, :time, :datetime, :timestamp, :to => :DateTimeComponent
     map_component :integer, :decimal, :to => :StringComponent
+    map_component :array, :decimal, :to => :StringComponent
   end
 
 end

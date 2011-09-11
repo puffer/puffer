@@ -106,12 +106,12 @@ module Puffer
     def member
       if parent
         if plural?
-          parent.member.send(model_name.pluralize).find params[:id]
+          parent.member.send(model_name.pluralize).find params[:id] if params[:id]
         else
           parent.member.send(model_name)
         end
       else
-        model.find params[:id]
+        model.find params[:id] if params[:id]
       end
     end
 

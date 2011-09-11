@@ -14,7 +14,7 @@ module Puffer
     end
 
     def searchable
-      @searchable ||= map { |f| f if f.column && [:text, :string, :integer, :decimal, :float].include?(f.column.type) }.compact
+      @searchable ||= map { |f| f if f.column && [:text, :string, :integer, :decimal, :float].include?(f.column_type) }.compact
     end
 
     def searches query
