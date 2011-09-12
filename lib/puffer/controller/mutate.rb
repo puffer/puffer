@@ -6,11 +6,15 @@ module Puffer
       included do
         layout 'puffer'
         helper :puffer
-        delegate :namespace, :model, :model_name, :to => 'self.class'
+        delegate :model, :model_name, :to => 'self.class'
         helper_method :namespace, :resource, :record, :records
       end
 
       module InstanceMethods
+
+        def namespace
+          params[:namespace] || self.class.namespace
+        end
 
         def resource
           @resource ||= Puffer::Resource.new params, self
