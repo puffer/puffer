@@ -5,9 +5,8 @@ class Puffer::PufferUser < ActiveRecord::Base
   
   has_secure_password
 
-  validates :email, :uniqueness => true
-  validates :password, :presence => true, :on => :create
-  validates :password, :confirmation => true
+  validates :email, :uniqueness => true, :presence => true
+  validates :password, :presence => true, :length => {:minimum => 6}, :on => :create
 
   def roles= value
     value = value.split(',').map(&:strip).map(&:presence) if value.is_a?(String)
@@ -19,7 +18,7 @@ class Puffer::PufferUser < ActiveRecord::Base
   end
 
   def has_role? role
-    roles.roles_array.include?(role.to_s)
+    roles_array.include?(role.to_s)
   end
 
 end

@@ -10,6 +10,7 @@ class Admin::SessionsController < Puffer::SessionsBase
       session[:puffer_user_id] = @record.id
       redirect_to admin_root_url
     else
+      @record = PufferUser.new :email => params[:puffer_user][:email]
       render 'new'
     end
   end
@@ -18,5 +19,5 @@ class Admin::SessionsController < Puffer::SessionsBase
     session.delete(:puffer_user_id)
     redirect_to new_admin_session_url
   end
-  
+
 end

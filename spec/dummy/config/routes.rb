@@ -26,6 +26,7 @@ Dummy::Application.routes.draw do
       resources :posts
     end
     resources :news
+    resources :puffer_users
   end
 
   namespace :orms do
