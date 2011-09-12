@@ -18,6 +18,7 @@ module Puffer
             include Puffer::Controller::Mutate
             include Puffer::Controller::Dsl
             include Puffer::Controller::Config
+            include Puffer::Controller::Auth
           end
         end
 

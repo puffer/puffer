@@ -1,8 +1,10 @@
 module Puffer
   class Base < ApplicationController
     unloadable
-
     pufferize!
+
+    before_filter :require_puffer_user
+
     define_fieldset :index, :form
     define_fieldset :show, :fallbacks => :index
     define_fieldset :create, :update, :fallbacks => :form

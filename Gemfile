@@ -9,6 +9,7 @@ group :development, :test do
   gem "mongoid"
   gem "bson_ext"
 
+  gem 'devise'
 
   gem "rspec-rails"
   gem "capybara"
