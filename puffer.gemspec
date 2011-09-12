@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{puffer}
-  s.version = "0.0.28"
+  s.version = "0.0.29"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{pyromaniac}]
-  s.date = %q{2011-09-11}
+  s.date = %q{2011-09-12}
   s.description = %q{In Soviet Russia puffer admins you}
   s.email = %q{kinwizard@gmail.com}
   s.extra_rdoc_files = [
@@ -65,13 +65,18 @@ Gem::Specification.new do |s|
     "app/components/text/form.html.erb",
     "app/components/text_component.rb",
     "app/controllers/admin/dashboard_controller.rb",
+    "app/controllers/admin/puffer_users_controller.rb",
     "app/controllers/admin/sessions_controller.rb",
     "app/controllers/puffer/base.rb",
     "app/controllers/puffer/dashboard_base.rb",
+    "app/controllers/puffer/puffer_users_base.rb",
     "app/controllers/puffer/sessions_base.rb",
+    "app/controllers/puffer/sessions_devise_base.rb",
     "app/controllers/puffer/tree_base.rb",
     "app/helpers/puffer_helper.rb",
     "app/helpers/puffer_tree_helper.rb",
+    "app/models/puffer/puffer_user.rb",
+    "app/models/puffer_user.rb",
     "app/views/layouts/puffer.html.erb",
     "app/views/layouts/puffer_base.html.erb",
     "app/views/layouts/puffer_dashboard.html.erb",
@@ -89,6 +94,7 @@ Gem::Specification.new do |s|
     "app/views/puffer/tree_base/tree.html.erb",
     "config/locales/puffer.yml",
     "config/routes.rb",
+    "db/migrate/20110912095647_create_puffer_users.rb",
     "lib/generators/puffer/component/USAGE",
     "lib/generators/puffer/component/component_generator.rb",
     "lib/generators/puffer/component/templates/component.rb",
@@ -99,6 +105,7 @@ Gem::Specification.new do |s|
     "lib/puffer.rb",
     "lib/puffer/component.rb",
     "lib/puffer/controller/actions.rb",
+    "lib/puffer/controller/auth.rb",
     "lib/puffer/controller/config.rb",
     "lib/puffer/controller/dsl.rb",
     "lib/puffer/controller/mutate.rb",
@@ -137,7 +144,6 @@ Gem::Specification.new do |s|
     "spec/dummy/app/controllers/admin/news_controller.rb",
     "spec/dummy/app/controllers/admin/posts_controller.rb",
     "spec/dummy/app/controllers/admin/profiles_controller.rb",
-    "spec/dummy/app/controllers/admin/sessions_controller.rb",
     "spec/dummy/app/controllers/admin/tagged_posts_controller.rb",
     "spec/dummy/app/controllers/admin/tags_controller.rb",
     "spec/dummy/app/controllers/admin/users_controller.rb",
@@ -165,11 +171,13 @@ Gem::Specification.new do |s|
     "spec/dummy/config/environments/production.rb",
     "spec/dummy/config/environments/test.rb",
     "spec/dummy/config/initializers/backtrace_silencers.rb",
+    "spec/dummy/config/initializers/devise.rb",
     "spec/dummy/config/initializers/inflections.rb",
     "spec/dummy/config/initializers/mime_types.rb",
     "spec/dummy/config/initializers/secret_token.rb",
     "spec/dummy/config/initializers/session_store.rb",
     "spec/dummy/config/initializers/wrap_parameters.rb",
+    "spec/dummy/config/locales/devise.en.yml",
     "spec/dummy/config/locales/en.yml",
     "spec/dummy/config/mongoid.yml",
     "spec/dummy/config/routes.rb",
@@ -182,6 +190,7 @@ Gem::Specification.new do |s|
     "spec/dummy/db/migrate/20101011160326_create_taggings.rb",
     "spec/dummy/db/migrate/20110107082706_create_friendships.rb",
     "spec/dummy/db/migrate/20110301072545_create_news.rb",
+    "spec/dummy/db/migrate/20110912114129_create_puffer_users.rb",
     "spec/dummy/db/schema.rb",
     "spec/dummy/db/seeds.rb",
     "spec/dummy/public/404.html",
@@ -221,6 +230,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<sqlite3>, [">= 0"])
       s.add_development_dependency(%q<mongoid>, [">= 0"])
       s.add_development_dependency(%q<bson_ext>, [">= 0"])
+      s.add_development_dependency(%q<devise>, [">= 0"])
       s.add_development_dependency(%q<rspec-rails>, [">= 0"])
       s.add_development_dependency(%q<capybara>, [">= 0"])
       s.add_development_dependency(%q<database_cleaner>, [">= 0"])
@@ -238,6 +248,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<sqlite3>, [">= 0"])
       s.add_dependency(%q<mongoid>, [">= 0"])
       s.add_dependency(%q<bson_ext>, [">= 0"])
+      s.add_dependency(%q<devise>, [">= 0"])
       s.add_dependency(%q<rspec-rails>, [">= 0"])
       s.add_dependency(%q<capybara>, [">= 0"])
       s.add_dependency(%q<database_cleaner>, [">= 0"])
@@ -256,6 +267,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<sqlite3>, [">= 0"])
     s.add_dependency(%q<mongoid>, [">= 0"])
     s.add_dependency(%q<bson_ext>, [">= 0"])
+    s.add_dependency(%q<devise>, [">= 0"])
     s.add_dependency(%q<rspec-rails>, [">= 0"])
     s.add_dependency(%q<capybara>, [">= 0"])
     s.add_dependency(%q<database_cleaner>, [">= 0"])
