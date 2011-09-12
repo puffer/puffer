@@ -1,3 +1,6 @@
+# Puffer::SessionsBase is a base class for any Admin::SessionsController
+# implementation by default implemented basic auth through PufferUser.
+# See Puffer::SessionsDeviseBase for alternative implementation example.
 class Puffer::SessionsBase < ApplicationController
   unloadable
   pufferize!
