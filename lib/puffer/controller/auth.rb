@@ -10,7 +10,7 @@ module Puffer
       module InstanceMethods
 
         def current_puffer_user
-          @current_puffer_user ||= super rescue PufferUser.find(session[:puffer_user_id]) if session[:puffer_user_id]
+          @current_puffer_user ||= super rescue (PufferUser.find(session[:puffer_user_id]) if session[:puffer_user_id])
         end
 
         def require_puffer_user
