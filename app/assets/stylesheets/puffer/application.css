@@ -4,4 +4,5 @@
  *= require puffer/paginator
  *= require puffer/puffer
  *= require puffer/puffer_tree
+ *= require puffer/custom
  */

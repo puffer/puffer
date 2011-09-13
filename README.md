@@ -2,6 +2,10 @@
 
 Puffer was created to help a project owner or moderators view and edit all the project's data models. It's compatible with Rails 3.1 only.
 
+## Discussion and help
+
+puffer@conference.jabber.org
+
 ## Key features
 
 * Full Rails integration. Puffer has no configuration, just a DSL to create interfaces. And this DSL depends on Rails conventions.

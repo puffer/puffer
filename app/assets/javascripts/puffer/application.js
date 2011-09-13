@@ -6,3 +6,4 @@
 //= require puffer/paginator
 //= require puffer/rails
 //= require puffer/puffer
+//= require puffer/custom
