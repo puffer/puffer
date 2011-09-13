@@ -1,10 +1,10 @@
 # Puffer - YARAI (Yet Another Rails Admin Interface). Rails 3.1 only.
 
-Puffer was created to help project owner or moderators view and edit all the project`s data models. It is rails 3.1 only
+Puffer was created to help a project owner or moderators view and edit all the project's data models. It's compatible with Rails 3.1 only.
 
-## Keyfeatures
+## Key features
 
-* Full rails integration. Puffer has no configs, just DSL to create interfaces. And this DSL depends on rails convensions.
+* Full Rails integration. Puffer has no configuration, just a DSL to create interfaces. And this DSL depends on Rails conventions.
 * Flexibility. Puffer designed to be as flexible as possible, so you can create your own modules easily.
 * I18n. Surely.
 * Bla bla
@@ -12,15 +12,15 @@ Puffer was created to help project owner or moderators view and edit all the pro
 ## Installation.
 
 You can instal puffer as a gem:
-<pre>gem install puffer</pre>
+`gem install puffer`
 Or in Gemfile:
-<pre>gem "puffer"</pre>
+`gem "puffer"`
 
 ## Introduction.
 
-So, you have some data structure of your project. Let it`ll be like this:
+Let's assume this is the data structure of your project:
 
-<pre>
+```
 create_table "users", :force => true do |t|
   t.string   "email"
   t.string   "password"
@@ -35,32 +35,30 @@ create_table "posts", :force => true do |t|
   t.datetime "created_at"
   t.datetime "updated_at"
 end
-</pre>
+```
 
-Also, you have two models:
+And let's also assume your models look like this:
 
-<pre>
-class User &lt; ActiveRecord::Base
+```
+class User < ActiveRecord::Base
   has_many :posts
   validates_presence_of :email, :password
   validates_length_of :password, :minimum => 6
 end
-</pre>
 
-<pre>
-class Profile &lt; ActiveRecord::Base
+class Profile < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :name, :surname
 end
-</pre>
+```
 
-At first, lets generate puffers controllers:
-<pre>rails g puffer:controller User</pre>
+First, let's generate Puffer controllers:
+`rails g puffer:controller User`
 and
-<pre>rails g puffer:controller Post</pre>
+`rails g puffer:controller Post`
 
-This will generate a kind of:
-<pre>
+This will generate this:
+```
 class Admin::PostsController &lt; Puffer::Base
   setup do
     group :posts
@@ -85,36 +83,34 @@ class Admin::PostsController &lt; Puffer::Base
   end
 
 end
-</pre>
+```
 
-Puffer controller`s DSL creates all the actions we need. Next step - routing
+Puffer's controller DSL creates all the actions you need. Next step: routing.
 
-<pre>
+```
 namespace :admin
   resources :users do
     resources :posts
   end
   resources :posts
 end
-</pre>
+```
 
-Let me explain this feature. Puffer tracks all the nested resources. So, with this routing structure we can access, for example, only specified user`s posts:
+Let me explain this feature. Puffer tracks all the nested resources. So, with this routing structure we can access, for example, only specified user's posts:
 
-<pre>
-/admin/users/1/post
-</pre>
+`/admin/users/1/post`
 
 Routing nesting defines admin interface resources nesting.
 
 ## Advanced usage
 
-Puffer can be used in other namespaces, then admin:
+Puffer can be used in other namespaces than admin:
 
-<pre>rails g puffer:controller moderator/posts</pre>
+`rails g puffer:controller moderator/posts`
 
-And we`ll get posts controller for moderator:
+And we'll get posts controller for moderators:
 
-<pre>
+```
 class Moderator::PostsController &lt; Puffer::Base
   before_filter :require_moderator
 
@@ -137,14 +133,14 @@ class Moderator::PostsController &lt; Puffer::Base
     field :updated_at
   end
 end
-</pre>
+```
 
-As you can see, moderators can not destroy posts, also moderator`s posts controller placed at Posting tab of admin interface.
-And don`t forget about routing:
+As you can see, moderators can't destroy posts. The moderator's post controller is placed in the Posting tab of the admin interface.
 
-<pre>
+Finally, don't forget about routing:
+
+```
 namespace :moderator do
   resources :posts
 end
-</pre>
-
+```
