@@ -12,8 +12,11 @@ Puffer was created to help a project owner or moderators view and edit all the p
 ## Installation.
 
 You can instal puffer as a gem:
+
 `gem install puffer`
+
 Or in Gemfile:
+
 `gem "puffer"`
 
 ## Introduction.
@@ -53,13 +56,17 @@ end
 ```
 
 First, let's generate Puffer controllers:
+
 `rails g puffer:controller User`
+
 and
+
 `rails g puffer:controller Post`
 
 This will generate this:
+
 ```
-class Admin::PostsController &lt; Puffer::Base
+class Admin::PostsController < Puffer::Base
   setup do
     group :posts
   end
@@ -111,7 +118,7 @@ Puffer can be used in other namespaces than admin:
 And we'll get posts controller for moderators:
 
 ```
-class Moderator::PostsController &lt; Puffer::Base
+class Moderator::PostsController < Puffer::Base
   before_filter :require_moderator
 
   setup do
