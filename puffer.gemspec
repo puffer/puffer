@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{pyromaniac}]
-  s.date = %q{2011-09-12}
+  s.date = %q{2011-09-14}
   s.description = %q{In Soviet Russia puffer admins you}
   s.email = %q{kinwizard@gmail.com}
   s.extra_rdoc_files = [
@@ -98,7 +98,6 @@ Gem::Specification.new do |s|
     "lib/generators/puffer/component/USAGE",
     "lib/generators/puffer/component/component_generator.rb",
     "lib/generators/puffer/component/templates/component.rb",
-    "lib/generators/puffer/component/templates/component_spec.rb",
     "lib/generators/puffer/controller/USAGE",
     "lib/generators/puffer/controller/controller_generator.rb",
     "lib/generators/puffer/controller/templates/controller.rb",
@@ -112,6 +111,7 @@ Gem::Specification.new do |s|
     "lib/puffer/engine.rb",
     "lib/puffer/extensions/controller.rb",
     "lib/puffer/extensions/core.rb",
+    "lib/puffer/extensions/directive_processor.rb",
     "lib/puffer/extensions/engine.rb",
     "lib/puffer/extensions/form.rb",
     "lib/puffer/extensions/mapper.rb",
