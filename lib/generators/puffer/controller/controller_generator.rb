@@ -15,7 +15,7 @@ private
   end
 
   def attributes
-    @model_name.constantize.columns.map(&:name)
+    @model_name.constantize.to_adapter.column_names
   end
 
 end

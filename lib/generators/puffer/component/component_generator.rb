@@ -5,7 +5,6 @@ class Puffer::ComponentGenerator < Rails::Generators::NamedBase
     @name = name.underscore
 
     template 'component.rb', "app/components/#{@name}_component.rb"
-    template 'component_spec.rb', "spec/app/components/#{@name}_component_spec.rb"
   end
 
   def generate_views

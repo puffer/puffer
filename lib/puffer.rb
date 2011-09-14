@@ -11,6 +11,7 @@ require 'puffer/extensions/controller'
 require 'puffer/extensions/core'
 require 'puffer/extensions/mapper'
 require 'puffer/extensions/form'
+require 'puffer/extensions/directive_processor'
 require 'puffer/extensions/engine'
 require 'puffer/engine'
 
