@@ -1,189 +1,112 @@
 module Puffer
   module Extensions
+    # Extends rails mapper to provide resources nesting tree structure with
+    # request params. Route defaults contains <tt>:puffer</tt> key with node
+    # index in resources tree nodes array. See <tt>Puffer::Resource::Tree</tt>
+    # 
+    # Resource tree depends on routes resources nesting.
+    #
+    # ex:
+    #   
+    #   namespace :admin do
+    #     resources :users do
+    #       resource :profile
+    #       resources :articles
+    #     end
+    #     resources :orders
+    #   end
+    #
+    # will produce:
+    #
+    #   [
+    #     {:namespace => 'admin', :current => :users, :children => [:profile, :articles], :ancestors => []},
+    #     {:namespace => 'admin', :current => :profile, :children => [], :ancestors => [:users]},
+    #     {:namespace => 'admin', :current => :articles, :children => [], :ancestors => [:users]},
+    #     {:namespace => 'admin', :current => :orders, :children => [], :ancestors => []},
+    #   ]
+    # 
+    # a complete tree structure with nodes array to acces with node index
+    # (<tt>Puffer::Resource::Tree#to_struct</tt>).
+    #
+    # Also this mapper extension adds come aaditional routes for every pufer
+    # controller and namespace.
     module Mapper
       extend ActiveSupport::Concern
 
       included do
-        alias_method_chain :resource, :puffer
-        alias_method_chain :resources, :puffer
+        alias_method_chain :namespace, :puffer
+        alias_method_chain :resource_scope, :puffer
       end
 
       module InstanceMethods
 
-        def resource_with_puffer *resources, &block
-          puffer_resource(*Marshal.load(Marshal.dump(resources)), &block) || resource_without_puffer(*resources, &block)
-        end
+        def namespace_with_puffer path, options = {}
+          namespace_without_puffer path, options do
+            yield
 
-        def resources_with_puffer *resources, &block
-          puffer_resources(*Marshal.load(Marshal.dump(resources)), &block) || resources_without_puffer(*resources, &block)
-        end
-
-        def puffer_controller controller
-          if controller.configuration.group
-            puffer = ::Rails.application.routes.puffer
-            namespace = @scope[:module]
-
-            unless puffer[namespace]
-              @scope[:module] = 'admin'
-              root :to => 'dashboard#index', :namespace => namespace
-              @scope[:module] = namespace
+            if ::Rails.application.routes.resources_tree.any? {|node| node.namespace == @scope[:module].to_sym}
+              old, @scope[:module] = @scope[:module], 'admin'
+              root :to => 'dashboard#index'
+              @scope[:module] = old
             end
-
-            puffer[namespace] ||= ActiveSupport::OrderedHash.new
-            puffer[namespace][controller.configuration.group] ||= []
-            puffer[namespace][controller.configuration.group] << controller
           end
         end
 
-        def puffer_resource(*resources, &block)
-          options = resources.extract_options!
-
-          if apply_common_behavior_for(:resource, resources, options, &block)
-            return self
-          end
-
-          resource = ActionDispatch::Routing::Mapper::Resources::SingletonResource.new(resources.pop, options)
+        def resource_scope_with_puffer resource, &block
           controller = "#{[@scope[:module], resource.controller].compact.join("/")}_controller".camelize.constantize rescue nil
+          if controller && controller.puffer?
+            singular = resource.is_a? ActionDispatch::Routing::Mapper::Resources::SingletonResource
+            name = (singular ? resource.singular : resource.plural).to_sym
 
-          return if controller.nil? || (controller && !controller.puffer?)
+            resource_node = ::Rails.application.routes.resources_tree.append_node swallow_nil{@scope[:defaults][:puffer]},
+              :name => name, :namespace => @scope[:module].to_sym, :controller => controller, :singular => singular
 
-          @scope[:ancestors] ||= []
-          @scope[:children] ||= []
+            defaults :puffer => resource_node do
+              resource_scope_without_puffer resource do
+                block.call if block
 
-          puffer_controller controller if @scope[:ancestors] == []
+                member do
+                  controller._members.each do |action|
+                    send *action.route
+                  end
+                end
 
-          resource_scope(resource) do
-            siblings = @scope[:children].dup
-            @scope[:children] = []
-            @scope[:ancestors].push resource.singular.to_sym
-
-            yield if block_given?
-
-            @scope[:ancestors].pop
-            options = {:plural => false, :ancestors => @scope[:ancestors].dup, :children => @scope[:children].dup}
-            siblings.push resource.singular.to_sym
-            @scope[:children] = siblings
-
-            collection do
-              get  '/event/:fieldset/:field/:event(/:identifer)', options.merge(:action => :event, :as => :event)
-              post :create, options
-              controller._collections.each do |action|
-                opts = action.route.extract_options!.dup
-                action.route.push options.reverse_merge(opts)
-                send *action.route
+                collection do
+                  controller._collections.each do |action|
+                    send *action.route
+                  end
+                  get '/event/:fieldset/:field/:event(/:identifer)', :action => :event, :as => :event
+                end
               end
             end
-
-            new do
-              get :new, options
-            end
-
-            member do
-              get    :edit, options
-              get    :show, options
-              put    :update, options
-              delete :destroy, options
-              controller._members.each do |action|
-                opts = action.route.extract_options!.dup
-                action.route.push options.reverse_merge(opts)
-                send *action.route
-              end
-            end
-
+          else
+            resource_scope_without_puffer resource, &block
           end
-
-          self
-        end
-
-        def puffer_resources(*resources, &block)
-          options = resources.extract_options!
-
-          if apply_common_behavior_for(:resources, resources, options, &block)
-            return self
-          end
-
-          resource = ActionDispatch::Routing::Mapper::Resources::Resource.new(resources.pop, options)
-          controller = "#{[@scope[:module], resource.controller].compact.join("/")}_controller".camelize.constantize rescue nil
-
-          return if controller.nil? || (controller && !controller.puffer?)
-
-          @scope[:ancestors] ||= []
-          @scope[:children] ||= []
-
-          puffer_controller controller if @scope[:ancestors] == []
-
-          resource_scope(resource) do
-            siblings = @scope[:children].dup
-            @scope[:children] = []
-            @scope[:ancestors].push resource.plural.to_sym
-
-            yield if block_given?
-
-            @scope[:ancestors].pop
-            options = {:plural => true, :ancestors => @scope[:ancestors].dup, :children => @scope[:children].dup}
-            siblings.push resource.plural.to_sym
-            @scope[:children] = siblings
-
-
-            collection do
-              get  :index, options
-              get  '/event/:fieldset/:field/:event(/:identifer)', options.merge(:action => :event, :as => :event)
-              post :create, options
-              controller._collections.each do |action|
-                opts = action.route.extract_options!.dup
-                action.route.push options.reverse_merge(opts)
-                send *action.route
-              end
-            end
-
-            new do
-              get :new, options
-            end
-
-            member do
-              get    :edit, options
-              get    :show, options
-              put    :update, options
-              delete :destroy, options
-              controller._members.each do |action|
-                opts = action.route.extract_options!.dup
-                action.route.push options.reverse_merge(opts)
-                send *action.route
-              end
-            end
-          end
-
-          self
         end
 
       end
-
     end
 
     module RouteSet
+      extend ActiveSupport::Concern
 
-      def self.included base
-        base.class_eval do
-          include InstanceMethods
+      included do
+        alias_method_chain :clear!, :puffer
+        attr_writer :resources_tree
 
-          alias_method_chain :clear!, :puffer
-          attr_writer :puffer
-
-          def puffer
-            @puffer ||= ActiveSupport::OrderedHash.new
-          end
+        def resources_tree
+          @resources_tree ||= Puffer::Resource::Tree.new
         end
       end
 
       module InstanceMethods
 
         def clear_with_puffer!
-          self.puffer = ActiveSupport::OrderedHash.new
+          @resources_tree = nil
           clear_without_puffer!
         end
 
       end
-
     end
 
   end

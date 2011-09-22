@@ -1,6 +1,6 @@
 <% content_for :header do %>
   <ul class="namespaces">
-    <% puffer_namespaces do |title, path, current| %>
+    <% puffer_namespaces_navigation do |title, path, current| %>
       <li<%= raw(current ? ' class="selected"' : '') %>><%= link_to title, path %></li>
     <% end %>
   </ul>

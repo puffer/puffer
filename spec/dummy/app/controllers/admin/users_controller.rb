@@ -15,6 +15,7 @@ class Admin::UsersController < Puffer::Base
   index do
     field :email
     field :password, :type => :password
+    field :posts
   end
 
   form do

@@ -1,12 +1,12 @@
 <% content_for :header do %>
   <ul class="namespaces">
-    <% puffer_namespaces do |title, path, current| %>
-      <li<%= raw(current ? ' class="selected"' : '') %>><%= link_to title, path %></li>
+    <% puffer_namespaces_navigation do |title, path, current| %>
+      <li<%= raw(current ? ' class="selected"' : '') %>><%= link_to title.to_s.humanize, path %></li>
     <% end %>
   </ul>
   <ul class="navigation">
-    <% puffer_navigation do |title, path, current| %>
-      <li<%= raw(current ? ' class="selected"' : '') %>><%= link_to title, path %></li>
+    <% puffer_groups_navigation do |title, path, current| %>
+      <li<%= raw(current ? ' class="selected"' : '') %>><%= link_to title.to_s.humanize, path %></li>
     <% end %>
   </ul>
 <% end %>
@@ -16,7 +16,7 @@
     <div class="column sidebar">
       <div class="padder">
         <ul class="navigation">
-          <% sidebar_puffer_navigation do |title, path, current| %>
+          <% puffer_resources_navigation do |title, path, current| %>
             <li<%= raw(current ? ' class="selected"' : '') %>>
               <%= link_to title, path %>
               <% if current %>

@@ -15,7 +15,7 @@ module Puffer
       end
 
       def new_url *args
-        new_polymorphic_url *route_args(controller_name.singularize, *args)
+        new_polymorphic_url *route_args(name.to_s.singularize, *args)
       end
 
       def edit_url *args
@@ -25,12 +25,12 @@ module Puffer
 
       def route_args *args
         options = args.extract_options!
-        resource = args.shift
-        return args + [namespace] + ancestors.map(&:route_member) + [resource], options
+        resource = Array.wrap(args)
+        return [namespace] + ancestors.map(&:route_member) + resource, options
       end
 
       def route_member suggest = nil
-        plural? ? (suggest || member) : controller_name.singularize
+        plural? ? (suggest || member) : name.to_s.singularize
       end
 
       def default_url_options *args

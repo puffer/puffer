@@ -4,7 +4,7 @@ module Puffer
       extend ActiveSupport::Concern
 
       included do
-        puffer_class_attribute :group
+        puffer_class_attribute :group, :default
         puffer_class_attribute :model_name
         puffer_class_attribute :destroy, true
 

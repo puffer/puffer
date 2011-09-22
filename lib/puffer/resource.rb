@@ -11,53 +11,21 @@ module Puffer
     include Routing
     include Scoping
 
-    attr_reader :controller, :params, :namespace, :action, :controller_name, :model_name, :controller_class, :model
-    delegate :env, :request, :to => :controller, :allow_nil => true
+    attr_reader :resource_node, :params, :controller_instance
+    delegate :controller, :namespace, :name, :plural?, :to => :resource_node, :allow_nil => true
+    delegate :model, :to => :controller, :allow_nil => true
+    delegate :env, :request, :to => :controller_instance, :allow_nil => true
 
-    def initialize params, controller = nil
+    def initialize params, controller_instance = nil
       params = ActiveSupport::HashWithIndifferentAccess.new.deep_merge params
-      @action = params.delete :action
-      @controller_class = "#{params.delete :controller}_controller".camelize.constantize
-      @controller_name = controller_class.controller_name
-      @namespace = controller_class.namespace
-      @model_name = controller_class.model_name if controller_class.puffer?
-      @model = controller_class.model if controller_class.puffer?
-      @params = params
-      @controller = controller
-    end
 
-    def plural?
-      params[:plural]
+      @resource_node = params[:puffer]
+      @params = params
+      @controller_instance = controller_instance
     end
 
     def human
       model.model_name.human
-    end
-
-    def parent
-      @parent ||= begin
-        parent_ancestors = params[:ancestors].dup rescue []
-        parent_name = parent_ancestors.pop
-        if parent_name
-          parent_params = ActiveSupport::HashWithIndifferentAccess.new({
-            :controller => "#{namespace}/#{parent_name.to_s.pluralize}",
-            :action => 'index',
-            :plural => parent_name.plural?,
-            :ancestors => parent_ancestors,
-            :children => []
-          })
-
-          parent_ancestors.each do |ancestor|
-            key = ancestor.to_s.singularize.foreign_key
-            parent_params.merge! key => params[key] if params[key]
-          end
-          parent_params.merge! :id => params[parent_name.to_s.singularize.foreign_key]
-
-          self.class.new parent_params, controller
-        else
-          nil
-        end
-      end
     end
 
     def ancestors
@@ -75,28 +43,57 @@ module Puffer
       @root ||= (ancestors.first || self)
     end
 
-    def children(custom_params = {})
-      @children ||= params[:children].map do |child_name|
-        child_params = ActiveSupport::HashWithIndifferentAccess.new(custom_params.deep_merge({
-          :controller => "#{namespace}/#{child_name.to_s.pluralize}",
-          :action => 'index',
-          :plural => child_name.plural?,
-          :ancestors => params[:ancestors].dup.push((plural? ? controller_name : controller_name.singularize).to_sym),
-          :children => []
-        }))
+    def parent
+      @parent ||= begin
+        if resource_node.parent
+          parent_params = ActiveSupport::HashWithIndifferentAccess.new({:puffer => resource_node.parent})
 
-        params[:ancestors].each do |ancestor|
-          key = ancestor.to_s.singularize.foreign_key
-          child_params.merge! key => params[key] if params[key]
+          resource_node.ancestors[0..-2].each do |ancestor|
+            key = ancestor.to_s.singularize.foreign_key
+            parent_params[key] = params[key] if params[key]
+            key = key.gsub(/_id$/, '_member')
+            parent_params[key] = params[key] if params[key]
+          end
+
+          key = resource_node.parent.to_s.singularize.foreign_key
+          parent_params[:id] = params[key] if params[key]
+          key = key.gsub(/_id$/, '_member')
+          parent_params[:member] = params[key] if params[key]
+
+          self.class.new parent_params, controller_instance
         end
-        child_params.merge! controller_name.singularize.foreign_key => params[:id] if params[:id]
+      end
+    end
 
-        self.class.new child_params, controller
+    def children
+      @children ||= resource_node.children.map do |child_node|
+        child_params = ActiveSupport::HashWithIndifferentAccess.new({:puffer => child_node})
+
+        resource_node.ancestors.each do |ancestor|
+          key = ancestor.to_s.singularize.foreign_key
+          child_params[key] = params[key] if params[key]
+          key = key.gsub(/_id$/, '_member')
+          child_params[key] = params[key] if params[key]
+        end
+
+        key = resource_node.to_s.singularize.foreign_key
+        child_params[key] = params[:id] if params[:id]
+        key = key.gsub(/_id$/, '_member')
+        child_params[key] = params[:member] if params[:member]
+
+        self.class.new child_params, controller_instance
+      end
+    end
+
+    def children_hash
+      @children_hash ||= children.inject(ActiveSupport::HashWithIndifferentAccess.new) do |result, child|
+        result[child.name] = child
+        result
       end
     end
 
     def collection_scope
-      parent ? parent.member.send(model_name.pluralize) : model
+      parent ? parent.member.send(name) : model
     end
 
     def collection
@@ -104,11 +101,12 @@ module Puffer
     end
 
     def member
+      return params[:member] if params[:member]
       if parent
         if plural?
-          parent.member.send(model_name.pluralize).find params[:id] if params[:id]
+          parent.member.send(name).find params[:id] if params[:id]
         else
-          parent.member.send(model_name)
+          parent.member.send(name)
         end
       else
         model.find params[:id] if params[:id]
@@ -118,9 +116,9 @@ module Puffer
     def new_member
       if parent
         if plural?
-          parent.member.send(model_name.pluralize).new attributes
+          parent.member.send(name).new attributes
         else
-          parent.member.send("build_#{model_name}", attributes)
+          parent.member.send("build_#{name}", attributes)
         end
       else
         model.new attributes
@@ -128,7 +126,7 @@ module Puffer
     end
 
     def attributes
-      params[model_name]
+      params[name.to_s.singularize]
     end
 
     def method_missing method, *args, &block

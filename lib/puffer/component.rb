@@ -56,8 +56,8 @@ module Puffer
 
       helper ComponentHelper, PufferHelper
 
-      attr_accessor :parent_controller, :field, :opts, :identifer
-      delegate :env, :request, :params, :session, :resource, :_members, :_collections, :to => :parent_controller
+      attr_accessor :parent_controller, :field, :opts, :identifer, :resource
+      delegate :env, :request, :params, :session, :_members, :_collections, :to => :parent_controller
       helper_method :params, :session, :resource, :_members, :_collections, :parent_controller, :field, :opts, :identifer, :component_id, :event_url, :event_path, :record, :records
 
       def initialize field
@@ -73,6 +73,11 @@ module Puffer
 
       def send_action method_name, *args
         @opts = args.extract_options!
+        if @opts[:record]
+          @resource = Puffer::Resource.new(params.merge(:member => @opts[:record]), parent_controller)
+        else
+          @resource = parent_controller.resource
+        end
         send method_name, *args
       end
 
@@ -116,11 +121,11 @@ module Puffer
       end
 
       def record
-        @record || instance_variable_get("@#{resource.model_name}")
+        @record || instance_variable_get("@#{resource.name.singularize}")
       end
 
       def records
-        @records || instance_variable_get("@#{resource.model_name.pluralize}")
+        @records || instance_variable_get("@#{resource.name.pluralize}")
       end
 
       def component_id

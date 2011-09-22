@@ -7,13 +7,18 @@ module Puffer
         layout 'puffer'
         helper :puffer
         delegate :model, :model_name, :to => 'self.class'
-        helper_method :namespace, :resource, :record, :records
+        helper_method :puffer_namespace, :resource, :record, :records
       end
 
       module InstanceMethods
 
-        def namespace
-          params[:namespace] || self.class.namespace
+        def process_action method_name, *args
+          params[:puffer] = Rails.application.routes.resources_tree[params[:puffer]] if params[:puffer]
+          super
+        end
+
+        def puffer_namespace
+          resource.namespace
         end
 
         def resource
@@ -34,10 +39,6 @@ module Puffer
 
         def puffer?
           true
-        end
-
-        def namespace
-          to_s.underscore.split('/').first
         end
 
         def model_name
