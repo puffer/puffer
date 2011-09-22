@@ -45,9 +45,7 @@ module Puffer
     end
 
     def custom_type
-      return :select if options.key?(:select)
-      return :password if name =~ /password/
-      return reflection.macro if reflection
+      Puffer.field_type_for self
     end
 
     def reflection
@@ -59,7 +57,7 @@ module Puffer
     end
 
     def component_class
-      @component_class ||= Puffer::Component.component_for type
+      @component_class ||= Puffer.component_for type
     end
 
     def component

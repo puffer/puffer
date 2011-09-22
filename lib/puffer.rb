@@ -25,24 +25,77 @@ module Puffer
   
   module Component
     autoload :Base, 'puffer/component'
+  end
 
-    mattr_accessor :_mappings
-    self._mappings = {}
+  # Puffer has two types of mappings. If maps <tt>field.type</tt> to component
+  # class and also maps field attributes to <tt>field.type</tt>
+  mattr_accessor :_component_mappings
+  self._component_mappings = {}
 
-    def self.map_component *args
-      to = args.extract_options![:to]
-      args.each { |type| _mappings[type.to_sym] = to }
+  # Maps <tt>field.type</tt> to component class
+  #
+  # ex:
+  #
+  #   Puffer.map_component :ckeditor, :rich, :text, :to => CkeditorComponent
+  #
+  # this declaration maps even text fields to use <tt>CkeditorComponent</tt> for
+  # rendering
+  def self.map_component *args
+    to = args.extract_options![:to]
+    args.each { |type| _component_mappings[type.to_sym] = to }
+  end
+
+  def self.component_for type
+    (_component_mappings[type.to_sym] || "#{type}_component").to_s.camelize.constantize
+  end
+
+  map_component :belongs_to, :has_one, :to => :ReferencesOneComponent
+  map_component :has_many, :has_and_belongs_to_many, :to => :ReferencesManyComponent
+  map_component :date, :time, :datetime, :timestamp, :to => :DateTimeComponent
+  map_component :integer, :decimal, :to => :StringComponent
+  map_component :array, :decimal, :to => :StringComponent
+
+
+
+
+  mattr_accessor :_field_type_customs
+  self._field_type_customs = []
+
+
+  # Appends or prepends custom type.
+  #
+  # ex:
+  #
+  #   Puffer.append_custom_field_type :paperclip do |field|
+  #     field.model.respond_to?(:attachment_definitions)
+  #       && field.model.attachment_definitions.key?(:field.field_name.to_sym)
+  #   end
+  def self.prepend_custom_field_type custom_type, &block
+    _field_type_customs.shift [custom_type, block]
+  end
+
+  def self.append_custom_field_type custom_type, &block
+    _field_type_customs.push [custom_type, block]
+  end
+
+  def self.field_type_for field
+    custom_type = swallow_nil{_field_type_customs.detect {|(type, block)| block.call(field) }.first}
+    case custom_type
+    when Proc then
+      custom_type.call(field)
+    else
+      custom_type
     end
+  end
 
-    def self.component_for type
-      (_mappings[type.to_sym] || "#{type}_component").to_s.camelize.constantize
-    end
-
-    map_component :belongs_to, :has_one, :to => :ReferencesOneComponent
-    map_component :has_many, :has_and_belongs_to_many, :to => :ReferencesManyComponent
-    map_component :date, :time, :datetime, :timestamp, :to => :DateTimeComponent
-    map_component :integer, :decimal, :to => :StringComponent
-    map_component :array, :decimal, :to => :StringComponent
+  append_custom_field_type :select do |field|
+    field.options.key? :select
+  end
+  append_custom_field_type :password do |field|
+    field.name =~ /password/
+  end
+  append_custom_field_type(proc {|type| type.reflection.macro}) do |field|
+    field.reflection
   end
 
 end
