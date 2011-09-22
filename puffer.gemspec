@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{pyromaniac}]
-  s.date = %q{2011-09-14}
+  s.date = %q{2011-09-22}
   s.description = %q{In Soviet Russia puffer admins you}
   s.email = %q{kinwizard@gmail.com}
   s.extra_rdoc_files = [
@@ -54,6 +54,7 @@ Gem::Specification.new do |s|
     "app/components/password/form.html.erb",
     "app/components/password_component.rb",
     "app/components/references_many/form.html.erb",
+    "app/components/references_many/index.html.erb",
     "app/components/references_many_component.rb",
     "app/components/references_one/choose.html.erb",
     "app/components/references_one/form.html.erb",
@@ -121,8 +122,10 @@ Gem::Specification.new do |s|
     "lib/puffer/orm_adapter/base.rb",
     "lib/puffer/orm_adapter/mongoid.rb",
     "lib/puffer/resource.rb",
+    "lib/puffer/resource/node.rb",
     "lib/puffer/resource/routing.rb",
     "lib/puffer/resource/scoping.rb",
+    "lib/puffer/resource/tree.rb",
     "puffer.gemspec",
     "spec/app/components/base_component_spec.rb",
     "spec/app/components/boolean_component_spec.rb",
@@ -205,12 +208,13 @@ Gem::Specification.new do |s|
     "spec/fabricators/profiles_fabricator.rb",
     "spec/fabricators/tags_fabricator.rb",
     "spec/fabricators/users_fabricator.rb",
+    "spec/helpers/puffer_helper_spec.rb",
     "spec/integration/navigation_spec.rb",
     "spec/lib/component_spec.rb",
     "spec/lib/extensions/core_spec.rb",
     "spec/lib/fields_spec.rb",
-    "spec/lib/params_spec.rb",
     "spec/lib/resource/routing_spec.rb",
+    "spec/lib/resource/tree_spec.rb",
     "spec/lib/resource_spec.rb",
     "spec/puffer_spec.rb",
     "spec/spec_helper.rb"
