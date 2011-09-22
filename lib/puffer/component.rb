@@ -109,15 +109,15 @@ module Puffer
       end
 
       def event_url name, options = {}
-        resource.collection_url :event, (options || {}).merge(event_options(name))
+        resource.collection_url (options || {}).merge(event_options(name))
       end
 
       def event_path name, options = {}
-        resource.collection_path :event, (options || {}).merge(event_options(name))
+        resource.collection_path (options || {}).merge(event_options(name))
       end
 
       def event_options name
-        {:event => name, :field => field.to_s, :fieldset => field.field_set.name, :identifer => identifer}
+        {:action => :event, :event => name, :field => field.to_s, :fieldset => field.field_set.name, :identifer => identifer}
       end
 
       def record
