@@ -1,7 +1,19 @@
 class SelectComponent < BaseComponent
 
   def form
-    @options = case field.options[:select]
+    @options = select_options
+    super
+  end
+
+  def filter
+    @options = select_options
+    render
+  end
+
+private
+
+  def select_options
+    case field.options[:select]
       when Symbol then
         parent_controller.view_context.send field.options[:select]
       when Proc then
@@ -9,7 +21,6 @@ class SelectComponent < BaseComponent
       else
         field.options[:select]
     end
-    super
   end
 
 end

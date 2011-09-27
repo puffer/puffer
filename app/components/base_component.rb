@@ -9,7 +9,6 @@ class BaseComponent < Puffer::Component::Base
   end
 
   def filter
-
   end
 
 end

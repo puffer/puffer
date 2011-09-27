@@ -9,4 +9,8 @@ class ReferencesOneComponent < Puffer::Component::Base
     render
   end
 
+  def filter
+
+  end
+
 end

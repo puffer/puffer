@@ -7,5 +7,9 @@ class ReferencesManyComponent < Puffer::Component::Base
   def form
     render
   end
+
+  def filter
+
+  end
   
 end

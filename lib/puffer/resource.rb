@@ -97,7 +97,10 @@ module Puffer
     end
 
     def collection
-      collection_scope.includes(includes).where(searches(params[:search])).order(order).page(params[:page])
+      model.to_adapter.filter collection_scope, controller.index_fields,
+        :conditions => controller_instance.puffer_filters.conditions,
+        :search => controller_instance.puffer_filters.search,
+        :order => controller_instance.puffer_filters.order
     end
 
     def member

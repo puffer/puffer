@@ -12,7 +12,7 @@ module Puffer
     respond_to :html, :js
 
     def index
-      @records = resource.collection
+      @records = resource.collection.page(params[:page])
     end
 
     def show

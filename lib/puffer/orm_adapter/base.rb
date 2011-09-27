@@ -6,6 +6,10 @@ module Puffer
         raise NotSupportedError
       end
 
+      def filter scope, fields, options = {}
+        raise NotSupportedError
+      end
+
     end
   end
 end

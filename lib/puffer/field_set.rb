@@ -21,10 +21,6 @@ module Puffer
       searchable.map { |f| "#{f.query_column} like '%#{query}%'" if f.query_column.present? }.compact.join(' or ') if query
     end
 
-    def boolean
-      @boolean ||= reject { |f| f.type != :boolean }
-    end
-
     def includes
       @includes ||= map {|f| f.path unless f.native?}.compact.to_includes
     end

@@ -15,7 +15,7 @@
   <div class="columns">
     <div class="column sidebar">
       <div class="padder">
-        <ul class="navigation">
+        <ul class="navigation"> 
           <% puffer_resources_navigation do |title, path, current| %>
             <li<%= raw(current ? ' class="selected"' : '') %>>
               <%= link_to title, path %>
@@ -34,19 +34,18 @@
                         <% end %>
                       </p>
                     </dd>
-                    <dt>Search</dt>
-                    <dd>
-                      <%= form_tag resource.collection_path, {:method => :get} do %>
-                        <%= text_field_tag :search, params[:search] %>
-                        <%= submit_tag 'Search' %>
 
-                        <% if false %>
-                        <% if resource_session[:search].present? %>
-                          <%= link_to 'clear', resource.collection_path %>
-                        <% end %>
-                        <% end %>
+                    <%= form_for puffer_filters, :url => resource.collection_path(puffer_filters.to_query), :method => :get do |f| %>
+                      <dt><%= f.label :puffer_search %></dt>
+                      <dd><%= f.text_field :puffer_search %></dd>
+
+                      <% index_fields.each do |field| %>
+                        <%= field.render controller, :filter, :form => f %>
                       <% end %>
-                    </dd>
+
+                      <dd><%= submit_tag 'Search', :name => nil %></dd>
+                    <% end %>
+
                   </dl>
                 </div>
               <% end %>

@@ -8,6 +8,11 @@ module Puffer
         end
       end
 
+      def filter scope, fields, options = {}
+        conditions, order = extract_conditions_and_order!(options)
+        scope.includes(fields.includes).where(fields.searches(options[:search])).where(conditions).order(order)
+      end
+
     end
   end
 end
