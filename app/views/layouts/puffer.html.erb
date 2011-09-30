@@ -39,7 +39,7 @@
                       <dt><%= f.label :puffer_search %></dt>
                       <dd><%= f.text_field :puffer_search %></dd>
 
-                      <% index_fields.each do |field| %>
+                      <% index_fields.columns.each do |field| %>
                         <%= field.render controller, :filter, :form => f %>
                       <% end %>
 

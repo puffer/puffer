@@ -13,7 +13,7 @@ describe Puffer::Filters do
     end
 
     it 'should set proper attributes' do
-      Puffer::Filters.controller_filters(Admin::PostsController).new.attributes.keys.should == %w(user_email status title body puffer_search puffer_order)
+      Puffer::Filters.controller_filters(Admin::PostsController).new.attributes.keys.should == %w(user.email status title body puffer_search puffer_order)
     end
 
     it 'should set proper name' do

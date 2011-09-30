@@ -19,26 +19,40 @@ module Puffer
     end
 
     def write_attribute name, value
-      attributes[name] = value if attributes.key?(name)
+      attributes[name] = value.presence if attributes.key?(name)
     end
 
     def persisted?
       false
     end
 
+    def any?
+      attributes.keys.any? { |attribute| !send(attribute).nil? }
+    end
+
     def to_query
       {model_name.param_key => attributes}
     end
 
-    def search
-      puffer_search
-    end
-
     def conditions
       attributes.except('puffer_search', 'puffer_order').keys.reduce({}) do |res, attribute|
-        res[attribute] = send(attribute)
+        value = send(attribute)
+
+        unless value.nil?
+          value = case value
+          when 'puffer_nil' then nil
+          when 'puffer_blank' then ''
+          else value
+          end
+          res[attribute] = value
+        end
+
         res
       end
+    end
+
+    def search
+      puffer_search
     end
 
     def order

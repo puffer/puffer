@@ -1,4 +1,4 @@
-class MongoidTest
+class MongoidOrm
   include Mongoid::Document
 
   field :string_field, :type => String

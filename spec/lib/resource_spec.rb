@@ -59,7 +59,8 @@ describe Puffer::Resource do
     end
 
   end
-
+  
+=begin
   describe "#collection" do
 
     before do
@@ -83,6 +84,7 @@ describe Puffer::Resource do
     end
 
   end
+=end
 
   describe "#member" do
 

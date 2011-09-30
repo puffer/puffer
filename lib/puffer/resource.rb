@@ -9,7 +9,6 @@ module Puffer
   class Resource
 
     include Routing
-    include Scoping
 
     attr_reader :resource_node, :params, :controller_instance
     delegate :controller, :namespace, :name, :plural?, :to => :resource_node, :allow_nil => true

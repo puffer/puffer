@@ -28,6 +28,10 @@ module Puffer
     end
 
     module Array
+      def to_fieldset
+        Puffer::FieldSet.new.concat self
+      end
+
       def to_includes
         map do |field|
           sections = field.split('.').map(&:to_sym)

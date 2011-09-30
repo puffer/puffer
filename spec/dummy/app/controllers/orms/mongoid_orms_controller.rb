@@ -1,4 +1,4 @@
-class Orms::MongoidTestsController < Puffer::Base
+class Orms::MongoidOrmsController < Puffer::Base
 
   setup do
     group :mongoid

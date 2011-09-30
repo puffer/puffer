@@ -7,8 +7,8 @@ module Puffer
     define_fieldset :tree, :fallbacks => :index
 
     def index
-      return super if params[:search]
-      @records = resource.collection_scope.includes(resource.includes)
+      return super if puffer_filters.any?
+      @records = resource.collection_scope
       if session[:expanded].present?
         @records = @records.where(["depth in (0, 1) or parent_id in (#{session[:expanded].join(', ')})"]).arrange
       else
