@@ -14,7 +14,7 @@ module Puffer
     end
 
     def columns
-      select {|f| f.query_column}.to_fieldset
+      select {|f| f.column}.to_fieldset
     end
 
     def [] key

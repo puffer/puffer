@@ -8,6 +8,10 @@ module Puffer
         end
       end
 
+      def filter scope, fields, options = {}
+        scope
+      end
+
     end
   end
 end

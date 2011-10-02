@@ -52,8 +52,8 @@ module Puffer
   map_component :belongs_to, :has_one, :to => :ReferencesOneComponent
   map_component :has_many, :has_and_belongs_to_many, :to => :ReferencesManyComponent
   map_component :date, :time, :datetime, :timestamp, :to => :DateTimeComponent
-  map_component :integer, :decimal, :to => :StringComponent
-  map_component :array, :decimal, :to => :StringComponent
+  map_component :integer, :float, :decimal, :big_decimal, :to => :StringComponent
+  map_component :symbol, :array, :hash, :set, :range, :to => :StringComponent
 
 
 

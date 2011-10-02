@@ -23,7 +23,8 @@ describe "Tree" do
       {:namespace => :admin, :current => :posts, :children => [], :ancestors => [:categories]},
       {:namespace => :admin, :current => :news, :children => [], :ancestors => []},
       {:namespace => :admin, :current => :puffer_users, :children => [], :ancestors => []},
-      {:namespace => :orms, :current => :mongoid_orms, :children => [], :ancestors => []},
+      {:namespace => :orms, :current => :active_record_orm_primals, :children => [], :ancestors => []},
+      {:namespace => :orms, :current => :mongoid_orm_primals, :children => [], :ancestors => []},
       {:namespace => :admin, :current => :session, :children => [], :ancestors => []}
     ]
   end

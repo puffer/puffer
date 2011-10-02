@@ -2,8 +2,8 @@
 <h1><%= @title %></h1>
 <%= form_for record, :url => resource.member_path do |f| %>
   <ul class="form">
-  <% create_fields.each do |field| -%>
-    <li><%= field.render controller, :create, :form => f, :record => f.object %></li>
+  <% update_fields.each do |field| -%>
+    <li><%= field.render controller, :update, :form => f, :record => f.object %></li>
   <% end -%>
   </ul>
 

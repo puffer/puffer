@@ -30,8 +30,8 @@ Dummy::Application.routes.draw do
   end
 
   namespace :orms do
-    resources :activerecord_orms
-    resources :mongoid_orms
+    resources :active_record_orm_primals
+    resources :mongoid_orm_primals
   end
 
 end

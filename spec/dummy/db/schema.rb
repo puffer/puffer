@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110912114129) do
+ActiveRecord::Schema.define(:version => 20110930183902) do
+
+  create_table "active_record_orm_primals", :force => true do |t|
+    t.string   "string_field"
+    t.text     "text_field"
+    t.integer  "integer_field"
+    t.float    "float_field"
+    t.decimal  "decimal_field"
+    t.datetime "datetime_field"
+    t.datetime "timestamp_field"
+    t.time     "time_field"
+    t.date     "date_field"
+    t.boolean  "boolean_field"
+  end
 
   create_table "categories", :force => true do |t|
     t.string   "title"
