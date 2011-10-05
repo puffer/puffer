@@ -15,7 +15,7 @@ puffer@conference.jabber.org
 
 ## Installation.
 
-You can instal puffer as a gem:
+You can install puffer as a gem:
 
 `gem install puffer`
 
@@ -99,7 +99,7 @@ end
 Puffer's controller DSL creates all the actions you need. Next step: routing.
 
 ```
-namespace :admin
+namespace :admin do
   resources :users do
     resources :posts
   end
