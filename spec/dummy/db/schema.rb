@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(:version => 20110930183902) do
   create_table "active_record_orm_primals", :force => true do |t|
     t.string   "string_field"
     t.text     "text_field"
+    t.string   "select_field"
     t.integer  "integer_field"
     t.float    "float_field"
     t.decimal  "decimal_field"
