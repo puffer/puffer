@@ -18,9 +18,11 @@ module Puffer
 
         conditions = conditions.reduce({}) do |res, (name, value)|
           field = conditions_fields[name]
-          res[field.query_column] = value
+          res[field.query_column] = value if field
           res
         end
+
+        order = order.map {|field, direction| "#{field} #{direction}"}.join(', ')
 
         scope.includes(includes(all_fields)).where(searches(search_fields, options[:search])).where(conditions).order(order)
       end

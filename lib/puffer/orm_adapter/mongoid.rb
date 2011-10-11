@@ -9,7 +9,32 @@ module Puffer
       end
 
       def filter scope, fields, options = {}
-        scope
+        fields = fields.columns
+        conditions, order = extract_conditions_and_order!(options)
+
+        conditions_fields = fields.select {|f| conditions.keys.include?(f.field_name)}.to_fieldset
+        search_fields = fields.select {|f| !conditions_fields.include?(f) && search_types.include?(f.column_type)}
+        all_fields = conditions_fields + search_fields
+
+        conditions = conditions.reduce({}) do |res, (name, value)|
+          field = conditions_fields[name]
+          res[field.name] = value if field
+          res
+        end
+
+        scope = scope.any_of(searches(search_fields, options[:search])) if options[:search].present?
+        scope.where(conditions).order(order)
+      end
+
+    private
+
+      def search_types
+        [:text, :string, :integer, :decimal, :float]
+      end
+
+      def searches fields, query
+        regexp = /#{Regexp.escape(query)}/
+        fields.map {|field| {field.name => regexp}}
       end
 
     end

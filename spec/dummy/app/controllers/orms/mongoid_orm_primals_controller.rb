@@ -8,6 +8,7 @@ class Orms::MongoidOrmPrimalsController < Puffer::Base
   index do
     field :string_field
     field :symbol_field
+    field :select_field, :select => 5.times {|i| "option #{i}"}
     field :integer_field
     field :float_field
     field :decimal_field
@@ -24,6 +25,7 @@ class Orms::MongoidOrmPrimalsController < Puffer::Base
   form do
     field :string_field
     field :symbol_field
+    field :select_field, :select => 5.times {|i| "option #{i}"}
     field :integer_field
     field :float_field
     field :decimal_field

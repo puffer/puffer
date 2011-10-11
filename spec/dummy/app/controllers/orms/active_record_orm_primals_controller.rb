@@ -8,6 +8,7 @@ class Orms::ActiveRecordOrmPrimalsController < Puffer::Base
   index do
     field :string_field
     field :text_field
+    field :select_field, :select => 5.times {|i| "option #{i}"}
     field :integer_field
     field :float_field
     field :decimal_field
@@ -21,6 +22,7 @@ class Orms::ActiveRecordOrmPrimalsController < Puffer::Base
   form do
     field :string_field
     field :text_field
+    field :select_field, :select => 5.times {|i| "option #{i}"}
     field :integer_field
     field :float_field
     field :decimal_field

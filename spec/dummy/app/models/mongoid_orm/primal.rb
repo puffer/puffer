@@ -3,6 +3,7 @@ class MongoidOrm::Primal
 
   field :string_field, :type => String
   field :symbol_field, :type => Symbol
+  field :select_field, :type => String
   field :integer_field, :type => Integer
   field :float_field, :type => Float
   field :decimal_field, :type => BigDecimal
