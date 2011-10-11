@@ -11,7 +11,8 @@ puffer@conference.jabber.org
 * Full Rails integration. Puffer has no configuration, just a DSL to create interfaces. And this DSL depends on Rails conventions.
 * Flexibility. Puffer designed to be as flexible as possible, so you can create your own modules easily.
 * I18n. Surely.
-* Bla bla
+* Puffer can support different ORMs or ODMs through orm_adapter.
+* Implemented full AR and Mongoid support.
 
 ## Installation.
 
