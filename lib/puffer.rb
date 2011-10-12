@@ -63,7 +63,7 @@ module Puffer
   map_component :has_many, :has_and_belongs_to_many, :to => :ReferencesManyComponent
   map_component :date, :time, :datetime, :date_time, :timestamp, :to => :DateTimeComponent
   map_component :integer, :float, :decimal, :big_decimal, :to => :StringComponent
-  map_component :object, :"bson/object_id", :symbol, :array, :hash, :set, :range, :to => :StringComponent
+  map_component :"mongoid/fields/serializable/object", :"bson/object_id", :symbol, :array, :hash, :set, :range, :to => :StringComponent
 
 
 
