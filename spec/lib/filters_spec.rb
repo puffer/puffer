@@ -16,11 +16,6 @@ describe Puffer::Filters do
       Puffer::Filters.controller_filters(Admin::PostsController).new.attributes.keys.should == %w(user.email status title body puffer_search puffer_order)
     end
 
-    it 'should set proper name' do
-      Puffer::Filters.controller_filters(Admin::PostsController).new.name.should == 'posts'
-    end
-
-
   end
 
 end

@@ -30,10 +30,6 @@ module Puffer
       attributes.keys.any? { |attribute| !send(attribute).nil? }
     end
 
-    def to_query
-      {model_name.param_key => attributes}
-    end
-
     def conditions
       attributes.except('puffer_search', 'puffer_order').keys.reduce({}) do |res, attribute|
         value = send(attribute)
@@ -96,9 +92,7 @@ module Puffer
           klass.send :define_method, :attributes do
             attributes_from_controller
           end
-          klass.send :define_method, :name do
-            controller.controller_name
-          end
+          
 
           scope.const_set(name, klass)
         end
