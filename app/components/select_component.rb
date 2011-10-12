@@ -7,7 +7,6 @@ class SelectComponent < BaseComponent
 
   def filter
     @options = select_options
-    p @options
     render
   end
 
