@@ -17,6 +17,12 @@ require 'puffer/engine'
 
 module Puffer
 
+  class PufferError < StandardError
+  end
+
+  class ComponentMissing < PufferError
+  end
+
   module Controller
     autoload :Action, 'puffer/controller/actions'
     autoload :MemberAction, 'puffer/controller/actions'
@@ -45,15 +51,19 @@ module Puffer
     args.each { |type| _component_mappings[type.to_sym] = to }
   end
 
-  def self.component_for type
+  def self.component_for field
+    type = field
+    type = field.type if field.respond_to? :type
     (_component_mappings[type.to_sym] || "#{type}_component").to_s.camelize.constantize
+  rescue NameError
+    raise ComponentMissing, "Missing `#{type}` component for `#{field}` field. Please use Puffer.map_component binding or specify field type manually"
   end
 
   map_component :belongs_to, :has_one, :to => :ReferencesOneComponent
   map_component :has_many, :has_and_belongs_to_many, :to => :ReferencesManyComponent
   map_component :date, :time, :datetime, :date_time, :timestamp, :to => :DateTimeComponent
   map_component :integer, :float, :decimal, :big_decimal, :to => :StringComponent
-  map_component :"bson/object_id", :symbol, :array, :hash, :set, :range, :to => :StringComponent
+  map_component :object, :"bson/object_id", :symbol, :array, :hash, :set, :range, :to => :StringComponent
 
 
 

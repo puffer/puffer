@@ -57,7 +57,7 @@ module Puffer
     end
 
     def component_class
-      @component_class ||= Puffer.component_for type
+      @component_class ||= Puffer.component_for self
     end
 
     def component
