@@ -29,7 +29,7 @@ module Puffer
     private
 
       def search_types
-        [:text, :string, :integer, :decimal, :float]
+        [:string, :integer, :big_decimal, :float, :"bson/object_id", :symbol]
       end
 
       def searches fields, query

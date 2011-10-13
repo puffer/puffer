@@ -206,13 +206,9 @@ h2
 {
 	display: table-cell;
 	vertical-align: top;
-}
-
-.column,
-{
-	display: inline;
-	vertical-align: top;
-    width: expression(function(t){
+    _display: inline;
+    _vertical-align: top;
+    _width: expression(function(t){
       var sum = 0;
       for (var i = 0; i < t.parentNode.childNodes.length; i++) {
         if (t.parentNode.childNodes[i] != t) {
@@ -220,8 +216,8 @@ h2
         }
       }
       return t.parentNode.clientWidth - sum + 'px';
-	}(this));
-	zoom: 1;
+    }(this));
+    zoom: 1;
 }
 
 .sidebar
