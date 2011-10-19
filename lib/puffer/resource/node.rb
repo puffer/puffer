@@ -18,8 +18,8 @@ module Puffer
         name.to_s
       end
 
-      def namespace
-        options[:namespace]
+      def scope
+        options[:scope]
       end
 
       def controller
@@ -60,11 +60,11 @@ module Puffer
       end
 
       def url_string
-        [namespace, name, (:index if singular == plural)].compact.map(&:to_s).join('_')
+        [scope, name, (:index if singular == plural)].compact.map(&:to_s).join('_')
       end
 
       def to_struct
-        {:namespace => namespace, :current => name, :children => children.map(&:name), :ancestors => ancestors.map(&:name)}
+        {:scope => scope, :current => name, :children => children.map(&:name), :ancestors => ancestors.map(&:name)}
       end
     end
   end

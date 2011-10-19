@@ -19,10 +19,10 @@ module Puffer
     # will produce:
     #
     #   [
-    #     {:namespace => 'admin', :current => :users, :children => [:profile, :articles], :ancestors => []},
-    #     {:namespace => 'admin', :current => :profile, :children => [], :ancestors => [:users]},
-    #     {:namespace => 'admin', :current => :articles, :children => [], :ancestors => [:users]},
-    #     {:namespace => 'admin', :current => :orders, :children => [], :ancestors => []},
+    #     {:scope => 'admin', :current => :users, :children => [:profile, :articles], :ancestors => []},
+    #     {:scope => 'admin', :current => :profile, :children => [], :ancestors => [:users]},
+    #     {:scope => 'admin', :current => :articles, :children => [], :ancestors => [:users]},
+    #     {:scope => 'admin', :current => :orders, :children => [], :ancestors => []},
     #   ]
     # 
     # a complete tree structure with nodes array to acces with node index
@@ -41,13 +41,15 @@ module Puffer
       module InstanceMethods
 
         def namespace_with_puffer path, options = {}
-          namespace_without_puffer path, options do
-            yield
+          defaults :puffer_scope => path.to_sym do
+            namespace_without_puffer path, options do
+              yield
 
-            if ::Rails.application.routes.resources_tree.any? {|node| node.namespace == @scope[:module].to_sym}
-              old, @scope[:module] = @scope[:module], 'admin'
-              root :to => 'dashboard#index'
-              @scope[:module] = old
+              if ::Rails.application.routes.resources_tree.any? {|node| node.scope == @scope[:module].to_sym}
+                old, @scope[:module] = @scope[:module], 'admin'
+                root :to => 'dashboard#index'
+                @scope[:module] = old
+              end
             end
           end
         end
@@ -59,7 +61,7 @@ module Puffer
             name = (singular ? resource.singular : resource.plural).to_sym
 
             resource_node = ::Rails.application.routes.resources_tree.append_node swallow_nil{@scope[:defaults][:puffer]},
-              :name => name, :namespace => @scope[:module].to_sym, :controller => controller, :singular => singular
+              :name => name, :scope => @scope[:module].to_sym, :controller => controller, :singular => singular
 
             defaults :puffer => resource_node do
               resource_scope_without_puffer resource do

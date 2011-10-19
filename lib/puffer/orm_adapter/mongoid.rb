@@ -33,7 +33,7 @@ module Puffer
       end
 
       def searches fields, query
-        regexp = /#{Regexp.escape(query)}/
+        regexp = /#{Regexp.escape(query)}/i
         fields.map {|field| {field.name => regexp}}
       end
 

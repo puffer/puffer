@@ -12,11 +12,11 @@ require 'spec_helper'
 # end
 describe PufferHelper do
 
-  it "generates namespaces navigation" do
+  it "generates scopes navigation" do
     helper.stub(:puffer_namespace).and_return(:admin)
     
     navigation = []
-    helper.puffer_namespaces_navigation do |*args|
+    helper.puffer_scopes_navigation do |*args|
       navigation.push args
     end
 

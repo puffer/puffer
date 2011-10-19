@@ -10,8 +10,8 @@ module Puffer
 
     include Routing
 
-    attr_reader :resource_node, :params, :controller_instance
-    delegate :controller, :namespace, :name, :plural?, :to => :resource_node, :allow_nil => true
+    attr_reader :resource_node, :scope, :params, :controller_instance
+    delegate :controller, :name, :plural?, :to => :resource_node, :allow_nil => true
     delegate :model, :to => :controller, :allow_nil => true
     delegate :env, :request, :to => :controller_instance, :allow_nil => true
 
@@ -19,6 +19,7 @@ module Puffer
       params = ActiveSupport::HashWithIndifferentAccess.new.deep_merge params
 
       @resource_node = params[:puffer]
+      @scope = swallow_nil{@resource_node.scope} || params[:puffer_scope]
       @params = params
       @controller_instance = controller_instance
     end

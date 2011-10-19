@@ -1,11 +1,11 @@
-<% puffer_namespaces_navigation do |namespace| %>
-  <h2><%= namespace.to_s.humanize %></h2>
+<% puffer_scopes_navigation do |scope| %>
+  <h2><%= scope.to_s.humanize %></h2>
   <ul class="navigation">
-    <% puffer_groups_navigation namespace do |group| %>
+    <% puffer_groups_navigation scope do |group| %>
       <li>
         <span><%= group.to_s.humanize %></span>
         <ul class="additional">
-          <% puffer_resources_navigation namespace, group do |resource, url| %>
+          <% puffer_resources_navigation scope, group do |resource, url| %>
             <li>
               <%= link_to resource, url %>
             </li>

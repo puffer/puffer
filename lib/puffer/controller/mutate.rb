@@ -22,7 +22,7 @@ module Puffer
         end
 
         def puffer_namespace
-          resource.namespace
+          resource.scope
         end
 
         def resource
