@@ -67,7 +67,6 @@ module Puffer
 
       def process parent_controller, context, *args
         @parent_controller = parent_controller
-        @identifer = params[:identifer] || generate_identifer
         super context, *args
       end
 
@@ -78,6 +77,7 @@ module Puffer
         else
           @resource = parent_controller.resource
         end
+        @identifer = params[:identifer] || generate_identifer
         send method_name, *args
       end
 
@@ -129,7 +129,7 @@ module Puffer
       end
 
       def component_id
-        @component_id ||= "component_#{identifer}"
+        "component_#{identifer}"
       end
 
     private
