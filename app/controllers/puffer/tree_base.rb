@@ -34,7 +34,7 @@ module Puffer
       session[:expanded] ||= []
       session[:expanded].push params[:id] if @parent
       session[:expanded].uniq!
-      @records = @parent.self_and_descendants.where(:parent_id => [@parent.parent_id] + session[:expanded]).includes(resource.includes).arrange
+      @records = resource.model.to_adapter.filter(@parent.self_and_descendants.where(:parent_id => [@parent.parent_id] + session[:expanded]), tree_fields).arrange
       render 'toggle'
     end
 
@@ -42,7 +42,7 @@ module Puffer
       @parent = resource.member
       session[:expanded] ||= []
       session[:expanded].delete params[:id]
-      @records = resource.collection_scope.where(:id => [@parent.id]).includes(resource.includes).arrange
+      @records = resource.model.to_adapter.filter(resource.collection_scope.where(:id => [@parent.id]), tree_fields).arrange
       render 'toggle'
     end
 
