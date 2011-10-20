@@ -1,5 +1,5 @@
 if defined?(ActiveRecord::Base)
-  class PufferUser
+  class PufferUser < ActiveRecord::Base
     include Puffer::PufferUser
   end
 end
