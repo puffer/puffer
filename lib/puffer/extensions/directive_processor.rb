@@ -5,10 +5,6 @@ module Puffer
     module DirectiveProcessor
       extend ActiveSupport::Concern
 
-      included do
-
-      end
-
       module InstanceMethods
 
         def process_require_all_directive(path)

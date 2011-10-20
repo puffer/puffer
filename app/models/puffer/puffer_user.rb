@@ -1,12 +1,13 @@
-class Puffer::PufferUser < ActiveRecord::Base
-  self.abstract_class = true
+module Puffer::PufferUser
+  extend ActiveSupport::Concern
 
-  attr_protected :password_digest
-  
-  has_secure_password
+  included do
+    attr_protected :password_digest
+    has_secure_password
 
-  validates :email, :uniqueness => true, :presence => true
-  validates :password, :presence => true, :length => {:minimum => 6}, :on => :create
+    validates :email, :uniqueness => true, :presence => true
+    validates :password, :presence => true, :length => { :minimum => 6 }, :on => :create
+  end
 
   def roles= value = []
     value = value.split(',').map(&:strip).map(&:presence) if value.is_a?(String)
@@ -20,5 +21,4 @@ class Puffer::PufferUser < ActiveRecord::Base
   def has_role? role
     roles_array.include?(role.to_s)
   end
-
 end
