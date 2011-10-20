@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{pyromaniac}]
-  s.date = %q{2011-10-20}
+  s.date = %q{2011-10-22}
   s.description = %q{In Soviet Russia puffer admins you}
   s.email = %q{kinwizard@gmail.com}
   s.extra_rdoc_files = [
@@ -215,6 +215,8 @@ Gem::Specification.new do |s|
     "spec/fabricators/profiles_fabricator.rb",
     "spec/fabricators/tags_fabricator.rb",
     "spec/fabricators/users_fabricator.rb",
+    "spec/generators/puffer/component/component_generator_spec.rb",
+    "spec/generators/puffer/controller/controller_generator_spec.rb",
     "spec/helpers/puffer_helper_spec.rb",
     "spec/integration/navigation_spec.rb",
     "spec/lib/component_spec.rb",
@@ -249,6 +251,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rspec-rails>, [">= 0"])
       s.add_development_dependency(%q<capybara>, [">= 0"])
       s.add_development_dependency(%q<database_cleaner>, [">= 0"])
+      s.add_development_dependency(%q<ammeter>, [">= 0"])
       s.add_development_dependency(%q<guard>, [">= 0"])
       s.add_development_dependency(%q<libnotify>, [">= 0"])
       s.add_development_dependency(%q<guard-rspec>, [">= 0"])
@@ -267,6 +270,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<rspec-rails>, [">= 0"])
       s.add_dependency(%q<capybara>, [">= 0"])
       s.add_dependency(%q<database_cleaner>, [">= 0"])
+      s.add_dependency(%q<ammeter>, [">= 0"])
       s.add_dependency(%q<guard>, [">= 0"])
       s.add_dependency(%q<libnotify>, [">= 0"])
       s.add_dependency(%q<guard-rspec>, [">= 0"])
@@ -286,6 +290,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<rspec-rails>, [">= 0"])
     s.add_dependency(%q<capybara>, [">= 0"])
     s.add_dependency(%q<database_cleaner>, [">= 0"])
+    s.add_dependency(%q<ammeter>, [">= 0"])
     s.add_dependency(%q<guard>, [">= 0"])
     s.add_dependency(%q<libnotify>, [">= 0"])
     s.add_dependency(%q<guard-rspec>, [">= 0"])

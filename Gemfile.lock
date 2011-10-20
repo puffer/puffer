@@ -29,6 +29,11 @@ GEM
       activesupport (= 3.1.1)
     activesupport (3.1.1)
       multi_json (~> 1.0)
+    ammeter (0.2.1)
+      activesupport (~> 3.0)
+      railties (~> 3.0)
+      rspec (~> 2.2)
+      rspec-rails (~> 2.2)
     arel (2.2.1)
     bcrypt-ruby (3.0.1)
     bson (1.4.1)
@@ -153,6 +158,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ammeter
   bson_ext
   capybara
   database_cleaner
