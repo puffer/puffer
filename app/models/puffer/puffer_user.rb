@@ -1,5 +1,6 @@
 module Puffer::PufferUser
   extend ActiveSupport::Concern
+  include ActiveModel::SecurePassword
 
   included do
     attr_protected :password_digest

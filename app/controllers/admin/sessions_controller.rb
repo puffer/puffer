@@ -8,7 +8,7 @@ class Admin::SessionsController < Puffer::SessionsBase
   end
 
   def create
-    @record = PufferUser.find_by_email(params[:puffer_user][:email])
+    @record = PufferUser.to_adapter.find_first(:conditions => {:email => params[:puffer_user][:email]})
     if @record && @record.authenticate(params[:puffer_user][:password])
       session[:puffer_user_id] = @record.id
       redirect_to admin_root_url
