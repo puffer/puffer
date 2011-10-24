@@ -55,7 +55,7 @@ module Puffer
         end
 
         def resource_scope_with_puffer resource, &block
-          controller = "#{[@scope[:module], resource.controller].compact.join("/")}_controller".camelize.constantize# rescue nil
+          controller = "#{[@scope[:module], resource.controller].compact.join("/")}_controller".camelize.constantize rescue nil
           if controller && controller.puffer?
             singular = resource.is_a? ActionDispatch::Routing::Mapper::Resources::SingletonResource
             name = (singular ? resource.singular : resource.plural).to_sym
