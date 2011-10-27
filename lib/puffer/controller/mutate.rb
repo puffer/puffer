@@ -54,7 +54,7 @@ module Puffer
         end
 
         def model
-          @model ||= model_name.camelize.constantize
+          @model ||= model_name.camelize.constantize if defined?(model_name.camelize)
         end
 
       end
