@@ -3,6 +3,7 @@ module Puffer
 
     setup do
       group :users
+      model_name :puffer_user
     end
 
     index do
