@@ -54,7 +54,7 @@ module Puffer
         end
 
         def model
-          @model ||= model_name.camelize.constantize rescue nil
+          @model ||= model_name.camelize.constantize
         end
 
       end
