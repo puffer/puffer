@@ -11,7 +11,7 @@ module Puffer
     include Routing
 
     attr_reader :resource_node, :scope, :params, :controller_instance
-    delegate :controller, :name, :plural?, :to => :resource_node, :allow_nil => true
+    delegate :controller, :name, :plural?, :singular, :plural, :url_segment, :to => :resource_node, :allow_nil => true
     delegate :model, :to => :controller, :allow_nil => true
     delegate :env, :request, :to => :controller_instance, :allow_nil => true
 
@@ -51,14 +51,10 @@ module Puffer
           resource_node.ancestors[0..-2].each do |ancestor|
             key = ancestor.to_s.singularize.foreign_key
             parent_params[key] = params[key] if params[key]
-            key = key.gsub(/_id$/, '_member')
-            parent_params[key] = params[key] if params[key]
           end
 
           key = resource_node.parent.to_s.singularize.foreign_key
           parent_params[:id] = params[key] if params[key]
-          key = key.gsub(/_id$/, '_member')
-          parent_params[:member] = params[key] if params[key]
 
           self.class.new parent_params, controller_instance
         end
@@ -72,14 +68,10 @@ module Puffer
         resource_node.ancestors.each do |ancestor|
           key = ancestor.to_s.singularize.foreign_key
           child_params[key] = params[key] if params[key]
-          key = key.gsub(/_id$/, '_member')
-          child_params[key] = params[key] if params[key]
         end
 
         key = resource_node.to_s.singularize.foreign_key
         child_params[key] = params[:id] if params[:id]
-        key = key.gsub(/_id$/, '_member')
-        child_params[key] = params[:member] if params[:member]
 
         self.class.new child_params, controller_instance
       end
@@ -90,6 +82,10 @@ module Puffer
         result[child.name] = child
         result
       end
+    end
+
+    def member_id
+      params[:id]
     end
 
     def collection_scope
@@ -104,15 +100,14 @@ module Puffer
     end
 
     def member
-      return params[:member] if params[:member]
       if parent
         if plural?
-          parent.member.send(name).find params[:id] if params[:id]
+          parent.member.send(name).find member_id if member_id
         else
           parent.member.send(name)
         end
       else
-        model.find params[:id] if params[:id]
+        model.find member_id if member_id
       end
     end
 
@@ -133,11 +128,6 @@ module Puffer
     end
 
     def method_missing method, *args, &block
-      method = method.to_s
-      if method.match(/path$/) && respond_to?(method.gsub(/path$/, 'url'))
-        options = args.extract_options!
-        return send method.gsub(/path$/, 'url'), *(args << options.merge(:routing_type => :path))
-      end
       model.send method, *args, &block if model.respond_to? method
     end
 

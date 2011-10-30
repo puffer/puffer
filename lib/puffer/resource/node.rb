@@ -59,8 +59,8 @@ module Puffer
         ancestors
       end
 
-      def url_string
-        [scope, name, (:index if singular == plural)].compact.map(&:to_s).join('_')
+      def url_segment
+        [name, (:index if singular == plural)].compact.map(&:to_s).join('_')
       end
 
       def to_struct

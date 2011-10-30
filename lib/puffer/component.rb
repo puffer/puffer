@@ -67,18 +67,16 @@ module Puffer
 
       def process parent_controller, context, *args
         @parent_controller = parent_controller
-        super context, *args
-      end
 
-      def send_action method_name, *args
         @opts = args.extract_options!
         if @opts[:record]
-          @resource = Puffer::Resource.new(params.merge(:member => @opts[:record]), parent_controller)
+          @resource = Puffer::Resource.new(params.merge(:id => @opts[:record].id), parent_controller)
         else
           @resource = parent_controller.resource
         end
         @identifer = params[:identifer] || generate_identifer
-        send method_name, *args
+
+        super context, *args
       end
 
       def render *args, &block
