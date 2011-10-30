@@ -40,7 +40,7 @@
                       <dd><%= f.text_field :puffer_search %></dd>
 
                       <% index_fields.columns.each do |field| %>
-                        <%= field.render controller, :filter, :form => f %>
+                        <%= field.render :filter, controller, puffer_filters %>
                       <% end %>
 
                       <dd><%= submit_tag 'Search', :name => nil %></dd>

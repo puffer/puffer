@@ -11,7 +11,7 @@ module Puffer
 
       def member_method routing_type, *args
         options = args.extract_options!
-        send url_method_name(routing_type, singular, options.delete(:action)), *url_arguments(args.first || params[:id]), options
+        send url_method_name(routing_type, singular, options.delete(:action)), *url_arguments(args.first || member_id), options
       end
 
       def new_method routing_type, options = {}

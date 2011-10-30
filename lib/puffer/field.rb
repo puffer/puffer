@@ -64,8 +64,8 @@ module Puffer
       @component ||= component_class.new self
     end
 
-    def render controller, context, *args
-      component.process controller, context, *args
+    def render context, controller, record = nil
+      component.process context, controller, record
     end
 
     def model

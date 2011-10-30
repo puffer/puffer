@@ -5,5 +5,5 @@
 <div id="paginator"></div>
 
 <%= javascript_tag do %>
-  new Paginator({total: <%= records.num_pages %>, current: <%= params[:page] || 1 %>, link: {'data-dialog-uri': '<%= event_path(:choose, :page => '%{page}') %>'}}).insertTo('paginator', 'instead');
+  new Paginator({total: <%= @records.num_pages %>, current: <%= params[:page] || 1 %>, link: {'data-dialog-uri': '<%= event_path(:choose, :page => '%{page}') %>'}}).insertTo('paginator', 'instead');
 <% end %>

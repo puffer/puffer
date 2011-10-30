@@ -56,27 +56,25 @@ module Puffer
 
       helper ComponentHelper, PufferHelper
 
-      attr_accessor :parent_controller, :field, :opts, :identifer, :resource
+      attr_accessor :parent_controller, :field, :identifer, :record, :records, :resource
       delegate :env, :request, :params, :session, :_members, :_collections, :to => :parent_controller
-      helper_method :params, :session, :resource, :_members, :_collections, :parent_controller, :field, :opts, :identifer, :component_id, :event_url, :event_path, :record, :records
+      helper_method :params, :session, :_members, :_collections, :parent_controller, :field, :identifer, :component_id, :event_url, :event_path, :record, :records, :resource
 
       def initialize field
         super()
         @field = field
       end
 
-      def process parent_controller, context, *args
+      def process context, parent_controller, record
         @parent_controller = parent_controller
-
-        @opts = args.extract_options!
-        if @opts[:record]
-          @resource = Puffer::Resource.new(params.merge(:id => @opts[:record].id), parent_controller)
-        else
-          @resource = parent_controller.resource
-        end
+        @record = record
         @identifer = params[:identifer] || generate_identifer
 
-        super context, *args
+        resource_params = params
+        resource_params.merge!(:id => record.id) if record && record.respond_to?(:id)
+        @resource = Puffer::Resource.new(resource_params, parent_controller)
+
+        super context
       end
 
       def render *args, &block
@@ -116,14 +114,6 @@ module Puffer
 
       def event_options name
         {:action => :event, :event => name, :field => field.to_s, :fieldset => field.field_set.name, :identifer => identifer}
-      end
-
-      def record
-        @record || instance_variable_get("@#{resource.name.singularize}")
-      end
-
-      def records
-        @records || instance_variable_get("@#{resource.name.pluralize}")
       end
 
       def component_id

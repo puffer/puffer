@@ -46,7 +46,7 @@ module Puffer
     end
 
     def event
-      render :text => fields(params[:fieldset])[params[:field]].render(self, params[:event])
+      render :text => fields(params[:fieldset])[params[:field]].render(params[:event], self)
     end
 
   private

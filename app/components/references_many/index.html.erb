@@ -1,1 +1,1 @@
-<%= link_to field.human, resource.children_hash[field.name].collection_path %>
+<%= link_to "#{field.human} (#{@record.send(field.to_s).size})", resource.children_hash[field.name].collection_path %>

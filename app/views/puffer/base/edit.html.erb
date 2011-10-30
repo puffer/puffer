@@ -3,7 +3,7 @@
 <%= form_for record, :url => resource.member_path do |f| %>
   <ul class="form">
   <% update_fields.each do |field| -%>
-    <li><%= field.render controller, :update, :form => f, :record => f.object %></li>
+    <li><%= field.render :update, controller, record %></li>
   <% end -%>
   </ul>
 

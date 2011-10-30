@@ -13,7 +13,7 @@
   <% records.each do |record| -%>
     <tr>
     <% table_fields.each do |field| -%>
-      <td><%= field.render controller, :index, :record => record %></td>
+      <td><%= field.render :index, controller, record %></td>
     <% end -%>
       <td class="actions">
         <%= yield record %>

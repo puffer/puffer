@@ -3,7 +3,7 @@
 <%= form_for record, :url => resource.collection_path do |f| %>
   <ul class="form">
   <% create_fields.each do |field| -%>
-    <li><%= field.render controller, :create, :form => f, :record => f.object %></li>
+    <li><%= field.render :create, controller, record %></li>
   <% end -%>
   </ul>
 

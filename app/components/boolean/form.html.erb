@@ -1,3 +1,5 @@
-<%= opts[:form].check_box field, field.input_options %>
-<%= opts[:form].label field %>
-<%= opts[:form].object.errors[field.name.to_sym].first %>
+<%= fields_for @record do |f| %>
+  <%= f.check_box field, field.input_options %>
+  <%= f.label field %>
+  <%= @record.errors[field.name.to_sym].first %>
+<% end %>

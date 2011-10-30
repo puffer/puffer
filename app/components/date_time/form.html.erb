@@ -1,5 +1,9 @@
-<% content_for :input do %>
-  <%= opts[:form].text_field field, field.input_options.merge("data-calendar" => "{showButtons: true, listYears: true, format: '#{@format}'}", :autocomplete => :off) %>
+<%= fields_for @record do |f| %>
+  <div class="label">
+    <%= f.label field %>
+    <div class="field_error">
+      <%= @record.errors[field.name.to_sym].first %>
+    </div>
+  </div>
+  <%= f.text_field field, field.input_options.merge("data-calendar" => "{showButtons: true, listYears: true, format: '#{@format}'}", :autocomplete => :off) %>
 <% end %>
-
-<%= render :file => 'base/form' %>
