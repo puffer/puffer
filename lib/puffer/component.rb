@@ -14,22 +14,6 @@ module Puffer
 
       abstract!
 
-      module ComponentHelper
-        def component_wrap name = :span, options = {}, &block
-          content_tag name, options.merge(:id => component_id), &block
-        end
-
-        def clean_content_for name, *args, &block
-          @view_flow.set name, ''
-          content_for name, *args, &block
-        end
-
-        def paginate(scope, options = {}, &block)
-          paginator = Kaminari::Helpers::Paginator.new parent_controller.view_context, options.reverse_merge(:current_page => scope.current_page, :num_pages => scope.num_pages, :per_page => scope.limit_value, :param_name => Kaminari.config.param_name, :remote => false)
-          paginator.to_s
-        end
-      end
-
       module ClassMethods
         def render_component parent_controller, field, context, *args
           klass = "#{field.type}_component".camelize.constantize rescue StringComponent
@@ -56,9 +40,9 @@ module Puffer
 
       helper ComponentHelper, PufferHelper
 
-      attr_reader :parent_controller, :field, :identifer, :record, :records, :resource, :options
+      attr_reader :parent_controller, :field, :identifer, :record, :records, :resource, :opts
       delegate :env, :request, :params, :session, :_members, :_collections, :to => :parent_controller
-      helper_method :params, :session, :_members, :_collections, :parent_controller, :field, :identifer, :component_id, :event_url, :event_path, :record, :records, :resource, :options
+      helper_method :params, :session, :_members, :_collections, :parent_controller, :field, :identifer, :component_id, :event_url, :event_path, :record, :records, :resource, :opts
 
       def initialize field
         super()
@@ -68,7 +52,7 @@ module Puffer
       def process context, parent_controller, record, options = {}
         @parent_controller = parent_controller
         @record = record
-        @options = options
+        @opts = options
         @identifer = params[:identifer] || generate_identifer
 
         resource_params = params
