@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{pyromaniac}]
-  s.date = %q{2011-10-27}
+  s.date = %q{2011-10-31}
   s.description = %q{In Soviet Russia puffer admins you}
   s.email = %q{kinwizard@gmail.com}
   s.extra_rdoc_files = [
@@ -62,7 +62,6 @@ Gem::Specification.new do |s|
     "app/components/select/filter.html.erb",
     "app/components/select/form.html.erb",
     "app/components/select_component.rb",
-    "app/components/string/form.html.erb",
     "app/components/string_component.rb",
     "app/components/text/form.html.erb",
     "app/components/text_component.rb",
@@ -83,11 +82,16 @@ Gem::Specification.new do |s|
     "app/views/layouts/puffer_base.html.erb",
     "app/views/layouts/puffer_dashboard.html.erb",
     "app/views/layouts/puffer_sessions.html.erb",
+    "app/views/puffer/base/_edit.html.erb",
+    "app/views/puffer/base/_index.html.erb",
     "app/views/puffer/base/_table.html.erb",
     "app/views/puffer/base/edit.html.erb",
+    "app/views/puffer/base/edit.js.erb",
     "app/views/puffer/base/index.html.erb",
+    "app/views/puffer/base/index.js.erb",
     "app/views/puffer/base/new.html.erb",
     "app/views/puffer/base/show.html.erb",
+    "app/views/puffer/base/update.js.erb",
     "app/views/puffer/dashboard_base/index.html.erb",
     "app/views/puffer/sessions_base/new.html.erb",
     "app/views/puffer/tree_base/_record.html.erb",
@@ -114,7 +118,6 @@ Gem::Specification.new do |s|
     "lib/puffer/extensions/core.rb",
     "lib/puffer/extensions/directive_processor.rb",
     "lib/puffer/extensions/engine.rb",
-    "lib/puffer/extensions/form.rb",
     "lib/puffer/extensions/mapper.rb",
     "lib/puffer/field.rb",
     "lib/puffer/field_set.rb",
