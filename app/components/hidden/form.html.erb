@@ -1,3 +1,3 @@
-<%= fields_for @record do |f| %>
+<%= fields_for @record, options[:builder] do |f| %>
   <%= f.hidden_field field, field.input_options %>
 <% end %>

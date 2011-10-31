@@ -56,18 +56,19 @@ module Puffer
 
       helper ComponentHelper, PufferHelper
 
-      attr_accessor :parent_controller, :field, :identifer, :record, :records, :resource
+      attr_reader :parent_controller, :field, :identifer, :record, :records, :resource, :options
       delegate :env, :request, :params, :session, :_members, :_collections, :to => :parent_controller
-      helper_method :params, :session, :_members, :_collections, :parent_controller, :field, :identifer, :component_id, :event_url, :event_path, :record, :records, :resource
+      helper_method :params, :session, :_members, :_collections, :parent_controller, :field, :identifer, :component_id, :event_url, :event_path, :record, :records, :resource, :options
 
       def initialize field
         super()
         @field = field
       end
 
-      def process context, parent_controller, record
+      def process context, parent_controller, record, options = {}
         @parent_controller = parent_controller
         @record = record
+        @options = options
         @identifer = params[:identifer] || generate_identifer
 
         resource_params = params

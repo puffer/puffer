@@ -1,4 +1,4 @@
-<%= fields_for @record do |f| %>
+<%= fields_for @record, options[:builder] do |f| %>
   <dt><%= f.label field.field_name %></dt>
   <dd><%= f.select field.field_name, @options, :include_blank => true %></dd>
 <% end %>

@@ -1,8 +1,8 @@
-<%= fields_for record do |f| %>
+<%= fields_for @record, options[:builder] do |f| %>
   <div class="label">
     <%= f.label field %>
     <div class="field_error">
-      <%= record.errors[field.name.to_sym].first %>
+      <%= @record.errors[field.name.to_sym].first %>
     </div>
   </div>
   <%= f.password_field field, field.input_options %>
