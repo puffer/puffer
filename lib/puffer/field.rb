@@ -64,8 +64,9 @@ module Puffer
       @component ||= component_class.new self
     end
 
-    def render context, controller, record = nil
-      component.process context, controller, record
+    def render context, controller, *record_and_options
+      options = record_and_options.extract_options!
+      component.process context, controller, record_and_options.first, options
     end
 
     def model
