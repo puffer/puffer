@@ -1,4 +1,4 @@
-module PufferTreeHelper
+module Puffer::PufferTreeHelper
 
   def puffer_tree hash, options = {}, &block
     content_tag :ul, options do

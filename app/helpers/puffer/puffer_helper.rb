@@ -1,4 +1,4 @@
-module PufferHelper
+module Puffer::PufferHelper
 
   def puffer_scopes_navigation
     Rails.application.routes.resources_tree.map(&:scope).uniq.each do |scope|

@@ -3,11 +3,15 @@ module Puffer
     unloadable
     pufferize!
 
+    helper Puffer::PufferHelper
+
     before_filter :require_puffer_user
 
     define_fieldset :index, :form
     define_fieldset :show, :fallbacks => :index
     define_fieldset :create, :update, :fallbacks => :form
+
+    layout 'puffer'
 
     respond_to :html, :js
 

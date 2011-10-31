@@ -4,8 +4,6 @@ module Puffer
       extend ActiveSupport::Concern
 
       included do
-        layout 'puffer'
-        helper :puffer
         delegate :puffer_filters_class, :model, :model_name, :to => 'self.class'
         helper_method :puffer_filters, :puffer_namespace, :resource, :record, :records
       end

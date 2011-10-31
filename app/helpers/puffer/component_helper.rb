@@ -1,4 +1,4 @@
-module ComponentHelper
+module Puffer::ComponentHelper
   def component_wrap name = :span, options = {}, &block
     content_tag name, options.merge(:id => component_id), &block
   end
