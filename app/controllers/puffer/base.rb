@@ -3,8 +3,6 @@ module Puffer
     unloadable
     pufferize!
 
-    helper Puffer::PufferHelper
-
     before_filter :require_puffer_user
 
     define_fieldset :index, :form

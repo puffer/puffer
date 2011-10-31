@@ -2,7 +2,7 @@ module Puffer
   class TreeBase < Puffer::Base
     unloadable
 
-    helper Puffer::PufferTreeHelper
+    helper 'puffer/helpers/puffer_tree'
 
     define_fieldset :tree, :fallbacks => :index
 
