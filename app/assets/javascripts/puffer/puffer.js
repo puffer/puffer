@@ -20,3 +20,10 @@ var association_done = function(event) {
 
   dialog.load(this.get('data-dialog-uri'));
 });
+
+'a[data-new-dialog-uri]'.on('click', function(event) {
+  if (event.which != 1) return;
+  event.stop();
+
+  new Dialog({expandable: true}).load(this.get('data-new-dialog-uri'));
+});

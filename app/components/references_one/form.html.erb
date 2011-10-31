@@ -7,5 +7,5 @@
     </div>
   </div>
   <%#= f.hidden_field field, field.input_options %>
-  <%= link_to "Choose", '#', :"data-dialog-uri" => event_path(:choose) %>
+  <%= link_to "Choose", '#', :data => {"new-dialog-uri" => event_path(:choose)} %>
 <% end %>

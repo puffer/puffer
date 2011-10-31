@@ -13,18 +13,22 @@ module Puffer
 
     def index
       @records = resource.collection.page(params[:page])
+      respond_with @records
     end
 
     def show
       @record = resource.member
+      respond_with @record
     end
 
     def new
       @record = resource.new_member
+      respond_with @record
     end
 
     def edit
       @record = resource.member
+      respond_with @record
     end
 
     def create
@@ -42,7 +46,7 @@ module Puffer
     def destroy
       @record = resource.member
       @record.destroy
-      redirect_to (request.referrer || resource.collection_path)
+      respond_with @records, :location => (request.referrer || resource.collection_path)
     end
 
     def event

@@ -464,3 +464,8 @@ select
 {
     display: block;
 }
+
+body div.rui-dialog-body
+{
+    min-width: 900px;
+}

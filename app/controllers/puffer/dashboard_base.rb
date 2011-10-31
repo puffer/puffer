@@ -7,7 +7,7 @@ class Puffer::DashboardBase < ApplicationController
   layout 'puffer_dashboard'
 
   def index
-
+    
   end
 
 end
