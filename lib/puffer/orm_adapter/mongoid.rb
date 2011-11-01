@@ -22,7 +22,7 @@ module Puffer
           res[field.name] = value if field
           res
         end
-
+        
         scope = scope.any_of(searches(search_fields, options[:search])) if options[:search].present?
         scope.where(conditions).order(order)
       end

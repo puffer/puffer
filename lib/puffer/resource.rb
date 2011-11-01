@@ -93,7 +93,9 @@ module Puffer
     end
 
     def collection
-      model.to_adapter.filter collection_scope, controller.index_fields,
+      scope = collection_scope
+      scope = scope.send controller.configuration.scope if controller.configuration.scope
+      model.to_adapter.filter scope, controller.index_fields,
         :conditions => controller_instance.puffer_filters.conditions,
         :search => controller_instance.puffer_filters.search,
         :order => controller_instance.puffer_filters.order

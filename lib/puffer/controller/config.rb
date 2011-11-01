@@ -19,7 +19,7 @@ module Puffer
         puffer_class_attribute :model_name
         #  destroy - records destruction allowed?
         puffer_class_attribute :destroy, true
-        #  scope - default scope for all queries
+        #  scope - default scope name for all queries
         puffer_class_attribute :scope
         #  order - default order option. Is a string with field name and direction. Ex: 'email', 'first_name asc', 'title desc'
         puffer_class_attribute :order
