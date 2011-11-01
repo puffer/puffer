@@ -18,7 +18,11 @@ module Puffer
         end
 
         def puffer_filters
-          @puffer_filters ||= puffer_filters_class.new params[puffer_filters_class.model_name.param_key]
+          @puffer_filters ||= begin
+            filters = params[puffer_filters_class.model_name.param_key] || {}
+            filters = {:puffer_order => configuration.order}.merge(filters) if configuration.order.present?
+            puffer_filters_class.new filters
+          end
         end
 
         def puffer_namespace

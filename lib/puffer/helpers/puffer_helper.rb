@@ -1,3 +1,5 @@
+# coding: utf-8
+
 module Puffer
   module Helpers
     module PufferHelper
@@ -28,7 +30,13 @@ module Puffer
       end
 
       def render_head field
-        field.human
+        head = []
+        if field.column
+          head.push link_to_unless(puffer_filters.puffer_order == field.to_s, "▼", resource.collection_path(:page => params[:page], :filters => puffer_filters.query.merge(:puffer_order => field)))
+          head.push link_to_unless(puffer_filters.puffer_order == [field, :desc].join(' '), "▲", resource.collection_path(:page => params[:page], :filters => puffer_filters.query.merge(:puffer_order => [field, :desc].join(' '))))
+        end
+        head.push field.human
+        head.join(' ').html_safe
       end
 
       def render_field field, record

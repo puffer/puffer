@@ -31,7 +31,7 @@ module Puffer
     end
 
     def conditions
-      attributes.except('puffer_search', 'puffer_order').keys.reduce({}) do |res, attribute|
+      attributes.except('puffer_search', 'puffer_order').keys.reduce(ActiveSupport::HashWithIndifferentAccess.new()) do |res, attribute|
         value = send(attribute)
 
         unless value.nil?
@@ -52,7 +52,15 @@ module Puffer
     end
 
     def order
-      puffer_order
+      puffer_order.to_s.split(' ').map(&:to_sym)
+    end
+
+    def query
+      attributes.keys.reduce(ActiveSupport::HashWithIndifferentAccess.new()) do |res, attribute|
+        value = send(attribute)
+        res[attribute] = value unless value.nil?
+        res
+      end
     end
 
     module ClassMethods
@@ -71,7 +79,7 @@ module Puffer
         if scope.const_defined?(name)
           scope.const_get(name)
         else
-          attributes_from_controller = controller.index_fields.reduce({}) do |res, field|
+          attributes_from_controller = controller.index_fields.reduce(ActiveSupport::HashWithIndifferentAccess.new()) do |res, field|
             res[field.field_name] = nil
             res
           end
