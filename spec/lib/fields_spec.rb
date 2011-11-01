@@ -18,15 +18,6 @@ describe "Field" do
     field.name.should == 'name'
   end
 
-  it "#query_column" do
-    field = Puffer::Field.new 'user.profile.name', Post
-    field.query_column.should == 'profiles.name'
-    field = Puffer::Field.new 'user.email', Post
-    field.query_column.should == 'users.email'
-    field = Puffer::Field.new 'user.full_name', Post
-    field.query_column.should == nil
-  end
-
   it "#column" do
     field = Puffer::Field.new 'user.profile.name', Post
     field.name.should == 'name'

@@ -10,7 +10,7 @@ require 'spec_helper'
 #     end
 #   end
 # end
-describe PufferHelper do
+describe Puffer::Helpers::PufferHelper do
 
   it "generates scopes navigation" do
     helper.stub(:puffer_namespace).and_return(:admin)

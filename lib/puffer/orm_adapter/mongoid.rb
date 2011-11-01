@@ -9,11 +9,12 @@ module Puffer
       end
 
       def filter scope, fields, options = {}
-        fields = fields.columns
         conditions, order = extract_conditions_and_order!(options)
 
-        conditions_fields = fields.select {|f| conditions.keys.include?(f.field_name)}.to_fieldset
-        search_fields = fields.select {|f| !conditions_fields.include?(f) && search_types.include?(f.column_type)}
+        order = order.map { |o| f = fields[o.first]; [query_order(f), o.last] if f && f.column }.compact
+
+        conditions_fields = fields.select {|f| f.column && conditions.keys.include?(f.field_name)}.to_fieldset
+        search_fields = fields.select {|f| f.column && !conditions_fields.include?(f) && search_types.include?(f.column_type)}
         all_fields = conditions_fields + search_fields
 
         conditions = conditions.reduce({}) do |res, (name, value)|
@@ -35,6 +36,10 @@ module Puffer
       def searches fields, query
         regexp = /#{Regexp.escape(query)}/i
         fields.map {|field| {field.name => regexp}}
+      end
+
+      def query_order field
+        field.options[:order] || field.name
       end
 
     end

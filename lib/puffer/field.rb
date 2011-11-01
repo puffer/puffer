@@ -36,10 +36,6 @@ module Puffer
       @human ||= model && model.human_attribute_name(name)
     end
 
-    def order
-      @order ||= options[:order] || query_column
-    end
-
     def type
       @type ||= options[:type] || custom_type || column_type || :string
     end
@@ -87,10 +83,6 @@ module Puffer
 
     def column_type
       column[:type] if column
-    end
-
-    def query_column
-      "#{model.table_name}.#{name}" if column
     end
 
   end

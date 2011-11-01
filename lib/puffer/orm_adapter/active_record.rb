@@ -11,13 +11,15 @@ module Puffer
       def filter scope, fields, options = {}
         conditions, order = extract_conditions_and_order!(options)
 
+        order = order.map { |o| f = fields[o.first]; [query_order(f), o.last] if f && f.column }.compact
+
         conditions_fields = fields.select {|f| f.column && conditions.keys.include?(f.field_name)}.to_fieldset
         search_fields = fields.select {|f| f.column && !conditions_fields.include?(f) && search_types.include?(f.column_type)}
         all_fields = conditions_fields + search_fields
 
         conditions = conditions.reduce({}) do |res, (name, value)|
           field = conditions_fields[name]
-          res[field.query_column] = value if field
+          res[query_column(field)] = value if field
           res
         end
 
@@ -41,7 +43,15 @@ module Puffer
       end
 
       def searches fields, query
-        [fields.map {|f| "#{f.query_column} like ?"}.compact.join(' or '), *(Array.wrap("%#{query}%") * fields.count)] if query.present?
+        [fields.map {|f| "#{query_column(f)} like ?"}.compact.join(' or '), *(Array.wrap("%#{query}%") * fields.count)] if query.present?
+      end
+
+      def query_column field
+        "#{field.model.table_name}.#{field.name}" if field.column
+      end
+
+      def query_order field
+        field.options[:order] || query_column(field)
       end
 
     end
