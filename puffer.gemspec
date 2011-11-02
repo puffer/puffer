@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{pyromaniac}]
-  s.date = %q{2011-11-01}
+  s.date = %q{2011-11-02}
   s.description = %q{In Soviet Russia puffer admins you}
   s.email = %q{kinwizard@gmail.com}
   s.extra_rdoc_files = [
@@ -82,6 +82,7 @@ Gem::Specification.new do |s|
     "app/views/layouts/puffer_sessions.html.erb",
     "app/views/puffer/base/_edit.html.erb",
     "app/views/puffer/base/_index.html.erb",
+    "app/views/puffer/base/_show.html.erb",
     "app/views/puffer/base/_table.html.erb",
     "app/views/puffer/base/edit.html.erb",
     "app/views/puffer/base/edit.js.erb",
@@ -89,6 +90,7 @@ Gem::Specification.new do |s|
     "app/views/puffer/base/index.js.erb",
     "app/views/puffer/base/new.html.erb",
     "app/views/puffer/base/show.html.erb",
+    "app/views/puffer/base/show.js.erb",
     "app/views/puffer/base/update.js.erb",
     "app/views/puffer/dashboard_base/index.html.erb",
     "app/views/puffer/sessions_base/new.html.erb",

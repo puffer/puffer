@@ -1,5 +1,10 @@
 class DateTimeComponent < BaseComponent
 
+  def index
+    date = super
+    date.to_s(field.options[:format].presence || :db) if date.present?
+  end
+
   def form
     @format = case field.type
       when :date                    then '%Y-%m-%d'

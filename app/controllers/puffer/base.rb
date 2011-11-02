@@ -8,6 +8,7 @@ module Puffer
     define_fieldset :index, :form
     define_fieldset :show, :fallbacks => :index
     define_fieldset :create, :update, :fallbacks => :form
+    define_fieldset :filter, :fallbacks => :index
 
     layout 'puffer'
 

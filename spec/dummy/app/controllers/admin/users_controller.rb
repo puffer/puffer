@@ -3,6 +3,7 @@ class Admin::UsersController < Puffer::Base
   setup do
     group :users
     order 'email desc'
+    show true
   end
 
   member do

@@ -273,6 +273,8 @@ h2
 .list_table *
 {
     font-size: 8pt;
+    margin: 0;
+    padding: 0;
 }
 
 .list_table tr
@@ -465,7 +467,13 @@ select
     display: block;
 }
 
-body div.rui-dialog-body
+.show_entry
 {
     min-width: 900px;
+}
+
+.show_entry li
+{
+    list-style: none;
+    margin-bottom: 10px;
 }

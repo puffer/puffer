@@ -1,0 +1,13 @@
+<% @title = "Show #{resource.human}" %>
+<h1><%= @title %></h1>
+
+<ul class="show_entry">
+<% show_fields.each do |field| -%>
+  <li>
+    <h2><%= field.human %></h2>
+    <div>
+      <%= field.render :show, controller, record %>
+    </div>
+  </li>
+<% end if show_fields && record -%>
+</ul>

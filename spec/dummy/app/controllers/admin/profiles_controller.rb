@@ -8,7 +8,7 @@ class Admin::ProfilesController < Puffer::Base
     field 'user.email'
     field :name
     field :surname
-    field :birth_date
+    field :birth_date, :format => :long
   end
 
   form do

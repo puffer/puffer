@@ -6,6 +6,7 @@
   <div class="paginator"></div>
 
   <%= render :layout => 'table', :locals => {:table_fields => index_fields} do |record| %>
+    <%= link_to 'show', resource.member_path(record), :data => {'new-dialog-uri' => resource.member_path(record)} if configuration.show %>
     <%= link_to 'edit', resource.edit_path(record) if update_fields.present? %>
     <% _members.each do |member| %>
       <%= link_to member.label, resource.member_path(record, :action => member.action) if member.display? %>
