@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{pyromaniac}]
-  s.date = %q{2011-11-02}
+  s.date = %q{2011-11-04}
   s.description = %q{In Soviet Russia puffer admins you}
   s.email = %q{kinwizard@gmail.com}
   s.extra_rdoc_files = [
@@ -45,6 +45,7 @@ Gem::Specification.new do |s|
     "app/components/boolean/form.html.erb",
     "app/components/boolean/index.html.erb",
     "app/components/boolean_component.rb",
+    "app/components/date_time/filter.html.erb",
     "app/components/date_time/form.html.erb",
     "app/components/date_time_component.rb",
     "app/components/file/form.html.erb",
@@ -59,6 +60,7 @@ Gem::Specification.new do |s|
     "app/components/references_one/choose.html.erb",
     "app/components/references_one/form.html.erb",
     "app/components/references_one_component.rb",
+    "app/components/render_component.rb",
     "app/components/select/filter.html.erb",
     "app/components/select/form.html.erb",
     "app/components/select_component.rb",
@@ -258,6 +260,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<capybara>, [">= 0"])
       s.add_development_dependency(%q<database_cleaner>, [">= 0"])
       s.add_development_dependency(%q<ammeter>, [">= 0"])
+      s.add_development_dependency(%q<timecop>, [">= 0"])
       s.add_development_dependency(%q<guard>, [">= 0"])
       s.add_development_dependency(%q<libnotify>, [">= 0"])
       s.add_development_dependency(%q<guard-rspec>, [">= 0"])
@@ -277,6 +280,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<capybara>, [">= 0"])
       s.add_dependency(%q<database_cleaner>, [">= 0"])
       s.add_dependency(%q<ammeter>, [">= 0"])
+      s.add_dependency(%q<timecop>, [">= 0"])
       s.add_dependency(%q<guard>, [">= 0"])
       s.add_dependency(%q<libnotify>, [">= 0"])
       s.add_dependency(%q<guard-rspec>, [">= 0"])
@@ -297,6 +301,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<capybara>, [">= 0"])
     s.add_dependency(%q<database_cleaner>, [">= 0"])
     s.add_dependency(%q<ammeter>, [">= 0"])
+    s.add_dependency(%q<timecop>, [">= 0"])
     s.add_dependency(%q<guard>, [">= 0"])
     s.add_dependency(%q<libnotify>, [">= 0"])
     s.add_dependency(%q<guard-rspec>, [">= 0"])

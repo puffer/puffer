@@ -82,7 +82,7 @@ module Puffer
       end
 
       def method_for_action action_name
-        fallback_action(action_name) || super
+        super fallback_action(action_name)
       end
 
       def fallback_action action_name

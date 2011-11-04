@@ -7,6 +7,7 @@ class Admin::NewsController < Puffer::Base
   index do
     field :title
     field :body
+    field :renderable, :render => lambda { @record.title }
   end
 
   form do
