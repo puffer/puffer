@@ -17,7 +17,7 @@ module Puffer
 
     def read_attribute name
       range = @ranges[name]
-      if range.is_a?(Hash) && range.values.any?
+      if range.is_a?(Hash) && range.values.any?(&:present?)
         range
       else
         attributes[name]
