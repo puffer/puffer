@@ -50,7 +50,7 @@ module Puffer
 
       def searches fields, query
         regexp = /#{Regexp.escape(query)}/i
-        fields.map {|field| {field.name => regexp}}
+        fields.map {|field| {field.to_s => regexp}}
       end
 
       def query_order field
