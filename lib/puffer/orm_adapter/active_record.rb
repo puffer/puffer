@@ -11,21 +11,28 @@ module Puffer
       def filter scope, fields, options = {}
         conditions, order = extract_conditions_and_order!(options)
 
-        order = order.map { |o| f = fields[o.first]; [query_order(f), o.last] if f && f.column }.compact
+        order = order.map { |name, dir| field = fields[name]; "#{query_order(field)} #{dir}" if field && field.column }.compact.join(', ')
 
         conditions_fields = fields.select {|f| f.column && conditions.keys.include?(f.field_name)}.to_fieldset
         search_fields = fields.select {|f| f.column && !conditions_fields.include?(f) && search_types.include?(f.column_type)}
-        all_fields = conditions_fields + search_fields
+        all_fields = conditions_fields + search_fields        
 
-        conditions = conditions.reduce({}) do |res, (name, value)|
+        scope = scope.includes(includes(all_fields)).includes(reflection_includes(fields)).where(searches(search_fields, options[:search])).order(order)
+
+        conditions.each do |(name, value)|
           field = conditions_fields[name]
-          res[query_column(field)] = value if field
-          res
+          scope = if value.is_a?(Hash)
+            case
+            when value[:from].blank? then scope.where(["#{query_column(field)} < ?", value[:till]])
+            when value[:till].blank? then scope.where(["#{query_column(field)} > ?", value[:from]])
+            else scope.where(name => Range.new(value[:from], value[:till]))
+            end
+          else
+            scope.where(name => value)
+          end if field
         end
 
-        order = order.map {|field, direction| "#{field} #{direction}"}.join(', ')
-
-        scope.includes(includes(all_fields)).includes(reflection_includes(fields)).where(searches(search_fields, options[:search])).where(conditions).order(order)
+        scope
       end
 
     private

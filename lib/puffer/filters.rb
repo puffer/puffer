@@ -8,6 +8,7 @@ module Puffer
     delegate :model_name, :to => 'self.class'
 
     def initialize attributes = {}
+      @ranges = {}
       attributes ||= {}
       attributes.each do |(key, value)|
         send("#{key}=", value) if respond_to?("#{key}=")
@@ -15,7 +16,12 @@ module Puffer
     end
 
     def read_attribute name
-      attributes[name]
+      range = @ranges[name]
+      if range.is_a?(Hash) && range.values.any?
+        range
+      else
+        attributes[name]
+      end
     end
 
     def write_attribute name, value
@@ -79,14 +85,31 @@ module Puffer
         if scope.const_defined?(name)
           scope.const_get(name)
         else
-          attributes_from_controller = controller.index_fields.reduce(ActiveSupport::HashWithIndifferentAccess.new()) do |res, field|
+          attributes_from_controller = controller.filter_fields.reduce(ActiveSupport::HashWithIndifferentAccess.new()) do |res, field|
             res[field.field_name] = nil
             res
           end
 
-          attributes_from_controller.merge!('puffer_search' => nil, 'puffer_order' => nil)
-
           klass = Class.new(self)
+
+          attributes_from_controller.keys.each do |name|
+            klass.send :define_method, "#{name}_from" do
+              swallow_nil{@ranges[name][:from].presence}
+            end
+            klass.send :define_method, "#{name}_from=" do |value|
+              @ranges[name] ||= {:from => nil, :till => nil}
+              @ranges[name][:from] = value
+            end
+            klass.send :define_method, "#{name}_till" do
+              swallow_nil{@ranges[name][:till].presence}
+            end
+            klass.send :define_method, "#{name}_till=" do |value|
+              @ranges[name] ||= {:from => nil, :till => nil}
+              @ranges[name][:till] = value
+            end
+          end
+
+          attributes_from_controller.merge!('puffer_search' => nil, 'puffer_order' => nil)
 
           attributes_from_controller.keys.each do |name|
             klass.send :define_method, name do
@@ -101,7 +124,6 @@ module Puffer
             attributes_from_controller
           end
           
-
           scope.const_set(name, klass)
         end
       end

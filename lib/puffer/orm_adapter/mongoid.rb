@@ -24,7 +24,22 @@ module Puffer
         end
         
         scope = scope.any_of(searches(search_fields, options[:search])) if options[:search].present?
-        scope.where(conditions).order(order)
+        scope = scope.order_by(order)
+
+        conditions.each do |(name, value)|
+          field = conditions_fields[name]
+          scope = if value.is_a?(Hash)
+            case
+            when value[:from].blank? then scope.where(name.to_sym.lt => value[:till])
+            when value[:till].blank? then scope.where(name.to_sym.gt => value[:from])
+            else scope.where(name => Range.new(value[:from], value[:till]))
+            end
+          else
+            scope.where(name => value)
+          end if field
+        end
+
+        scope
       end
 
     private

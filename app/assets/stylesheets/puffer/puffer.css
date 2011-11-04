@@ -168,6 +168,11 @@ h2
     margin-bottom: 8px;
 }
 
+.sidebar .navigation > li .additional dd.date_range input[type=text]
+{
+    width: 48%;
+}
+
 .sidebar .navigation > li .additional, .dashboard .navigation > li ul.additional
 {
     padding: 10px 12px;

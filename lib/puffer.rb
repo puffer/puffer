@@ -106,5 +106,8 @@ module Puffer
   append_custom_field_type(proc {|type| type.reflection.macro}) do |field|
     field.reflection
   end
+  append_custom_field_type :render do |field|
+    field.options.key? :render
+  end
 
 end

@@ -6,12 +6,23 @@ class DateTimeComponent < BaseComponent
   end
 
   def form
-    @format = case field.type
+    @format = time_format
+    render
+  end
+
+  def filter
+    @format = time_format
+    render
+  end
+
+private
+
+  def time_format
+    @format ||= case field.type
       when :date                    then '%Y-%m-%d'
       when :time                    then '%H:%M:%S'
       when :datetime, :timestamp    then '%Y-%m-%d %H:%M:%S'
     end
-    super
   end
 
 end

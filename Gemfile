@@ -15,6 +15,7 @@ group :development, :test do
   gem "capybara"
   gem 'database_cleaner'
   gem 'ammeter'
+  gem 'timecop'
 
   gem 'guard'
   gem 'libnotify'
