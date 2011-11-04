@@ -35,7 +35,7 @@ module Puffer
         # method, or you should properly redefine +has_puffer_access?+ See
         # +has_puffer_access?+ source and docs.
         def current_puffer_user
-          @current_puffer_user ||= super rescue (PufferUser.find(session[:puffer_user_id]) if session[:puffer_user_id])
+          @current_puffer_user ||= super rescue (::PufferUser.find(session[:puffer_user_id]) if session[:puffer_user_id])
         end
 
         # Used in before_filter to prevent unauthorized access
