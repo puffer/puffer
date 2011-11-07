@@ -1,46 +1,106 @@
 module Puffer
   class Filters
+    class Diapason < Struct.new(:from, :till)
+      def empty?
+        from.blank? && till.blank?
+      end
+
+      def persisted?
+        false
+      end
+
+      def to_query(key)
+        {:from => from, :till => till}.to_query(key)
+      end
+    end
+
     include ActiveModel::Conversion
     extend ActiveModel::Naming
     extend ActiveModel::Translation
     include ActiveModel::AttributeMethods
 
-    delegate :model_name, :to => 'self.class'
+    delegate :model_name, :special_attributes, :to => 'self.class'
 
-    def initialize attributes = {}
-      @ranges = {}
-      attributes ||= {}
+    def self.special_attributes
+      %w(puffer_search puffer_order)
+    end
+
+    special_attributes.each do |attribute|
+      define_method attribute do
+        read_attribute attribute
+      end
+      define_method "#{attribute}=" do |value|
+        write_attribute attribute, value
+      end
+    end
+
+    attr_reader :controller_instance
+
+    def initialize controller_instance, attributes = {}
+      @attributes = {}
+      @controller_instance = controller_instance
+      generate_attribute_methods
+
+      self.attributes = attributes
+    end
+
+    def read_attribute name
+      @attributes[name.to_s]
+    end
+
+    def write_attribute name, value
+      if value.is_a? Hash
+        value.each do |key, subvalue|
+          @attributes[name.to_s][key] = subvalue if subvalue.present?
+        end
+      else
+        @attributes[name.to_s] = value
+      end if value.present?
+    end
+
+    def attributes
+
+    end
+
+    def attributes= attributes = {}
       attributes.each do |(key, value)|
         send("#{key}=", value) if respond_to?("#{key}=")
       end
     end
 
-    def read_attribute name
-      range = @ranges[name]
-      if range.is_a?(Hash) && range.values.any?(&:present?)
-        range
-      else
-        attributes[name]
+    def generate_attribute_methods
+      fieldset.each do |field|
+        define_singleton_method :"#{field}" do
+          read_attribute field
+        end
+        define_singleton_method :"#{field}=" do |value|
+          write_attribute field, value
+        end
+
+        if %(date, time, datetime, date_time, timestamp).include?(field.type.to_s)
+          @attributes[field.to_s] = Puffer::Filters::Diapason.new
+
+          define_singleton_method :"#{field}_attributes=" do |value|
+            write_attribute field, value
+          end
+        end
       end
     end
 
-    def write_attribute name, value
-      attributes[name] = value.presence if attributes.key?(name)
-    end
-
-    def persisted?
-      false
-    end
-
-    def any?
-      attributes.keys.any? { |attribute| !send(attribute).nil? }
+    def query
+      (fieldset.map(&:field_name) + special_attributes).reduce(ActiveSupport::HashWithIndifferentAccess.new()) do |res, attribute|
+        value = send(attribute)
+        attribute = "#{attribute}_attributes" if respond_to?("#{attribute}_attributes=")
+        res[attribute] = value unless value.blank?
+        res
+      end
     end
 
     def conditions
-      attributes.except('puffer_search', 'puffer_order').keys.reduce(ActiveSupport::HashWithIndifferentAccess.new()) do |res, attribute|
+      fieldset.map(&:field_name).reduce(ActiveSupport::HashWithIndifferentAccess.new()) do |res, attribute|
         value = send(attribute)
 
-        unless value.nil?
+        unless value.blank?
           value = case value
           when 'puffer_nil' then nil
           when 'puffer_blank' then ''
@@ -61,75 +121,13 @@ module Puffer
       puffer_order.to_s.split(' ').map(&:to_sym)
     end
 
-    def query
-      attributes.keys.reduce(ActiveSupport::HashWithIndifferentAccess.new()) do |res, attribute|
-        value = send(attribute)
-        res[attribute] = value unless value.nil?
-        res
-      end
+    def fieldset
+      controller_instance.filter_fields
     end
 
-    module ClassMethods
-      def model_name
-        @model_name ||= begin
-          name = super
-          name.instance_variable_set :@param_key, 'filters'
-          name
-        end
-      end
-
-      def controller_filters controller
-        scope = "#{controller}Filters".split('::')[0..-2].join('::').constantize rescue Kernel
-        name = "#{controller}Filters".demodulize
-
-        if scope.const_defined?(name)
-          scope.const_get(name)
-        else
-          attributes_from_controller = controller.filter_fields.reduce(ActiveSupport::HashWithIndifferentAccess.new()) do |res, field|
-            res[field.field_name] = nil
-            res
-          end
-
-          klass = Class.new(self)
-
-          attributes_from_controller.keys.each do |name|
-            klass.send :define_method, "#{name}_from" do
-              swallow_nil{@ranges[name][:from].presence}
-            end
-            klass.send :define_method, "#{name}_from=" do |value|
-              @ranges[name] ||= {:from => nil, :till => nil}
-              @ranges[name][:from] = value
-            end
-            klass.send :define_method, "#{name}_till" do
-              swallow_nil{@ranges[name][:till].presence}
-            end
-            klass.send :define_method, "#{name}_till=" do |value|
-              @ranges[name] ||= {:from => nil, :till => nil}
-              @ranges[name][:till] = value
-            end
-          end
-
-          attributes_from_controller.merge!('puffer_search' => nil, 'puffer_order' => nil)
-
-          attributes_from_controller.keys.each do |name|
-            klass.send :define_method, name do
-              read_attribute name
-            end
-            klass.send :define_method, "#{name}=" do |value|
-              write_attribute name, value
-            end
-          end
-
-          klass.send :define_method, :attributes do
-            attributes_from_controller
-          end
-          
-          scope.const_set(name, klass)
-        end
-      end
+    def persisted?
+      false
     end
-
-    extend ClassMethods
 
   end
 end

@@ -1,7 +1,9 @@
 <%= component_fields_for @record do |f| %>
   <dt><%= f.label field.field_name %></dt>
   <dd class="date_range">
-    <%= f.text_field "#{field}_from", field.input_options.merge("data-calendar" => "{showButtons: true, listYears: true, format: '#{@format}'}", :autocomplete => :off) %>
-    <%= f.text_field "#{field}_till", field.input_options.merge("data-calendar" => "{showButtons: true, listYears: true, format: '#{@format}'}", :autocomplete => :off) %>
+    <%= f.fields_for field.to_s do |fields| %>
+      <%= fields.text_field :from, field.input_options.merge("data-calendar" => "{showButtons: true, listYears: true, format: '#{@format}'}", :autocomplete => :off) %>
+      <%= fields.text_field :till, field.input_options.merge("data-calendar" => "{showButtons: true, listYears: true, format: '#{@format}'}", :autocomplete => :off) %>
+    <% end %>
   </dd>
 <% end %>

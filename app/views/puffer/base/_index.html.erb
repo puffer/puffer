@@ -18,7 +18,7 @@
 
   <%= javascript_tag do %>
     $$('.paginator').each(function(element) {
-      new Paginator({total: <%= records.num_pages %>, current: <%= params[:page] || 1 %>, link: {'href': '<%= resource.collection_path(:page => '%{page}', :filters => puffer_filters.query).html_safe %>'}}).insertTo(element, 'instead');
+      new Paginator({total: <%= records.num_pages %>, current: <%= params[:page] || 1 %>, link: {'href': '<%= resource.collection_path(:page => '%{page}', Puffer::Filters.model_name.param_key => puffer_filters.query).html_safe %>'}}).insertTo(element, 'instead');
     });
   <% end %>
 <% else %>

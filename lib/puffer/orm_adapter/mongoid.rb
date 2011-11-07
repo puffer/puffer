@@ -28,11 +28,11 @@ module Puffer
 
         conditions.each do |(name, value)|
           field = conditions_fields[name]
-          scope = if value.is_a?(Hash)
+          scope = if value.is_a?(Puffer::Filters::Diapason)
             case
-            when value[:from].blank? then scope.where(name.to_sym.lt => value[:till])
-            when value[:till].blank? then scope.where(name.to_sym.gt => value[:from])
-            else scope.where(name => Range.new(value[:from], value[:till]))
+            when value.from.blank? then scope.where(name.to_sym.lt => value.till)
+            when value.till.blank? then scope.where(name.to_sym.gt => value.from)
+            else scope.where(name => Range.new(value.from, value.till))
             end
           else
             scope.where(name => value)

@@ -6,7 +6,7 @@ module Puffer
       included do
         helper 'puffer/helpers/puffer'
         
-        delegate :puffer_filters_class, :model, :model_name, :to => 'self.class'
+        delegate :model, :model_name, :to => 'self.class'
         helper_method :puffer_filters, :puffer_namespace, :resource, :record, :records
       end
 
@@ -19,9 +19,9 @@ module Puffer
 
         def puffer_filters
           @puffer_filters ||= begin
-            filters = params[puffer_filters_class.model_name.param_key] || {}
+            filters = params[Puffer::Filters.model_name.param_key] || {}
             filters = {:puffer_order => configuration.order}.merge(filters) if configuration.order.present?
-            puffer_filters_class.new filters
+            Puffer::Filters.new self, filters
           end
         end
 
@@ -47,10 +47,6 @@ module Puffer
 
         def puffer?
           true
-        end
-
-        def puffer_filters_class
-          @puffer_filters_class ||= Puffer::Filters.controller_filters(self)
         end
 
         def model_name

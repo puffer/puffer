@@ -32,8 +32,8 @@ module Puffer
       def render_head field
         head = []
         if field.column
-          head.push link_to_unless(puffer_filters.puffer_order == field.to_s, "▼", resource.collection_path(:page => params[:page], :filters => puffer_filters.query.merge(:puffer_order => field)))
-          head.push link_to_unless(puffer_filters.puffer_order == [field, :desc].join(' '), "▲", resource.collection_path(:page => params[:page], :filters => puffer_filters.query.merge(:puffer_order => [field, :desc].join(' '))))
+          head.push link_to_unless(puffer_filters.puffer_order == field.to_s, "▼", resource.collection_path(:page => params[:page], Puffer::Filters.model_name.param_key => puffer_filters.query.merge(:puffer_order => field)))
+          head.push link_to_unless(puffer_filters.puffer_order == [field, :desc].join(' '), "▲", resource.collection_path(:page => params[:page], Puffer::Filters.model_name.param_key => puffer_filters.query.merge(:puffer_order => [field, :desc].join(' '))))
         end
         head.push field.human
         head.join(' ').html_safe
