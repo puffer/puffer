@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{pyromaniac}]
-  s.date = %q{2011-11-04}
+  s.date = %q{2011-11-07}
   s.description = %q{In Soviet Russia puffer admins you}
   s.email = %q{kinwizard@gmail.com}
   s.extra_rdoc_files = [
@@ -26,13 +26,17 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "app/assets/javascripts/puffer/application.js",
-    "app/assets/javascripts/puffer/paginator.js",
     "app/assets/javascripts/puffer/puffer.js",
     "app/assets/javascripts/puffer/rails.js",
     "app/assets/javascripts/puffer/right-autocompleter-src.js",
     "app/assets/javascripts/puffer/right-calendar-src.js",
     "app/assets/javascripts/puffer/right-dialog-src.js",
+    "app/assets/javascripts/puffer/right-dnd-src.js",
+    "app/assets/javascripts/puffer/right-in-edit-src.js",
+    "app/assets/javascripts/puffer/right-keys-src.js",
+    "app/assets/javascripts/puffer/right-paginator-src.js",
     "app/assets/javascripts/puffer/right-slider-src.js",
+    "app/assets/javascripts/puffer/right-sortable-src.js",
     "app/assets/javascripts/puffer/right-src.js",
     "app/assets/stylesheets/puffer/application.css",
     "app/assets/stylesheets/puffer/paginator.css",
