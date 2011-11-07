@@ -1,5 +1,5 @@
 /**
- * RightJS-UI Calendar v2.2.0
+ * RightJS-UI Calendar v2.3.0
  * http://rightjs.org/ui/calendar
  *
  * Copyright (C) 2009-2011 Nikolay Nemshilov
@@ -430,7 +430,7 @@ var Calendar = new Widget({
   include: [Toggler, Assignable],
 
   extend: {
-    version: '2.2.0',
+    version: '2.3.0',
 
     EVENTS: $w('show hide change done'),
 
@@ -457,6 +457,8 @@ var Calendar = new Widget({
 
       update:         null,   // a reference to an input element to assign to
       trigger:        null,   // a reference to a trigger element that would be paired too
+
+      highlight:      null,   // a list of dates to highlight
 
       cssRule:        '*[data-calendar]' // css rule for calendar related elements
     },
@@ -694,6 +696,12 @@ var Calendar = new Widget({
       this.assignTo(options.update, options.trigger);
     }
 
+    if (isArray(options.highlight)) {
+      options.highlight = R(options.highlight).map(function(date) {
+        return isString(date) ? this.parse(date) : date;
+      }, this);
+    }
+
     return this;
   },
 
@@ -898,6 +906,14 @@ var Month = new Class(Element, {
 
       if ((options.minDate && options.minDate > date) || (options.maxDate && options.maxDate < date)) {
         cell.className = 'disabled';
+      }
+
+      if (isArray(options.highlight)) {
+        if (options.highlight.first(function(d) {
+          return d.getFullYear() === date.getFullYear() &&
+                 d.getMonth()    === date.getMonth()    &&
+                 d.getDate()     === date.getDate()
+        })) { cell.className += ' highlighted'; }
       }
 
       week[day_num].date = new Date(date);
@@ -1448,7 +1464,7 @@ $(document).on({
 
 
 var embed_style = document.createElement('style'),                 
-    embed_rules = document.createTextNode(".rui-panel{margin:0;padding:.5em;position:relative;background-color:#EEE;border:1px solid #BBB;border-radius:.3em;-moz-border-radius:.3em;-webkit-border-radius:.3em;box-shadow:.15em .3em .5em #BBB;-moz-box-shadow:.15em .3em .5em #BBB;-webkit-box-shadow:.15em .3em .5em #BBB;cursor:default} *.rui-button{display:inline-block; *display:inline; *zoom:1;height:1em;line-height:1em;margin:0;padding:.2em .5em;text-align:center;border:1px solid #CCC;border-radius:.2em;-moz-border-radius:.2em;-webkit-border-radius:.2em;cursor:pointer;color:#333;background-color:#FFF;user-select:none;-moz-user-select:none;-webkit-user-select:none} *.rui-button:hover{color:#111;border-color:#999;background-color:#DDD;box-shadow:#888 0 0 .1em;-moz-box-shadow:#888 0 0 .1em;-webkit-box-shadow:#888 0 0 .1em} *.rui-button:active{color:#000;border-color:#777;text-indent:1px;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none} *.rui-button-disabled, *.rui-button-disabled:hover, *.rui-button-disabled:active{color:#888;background:#DDD;border-color:#CCC;cursor:default;text-indent:0;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none}div.rui-re-anchor{margin:0;padding:0;background:none;border:none;float:none;display:inline;position:absolute;z-index:9999}div.rui-calendar .swaps,div.rui-calendar .greed,div.rui-calendar .timepicker,div.rui-calendar .buttons,div.rui-calendar table,div.rui-calendar table tr,div.rui-calendar table th,div.rui-calendar table td,div.rui-calendar table tbody,div.rui-calendar table thead,div.rui-calendar table caption{background:none;border:none;width:auto;height:auto;margin:0;padding:0}div.rui-calendar-inline{position:relative;display:inline-block; *display:inline; *zoom:1;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none}div.rui-calendar .swaps{position:relative}div.rui-calendar .swaps .rui-button{position:absolute;float:left;width:1em;padding:.15em .4em}div.rui-calendar .swaps .next-month{right:0em;_right:.5em}div.rui-calendar .swaps .prev-year{left:2.05em}div.rui-calendar .swaps .next-year{right:2.05em;_right:2.52em}div.rui-calendar .greed{border-spacing:0px;border-collapse:collapse;border-size:0}div.rui-calendar .greed td{vertical-align:top;padding-left:.4em}div.rui-calendar .greed>tbody>tr>td:first-child{padding:0}div.rui-calendar .month{margin-top:.2em;border-spacing:1px;border-collapse:separate}div.rui-calendar .month caption{text-align:center}div.rui-calendar .month th{color:#666;text-align:center}div.rui-calendar .month td{text-align:right;padding:.1em .3em;background-color:#FFF;border:1px solid #CCC;cursor:pointer;color:#555;border-radius:.2em;-moz-border-radius:.2em;-webkit-border-radius:.2em}div.rui-calendar .month td:hover{background-color:#CCC;border-color:#AAA;color:#000}div.rui-calendar .month td.blank{background:transparent;cursor:default;border:none}div.rui-calendar .month td.selected{background-color:#BBB;border-color:#AAA;color:#222;font-weight:bold;padding:.1em .2em}div.rui-calendar .month td.disabled{color:#888;background:#EEE;border-color:#CCC;cursor:default}div.rui-calendar .timepicker{border-top:1px solid #ccc;margin-top:.3em;padding-top:.5em;text-align:center}div.rui-calendar .timepicker select{margin:0 .4em}div.rui-calendar .buttons{position:relative;margin-top:.5em}div.rui-calendar .buttons div.rui-button{width:4em;padding:.25em .5em}div.rui-calendar .buttons .done{position:absolute;right:0em;top:0}");      
+    embed_rules = document.createTextNode(".rui-panel{margin:0;padding:.5em;position:relative;background-color:#EEE;border:1px solid #BBB;border-radius:.3em;-moz-border-radius:.3em;-webkit-border-radius:.3em;box-shadow:.15em .3em .5em #BBB;-moz-box-shadow:.15em .3em .5em #BBB;-webkit-box-shadow:.15em .3em .5em #BBB;cursor:default} *.rui-button{display:inline-block; *display:inline; *zoom:1;height:1em;line-height:1em;margin:0;padding:.2em .5em;text-align:center;border:1px solid #CCC;border-radius:.2em;-moz-border-radius:.2em;-webkit-border-radius:.2em;cursor:pointer;color:#333;background-color:#FFF;user-select:none;-moz-user-select:none;-webkit-user-select:none} *.rui-button:hover{color:#111;border-color:#999;background-color:#DDD;box-shadow:#888 0 0 .1em;-moz-box-shadow:#888 0 0 .1em;-webkit-box-shadow:#888 0 0 .1em} *.rui-button:active{color:#000;border-color:#777;text-indent:1px;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none} *.rui-button-disabled, *.rui-button-disabled:hover, *.rui-button-disabled:active{color:#888;background:#DDD;border-color:#CCC;cursor:default;text-indent:0;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none}div.rui-re-anchor{margin:0;padding:0;background:none;border:none;float:none;display:inline;position:absolute;z-index:9999}div.rui-calendar .swaps,div.rui-calendar .greed,div.rui-calendar .timepicker,div.rui-calendar .buttons,div.rui-calendar table,div.rui-calendar table tr,div.rui-calendar table th,div.rui-calendar table td,div.rui-calendar table tbody,div.rui-calendar table thead,div.rui-calendar table caption{background:none;border:none;width:auto;height:auto;margin:0;padding:0}div.rui-calendar-inline{position:relative;display:inline-block; *display:inline; *zoom:1;box-shadow:none;-moz-box-shadow:none;-webkit-box-shadow:none}div.rui-calendar .swaps{position:relative}div.rui-calendar .swaps .rui-button{position:absolute;float:left;width:1em;padding:.15em .4em}div.rui-calendar .swaps .next-month{right:0em;_right:.5em}div.rui-calendar .swaps .prev-year{left:2.05em}div.rui-calendar .swaps .next-year{right:2.05em;_right:2.52em}div.rui-calendar .greed{border-spacing:0px;border-collapse:collapse;border-size:0}div.rui-calendar .greed td{vertical-align:top;padding-left:.4em}div.rui-calendar .greed>tbody>tr>td:first-child{padding:0}div.rui-calendar .month{margin-top:.2em;border-spacing:1px;border-collapse:separate}div.rui-calendar .month caption{text-align:center}div.rui-calendar .month th{color:#666;text-align:center}div.rui-calendar .month td{text-align:right;padding:.1em .3em;background-color:#FFF;border:1px solid #CCC;cursor:pointer;color:#555;border-radius:.2em;-moz-border-radius:.2em;-webkit-border-radius:.2em}div.rui-calendar .month td:hover{background-color:#CCC;border-color:#AAA;color:#000}div.rui-calendar .month td.blank{background:transparent;cursor:default;border:none}div.rui-calendar .month td.selected{background-color:#BBB;border-color:#AAA;color:#222;font-weight:bold;padding:.1em .2em}div.rui-calendar .month td.disabled{color:#888;background:#EEE;border-color:#CCC;cursor:default}div.rui-calendar .month td.highlighted{background-color:#DDD;border-color:#bbb;color:#111}div.rui-calendar .timepicker{border-top:1px solid #ccc;margin-top:.3em;padding-top:.5em;text-align:center}div.rui-calendar .timepicker select{margin:0 .4em}div.rui-calendar .buttons{position:relative;margin-top:.5em}div.rui-calendar .buttons div.rui-button{width:4em;padding:.25em .5em}div.rui-calendar .buttons .done{position:absolute;right:0em;top:0}");      
                                                                    
 embed_style.type = 'text/css';                                     
 document.getElementsByTagName('head')[0].appendChild(embed_style); 

@@ -22,6 +22,7 @@ var association_done = function(event) {
 });
 
 'a[data-new-dialog-uri]'.on('click', function(event) {
+  console.log(event )
   if (event.which != 1) return;
   event.stop();
 

@@ -1,5 +1,5 @@
 /**
- * RightJS-UI Slider v2.2.3
+ * RightJS-UI Slider v2.3.0
  * http://rightjs.org/ui/slider
  *
  * Copyright (C) 2009-2011 Nikolay Nemshilov
@@ -177,7 +177,7 @@ var Slider = new Widget({
   include: Updater,
 
   extend: {
-    version: '2.2.3',
+    version: '2.3.0',
 
     EVENTS: $w('change'),
 
@@ -224,17 +224,15 @@ var Slider = new Widget({
 
     if (options.range === true) {
       this.handles = new Array();
-      this.handles[0] = this.first('.handle.from') || $E('div', {'class': 'handle.from'}).insertTo(this);
-      this.handles[1] = this.first('.handle.to') || $E('div', {'class': 'handle.to'}).insertTo(this);
-      
+      this.handles[0] = this.first('.handle.from') || $E('div', {'class': 'handle from'}).insertTo(this);
+      this.handles[1] = this.first('.handle.to') || $E('div', {'class': 'handle to'}).insertTo(this);
+
       this.values = [0, 0];
       this.values[0] = options.values === null ? options.min : options.values[0];
       this.values[1] = options.values === null ? options.max : options.values[1];
 
       this.setValue(this.values[0], 'from');
       this.setValue(this.values[1], 'to');
-
-      //this.offsets = [0, 0];
 
     } else {
       this.handle = this.first('.handle') || $E('div', {'class': 'handle'}).insertTo(this);
@@ -273,7 +271,7 @@ var Slider = new Widget({
   },
 
   /**
-   * Returns the values that used to store the range 
+   * Returns the values that used to store the range
    *
    * @return An array storing the from/to float numbers
    */
@@ -307,9 +305,9 @@ var Slider = new Widget({
       this.offset = horizontal ? handle_f.left - dims.left : dims.top + dims.height - handle_f.top - handle_size;
       this.space  = (horizontal ? dims.width : dims.height) - handle_size - (this.offset * 2);
 
-      var handle_t = this.handles[1].setStyle(horizontal ? {left: this.space + 'px'} : 
+      var handle_t = this.handles[1].setStyle(horizontal ? {left: this.space + 'px'} :
                                                            {bottom: this.space + 'px'}).dimensions();
-     
+
     } else {
       var handle      = this.handle.setStyle(horizontal ? {left: 0} : {bottom: 0}).dimensions(),
           handle_size = this.hSize = horizontal ? handle.width : handle.height;
@@ -322,13 +320,22 @@ var Slider = new Widget({
   },
 
   // initializes the slider drag
-  start: function(event, type) {
-    return this.precalc().e2val(event, type);
+  start: function(event) {
+    this._type = null
+    if (event.target.hasClass('handle')) {
+      if (event.target.hasClass('from')) {
+        this._type = "from";
+      } else if (event.target.hasClass('to')) {
+        this._type = "to";
+      }
+    }
+
+    return this.precalc().e2val(event);
   },
 
   // processes the slider-drag
-  move: function(event, type) {
-    return this.e2val(event, type);
+  move: function(event) {
+    return this.e2val(event);
   },
 
   // shifts the slider to the value
@@ -391,7 +398,7 @@ var Slider = new Widget({
       if (fireEvent) {
         this.fire('change', {value: value, values: this.values});
       }
-      
+
     } else {
       // calculating and setting the actual position
       var position = this.space / (options.max - options.min) * (value - options.min);
@@ -410,16 +417,17 @@ var Slider = new Widget({
   },
 
   // converts the event position into the actual value in terms of the slider measures
-  e2val: function(event, type) {
+  e2val: function(event) {
     var options = this.options, horizontal = options.direction === 'x',
         dims    = this.dims, offset = this.offset, space = this.space,
         cur_pos = event.position()[horizontal ? 'x' : 'y'] - offset - this.hSize/2,
         min_pos = horizontal ? dims.left + offset : dims.top + offset,
-        value   = (options.max - options.min) / space * (cur_pos - min_pos);
+        value   = (options.max - options.min) / space * (cur_pos - min_pos),
+        type    = this._type;
 
-    if (!type) {
+    if (type == null) {
       return this.shiftTo(horizontal ? options.min + value : options.max - value);
-    } else if (type === "to") { 
+    } else if (type === "to") {
       this.shiftTo(this.values[0], "from");
       return this.shiftTo(horizontal ? options.min + value : options.max - value, "to");
     } else {
@@ -453,23 +461,14 @@ $(document).on({
       if (!(slider instanceof Slider)) {
         slider = new Slider(slider);
       }
-      var type = null;
-      if (event.target.hasClass('handle')) {
-        if (event.target.hasClass('from')) {
-          type = "from";
-        } else if (event.target.hasClass('to')) {
-          type = "to";
-        }
-      }
-      Slider.current = slider.start(event, type);
-      Slider.handleType = type;
+      Slider.current = slider.start(event);
     }
   },
 
   // handles the slider move
   mousemove: function(event) {
     if (Slider.current) {
-      Slider.current.move(event, Slider.handleType);
+      Slider.current.move(event);
     }
   },
 
@@ -477,7 +476,6 @@ $(document).on({
   mouseup: function(event) {
     if (Slider.current) {
       Slider.current = false;
-      Slider.handleType = null;
     }
   }
 });
@@ -485,7 +483,6 @@ $(document).on({
 $(window).onBlur(function() {
   if (Slider.current) {
     Slider.current = false;
-    Slider.handleType = null;
   }
 });
 
