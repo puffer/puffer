@@ -19,9 +19,9 @@ private
 
   def time_format
     @format ||= case field.type
-      when :date                    then '%Y-%m-%d'
-      when :time                    then '%H:%M:%S'
-      when :datetime, :timestamp    then '%Y-%m-%d %H:%M:%S'
+      when :date                                then '%Y-%m-%d'
+      when :time                                then '%H:%M:%S'
+      when :datetime, :date_time, :timestamp    then '%Y-%m-%d %H:%M:%S'
     end
   end
 
