@@ -7,7 +7,7 @@ class Puffer::SessionsBase < ApplicationController
 
   before_filter :require_puffer_user, :only => :destroy
 
-  define_fieldset :create
+  define_fieldset :create, :fallbacks => :form
 
   layout 'puffer_sessions'
 
