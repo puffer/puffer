@@ -1,7 +1,7 @@
 <%= form_for record, :url => admin_session_path, :method => :post do |f| %>
   <ul class="form">
   <% create_fields.each do |field| -%>
-    <li><%= field.render :create, controller, record %></li>
+    <li><%= field.render :form, controller, record %></li>
   <% end -%>
   </ul>
 
