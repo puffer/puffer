@@ -11,7 +11,7 @@ module Puffer
 
       def member_method routing_type, *args
         options = args.extract_options!
-        send url_method_name(routing_type, singular, options.delete(:action)), *url_arguments(user_resource_id(args.first) || member_id), options
+        send url_method_name(routing_type, singular, options.delete(:action)), *url_arguments(use_resource_id(args.first) || member_id), options
       end
 
       def new_method routing_type, options = {}
@@ -43,7 +43,7 @@ module Puffer
         Puffer::Base.default_url_options(*args)
       end
 
-      def user_resource_id(resource)
+      def use_resource_id(resource)
         if resource and resource.respond_to?(:id)
           resource.id
         else
