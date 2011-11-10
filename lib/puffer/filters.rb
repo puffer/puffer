@@ -34,11 +34,11 @@ module Puffer
       end
     end
 
-    attr_reader :controller_instance
+    attr_reader :fieldset
 
-    def initialize controller_instance, attributes = {}
+    def initialize fieldset, attributes = {}
       @attributes = {}
-      @controller_instance = controller_instance
+      @fieldset = fieldset
       generate_attribute_methods
 
       self.attributes = attributes
@@ -119,10 +119,6 @@ module Puffer
 
     def order
       puffer_order.to_s.split(' ').map(&:to_sym)
-    end
-
-    def fieldset
-      controller_instance.filter_fields
     end
 
     def persisted?

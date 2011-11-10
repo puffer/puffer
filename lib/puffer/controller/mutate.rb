@@ -21,7 +21,7 @@ module Puffer
           @puffer_filters ||= begin
             filters = params[Puffer::Filters.model_name.param_key] || {}
             filters = {:puffer_order => configuration.order}.merge(filters) if configuration.order.present?
-            Puffer::Filters.new self, filters
+            Puffer::Filters.new filter_fields, filters
           end
         end
 
