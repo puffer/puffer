@@ -38,14 +38,6 @@ module Puffer
           @current_puffer_user ||= super rescue (::PufferUser.where(:_id => session[:puffer_user_id]).first if session[:puffer_user_id])
         end
 
-        # Used in before_filter to prevent unauthorized access
-        def require_puffer_user
-          unless has_puffer_access?(puffer_namespace)
-            redirect_to new_admin_session_url(:return_to => request.fullpath)
-            return false
-          end
-        end
-
         # This method is also part of auth system and it can be redefined at the
         # ApplicationController.
         #
@@ -61,6 +53,14 @@ module Puffer
         #   end
         def has_puffer_access? namespace
           super rescue (current_puffer_user && current_puffer_user.has_role?(namespace))
+        end
+
+        # Used in before_filter to prevent unauthorized access
+        def require_puffer_user
+          unless has_puffer_access?(puffer_namespace)
+            redirect_to new_admin_session_url(:return_to => request.fullpath)
+            return false
+          end
         end
 
       end

@@ -6,6 +6,7 @@ describe BooleanComponent do
 
   context 'index' do
     it 'should render checkbox' do
+      pending
       @category = Fabricate :category
       get admin_categories_path
 
@@ -18,6 +19,7 @@ describe BooleanComponent do
 
   context 'form' do
     it 'should render form field' do
+      pending
       @category = Fabricate :category
       get admin_categories_path
 

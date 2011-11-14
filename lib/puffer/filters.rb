@@ -58,8 +58,14 @@ module Puffer
       end if value.present?
     end
 
-    def attributes
+    def any?
+      attributes.values.any?
+    end
 
+    def attributes
+      (fieldset.map(&:field_name) + special_attributes).reduce(ActiveSupport::HashWithIndifferentAccess.new()) do |res, attribute|
+        res.merge attribute => send(attribute)
+      end
     end
 
     def attributes= attributes = {}
@@ -87,15 +93,6 @@ module Puffer
       end
     end
 
-    def query
-      (fieldset.map(&:field_name) + special_attributes).reduce(ActiveSupport::HashWithIndifferentAccess.new()) do |res, attribute|
-        value = send(attribute)
-        attribute = "#{attribute}_attributes" if respond_to?("#{attribute}_attributes=")
-        res[attribute] = value unless value.blank?
-        res
-      end
-    end
-
     def conditions
       fieldset.map(&:field_name).reduce(ActiveSupport::HashWithIndifferentAccess.new()) do |res, attribute|
         value = send(attribute)
@@ -119,6 +116,15 @@ module Puffer
 
     def order
       puffer_order.to_s.split(' ').map(&:to_sym)
+    end
+
+    def query
+      (fieldset.map(&:field_name) + special_attributes).reduce(ActiveSupport::HashWithIndifferentAccess.new()) do |res, attribute|
+        value = send(attribute)
+        attribute = "#{attribute}_attributes" if respond_to?("#{attribute}_attributes=")
+        res[attribute] = value if value.present?
+        res
+      end
     end
 
     def persisted?

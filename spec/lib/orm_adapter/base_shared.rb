@@ -103,15 +103,15 @@ shared_examples "an adapter" do
       end
 
       it 'should return from till' do
-        filter(:conditions => {'datetime_field' => {:from => Time.now + 0.9.hour, :till => Time.now + 3.1.hours}}).should == nth(1, 2, 3)
+        filter(:conditions => {'datetime_field' => Puffer::Filters::Diapason.new(Time.now + 0.9.hour, Time.now + 3.1.hours)}).should == nth(1, 2, 3)
       end
 
       it 'should return from' do
-        filter(:conditions => {'datetime_field' => {:from => Time.now + 0.9.hour}}).should == nth(1, 2, 3, 4)
+        filter(:conditions => {'datetime_field' => Puffer::Filters::Diapason.new(Time.now + 0.9.hour)}).should == nth(1, 2, 3, 4)
       end
 
       it 'should return till' do
-        filter(:conditions => {'datetime_field' => {:till => Time.now + 3.1.hours}}).should == nth(0, 1, 2, 3)
+        filter(:conditions => {'datetime_field' => Puffer::Filters::Diapason.new(nil, Time.now + 3.1.hours)}).should == nth(0, 1, 2, 3)
       end
     end
   end

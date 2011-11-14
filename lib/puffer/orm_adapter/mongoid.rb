@@ -16,17 +16,11 @@ module Puffer
         conditions_fields = fields.select {|f| f.column && conditions.keys.include?(f.field_name)}.to_fieldset
         search_fields = fields.select {|f| f.column && !conditions_fields.include?(f) && search_types.include?(f.column_type)}
         all_fields = conditions_fields + search_fields
-
-        conditions = conditions.reduce({}) do |res, (name, value)|
-          field = conditions_fields[name]
-          res[field.name] = value if field
-          res
-        end
         
         scope = scope.any_of(searches(search_fields, options[:search])) if options[:search].present?
         scope = scope.order_by(order)
 
-        conditions.each do |(name, value)|
+        conditions.each do |name, value|
           field = conditions_fields[name]
           scope = if value.is_a?(Puffer::Filters::Diapason)
             case

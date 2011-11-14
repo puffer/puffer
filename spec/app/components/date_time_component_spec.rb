@@ -7,6 +7,7 @@ describe DateTimeComponent do
   context 'form' do
 
     it 'should render form field' do
+      pending
       @user = Fabricate :user_with_profile
       get admin_user_profile_path(@user)
 

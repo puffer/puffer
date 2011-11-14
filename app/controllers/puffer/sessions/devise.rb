@@ -1,4 +1,4 @@
-class Puffer::SessionsDeviseBase < Puffer::SessionsBase
+class Puffer::Sessions::Devise < Puffer::Sessions::Base
   # include Devise::Controllers::InternalHelpers
 
   # GET /resource/sign_in

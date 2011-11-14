@@ -19,7 +19,7 @@ module Puffer
 
         scope = scope.includes(includes(all_fields)).includes(reflection_includes(fields)).where(searches(search_fields, options[:search])).order(order)
 
-        conditions.each do |(name, value)|
+        conditions.each do |name, value|
           field = conditions_fields[name]
           scope = if value.is_a?(Puffer::Filters::Diapason)
             case

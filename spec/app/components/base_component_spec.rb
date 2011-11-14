@@ -5,8 +5,8 @@ describe BaseComponent do
   include RSpec::Rails::RequestExampleGroup
 
   context 'index' do
-
     it 'should render field content' do
+      pending
       @category = Fabricate :category
       get admin_categories_path
 

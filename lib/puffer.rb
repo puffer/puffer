@@ -32,6 +32,9 @@ module Puffer
     autoload :Base, 'puffer/component'
   end
 
+  # module Sessions
+  # end
+
   # Puffer has two types of mappings. If maps <tt>field.type</tt> to component
   # class and also maps field attributes to <tt>field.type</tt>
   mattr_accessor :_component_mappings

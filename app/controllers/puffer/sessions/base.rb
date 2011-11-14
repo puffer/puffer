@@ -1,7 +1,7 @@
 # Puffer::SessionsBase is a base class for any Admin::SessionsController
 # implementation by default implemented basic auth through PufferUser.
 # See Puffer::SessionsDeviseBase for alternative implementation example.
-class Puffer::SessionsBase < ApplicationController
+class Puffer::Sessions::Base < ApplicationController
   unloadable
   pufferize!
 
@@ -12,6 +12,10 @@ class Puffer::SessionsBase < ApplicationController
   layout 'puffer_sessions'
 
   respond_to :html
+
+  setup do
+    group nil
+  end
 
   create do
     field :email, :type => :string

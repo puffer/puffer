@@ -92,10 +92,14 @@ module Puffer
       parent ? parent.member.send(name) : model
     end
 
+    def adapter
+      model.to_adapter
+    end
+
     def collection
       scope = collection_scope
       scope = scope.send controller.configuration.scope if controller.configuration.scope
-      model.to_adapter.filter scope, controller.filter_fields,
+      adapter.filter scope, controller.filter_fields,
         :conditions => controller_instance.puffer_filters.conditions,
         :search => controller_instance.puffer_filters.search,
         :order => controller_instance.puffer_filters.order
@@ -109,11 +113,11 @@ module Puffer
           parent.member.send(name)
         end
       else
-        model.find member_id if member_id
+        adapter.get member_id if member_id
       end
     end
 
-    def new_member
+    def new_member attributes = attributes_from_params
       if parent
         if plural?
           parent.member.send(name).new attributes
@@ -125,8 +129,8 @@ module Puffer
       end
     end
 
-    def attributes
-      params[name.to_s.singularize]
+    def attributes_from_params
+      params[name.to_s.singularize] || {}
     end
 
     def method_missing method, *args, &block

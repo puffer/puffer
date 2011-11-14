@@ -7,6 +7,7 @@ describe TextComponent do
   context 'form' do
 
     it 'should render form field' do
+      pending
       @post = Fabricate :post
       get admin_posts_path
 
