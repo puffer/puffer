@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{pyromaniac}]
-  s.date = %q{2011-11-07}
+  s.date = %q{2011-11-15}
   s.description = %q{In Soviet Russia puffer admins you}
   s.email = %q{kinwizard@gmail.com}
   s.extra_rdoc_files = [
@@ -77,8 +77,9 @@ Gem::Specification.new do |s|
     "app/controllers/puffer/base.rb",
     "app/controllers/puffer/dashboard_base.rb",
     "app/controllers/puffer/puffer_users_base.rb",
-    "app/controllers/puffer/sessions_base.rb",
-    "app/controllers/puffer/sessions_devise_base.rb",
+    "app/controllers/puffer/sessions/base.rb",
+    "app/controllers/puffer/sessions/devise.rb",
+    "app/controllers/puffer/sessions/simple.rb",
     "app/controllers/puffer/tree_base.rb",
     "app/models/puffer/puffer_user.rb",
     "app/models/puffer_user.rb",
@@ -99,7 +100,7 @@ Gem::Specification.new do |s|
     "app/views/puffer/base/show.js.erb",
     "app/views/puffer/base/update.js.erb",
     "app/views/puffer/dashboard_base/index.html.erb",
-    "app/views/puffer/sessions_base/new.html.erb",
+    "app/views/puffer/sessions/base/new.html.erb",
     "app/views/puffer/tree_base/_record.html.erb",
     "app/views/puffer/tree_base/toggle.js.erb",
     "app/views/puffer/tree_base/tree.html.erb",
