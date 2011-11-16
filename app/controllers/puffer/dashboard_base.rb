@@ -6,6 +6,12 @@ class Puffer::DashboardBase < ApplicationController
 
   layout 'puffer_dashboard'
 
+  respond_to :html
+
+  setup do
+    group nil
+  end
+
   def index
     
   end
