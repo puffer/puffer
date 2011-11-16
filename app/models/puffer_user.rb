@@ -12,4 +12,7 @@ elsif defined?(ActiveRecord::Base) && ActiveRecord::Base.connection.table_exists
   class PufferUser < ActiveRecord::Base
     include Puffer::PufferUser
   end
+else
+  class PufferUser
+  end
 end
