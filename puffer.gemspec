@@ -167,6 +167,7 @@ Gem::Specification.new do |s|
     "spec/dummy/app/controllers/orms/active_record_orm_primals_controller.rb",
     "spec/dummy/app/controllers/orms/mongoid_orm_primals_controller.rb",
     "spec/dummy/app/helpers/application_helper.rb",
+    "spec/dummy/app/helpers/news_helper.rb",
     "spec/dummy/app/models/active_record_orm.rb",
     "spec/dummy/app/models/active_record_orm/primal.rb",
     "spec/dummy/app/models/category.rb",

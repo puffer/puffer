@@ -29,16 +29,15 @@ module Puffer
       extend ClassMethods
 
       include AbstractController::Rendering
-      include AbstractController::Helpers
       include AbstractController::Translation
       include AbstractController::Logger
       include AbstractController::Layouts
+      include ActionController::Helpers
 
       include ActionController::RequestForgeryProtection
       include ActionController::UrlFor
       include Rails.application.routes.url_helpers
 
-      helper :all
       helper 'puffer/helpers/component', 'puffer/helpers/puffer'
 
       attr_reader :parent_controller, :field, :identifer, :record, :records, :resource, :opts
