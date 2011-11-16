@@ -38,6 +38,7 @@ module Puffer
       include ActionController::UrlFor
       include Rails.application.routes.url_helpers
 
+      helper :all
       helper 'puffer/helpers/component', 'puffer/helpers/puffer'
 
       attr_reader :parent_controller, :field, :identifer, :record, :records, :resource, :opts
