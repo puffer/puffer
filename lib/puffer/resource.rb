@@ -117,7 +117,7 @@ module Puffer
       end
     end
 
-    def new_member attributes = attributes_from_params
+    def new_member attributes = attributes
       if parent
         if plural?
           parent.member.send(name).new attributes
@@ -129,7 +129,7 @@ module Puffer
       end
     end
 
-    def attributes_from_params
+    def attributes
       params[name.to_s.singularize] || {}
     end
 

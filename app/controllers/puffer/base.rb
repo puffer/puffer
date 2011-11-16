@@ -59,7 +59,7 @@ module Puffer
   private
 
     def puffer_saving_location
-      params[:commit] == t('puffer.save') ? resource.edit_path(record) : resource.collection_path
+      @record.persisted? && params[:commit] == t('puffer.save') ? resource.edit_path(record) : resource.collection_path
     end
 
   end
