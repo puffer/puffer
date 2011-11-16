@@ -78,6 +78,7 @@ Gem::Specification.new do |s|
     "app/controllers/puffer/dashboard_base.rb",
     "app/controllers/puffer/puffer_users_base.rb",
     "app/controllers/puffer/sessions/base.rb",
+    "app/controllers/puffer/sessions/clearance.rb",
     "app/controllers/puffer/sessions/devise.rb",
     "app/controllers/puffer/sessions/simple.rb",
     "app/controllers/puffer/tree_base.rb",
