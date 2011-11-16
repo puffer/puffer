@@ -1,16 +1,21 @@
 class Puffer::Sessions::Simple < Puffer::Sessions::Base
 
+  setup do
+    model_name :puffer_user
+  end
+
   def new
     @record = resource.new_member
   end
 
   def create
-    @record = resource.adapter.find_first(:conditions => {:email => params[:puffer_user][:email]})
-    if @record && @record.authenticate(params[:puffer_user][:password])
+    p resource.attributes_key
+    @record = resource.adapter.find_first(:conditions => {:email => resource.attributes[:email]})
+    if @record && @record.authenticate(resource.attributes[:password])
       session[:puffer_user_id] = @record.id
-      redirect_to admin_root_url
+      redirect_back_or admin_root_url
     else
-      @record = resource.new_member :email => params[:puffer_user][:email]
+      @record = resource.new_member :email => resource.attributes[:email]
       render 'new'
     end
   end

@@ -23,13 +23,13 @@ class Puffer::Sessions::Base < ApplicationController
   end
 
   def new
-    # @record = UserSession.new
+    # @record = resource.new_member
   end
 
   def create
-    # @record = UserSession.new params[:user_session]
+    # @record = resource.new_member
     # if @record.save
-    #   redirect_back_or_default admin_root_url
+    #   redirect_back_or admin_root_url
     # else
     #   render 'new'
     # end

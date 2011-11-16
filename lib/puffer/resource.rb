@@ -130,7 +130,11 @@ module Puffer
     end
 
     def attributes
-      params[name.to_s.singularize] || {}
+      params[attributes_key] || {}
+    end
+
+    def attributes_key
+      model.model_name.param_key
     end
 
     def method_missing method, *args, &block

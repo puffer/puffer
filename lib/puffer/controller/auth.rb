@@ -63,6 +63,10 @@ module Puffer
           end
         end
 
+        def redirect_back_or default
+          redirect_to(params[:return_to].presence || default)
+        end
+
       end
 
     end
