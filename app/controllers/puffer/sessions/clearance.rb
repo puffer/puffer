@@ -9,7 +9,7 @@ class Puffer::Sessions::Clearance < Puffer::Sessions::Base
     # I used to follow the Clearance conventions
     params[:session] = params.delete :user
     if @record = authenticate(params) and sign_in(@record)
-      redirect_to admin_root_url
+      redirect_back_or admin_root_url
     else
       @record = User.new(params[:session])
       render 'new'
