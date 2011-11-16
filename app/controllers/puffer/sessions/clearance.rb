@@ -17,7 +17,7 @@ class Puffer::Sessions::Clearance < Puffer::Sessions::Base
     if @record = authenticate(params) and sign_in(@record)
       redirect_back_or admin_root_url
     else
-      @record = resource.new_member params[:session][:email]
+      @record = resource.new_member :email => params[:session][:email]
       render 'new'
     end
   end
