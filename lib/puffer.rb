@@ -61,8 +61,6 @@ module Puffer
     raise ComponentMissing, "Missing `#{type}` component for `#{field}` field. Please use Puffer.map_component binding or specify field type manually"
   end
 
-  map_component :belongs_to, :has_one, :to => :ReferencesOneComponent
-  map_component :has_many, :has_and_belongs_to_many, :to => :ReferencesManyComponent
   map_component :date, :time, :datetime, :date_time, :timestamp, :to => :DateTimeComponent
   map_component :integer, :float, :decimal, :big_decimal, :to => :StringComponent
   map_component :"mongoid/fields/serializable/object", :"bson/object_id", :symbol, :array, :hash, :set, :range, :to => :StringComponent
@@ -100,14 +98,32 @@ module Puffer
     end
   end
 
+  append_custom_field_type :nested_attributes_one do |field|
+    field.reflection && field.reflection.macro == :has_one && !field.reflection.through? && field.model.instance_methods.include?(:"#{field}_attributes=")
+  end
+  append_custom_field_type :nested_attributes_one do |field|
+    field.reflection && field.reflection.macro == :embeds_one && field.model.instance_methods.include?(:"#{field}_attributes=")
+  end
+
+  append_custom_field_type :nested_attributes_many do |field|
+    field.reflection && field.reflection.macro == :has_many && !field.reflection.through? && field.model.instance_methods.include?(:"#{field}_attributes=")
+  end
+  append_custom_field_type :nested_attributes_many do |field|
+    field.reflection && field.reflection.macro == :embeds_many && field.model.instance_methods.include?(:"#{field}_attributes=")
+  end
+
+  append_custom_field_type :references_one do |field|
+    field.reflection && [:has_one, :belongs_to, :embedded_in].include?(field.reflection.macro)
+  end
+  append_custom_field_type :references_many do |field|
+    field.reflection && [:has_many, :has_and_belongs_to_many].include?(field.reflection.macro)
+  end
+
   append_custom_field_type :select do |field|
     field.options.key? :select
   end
   append_custom_field_type :password do |field|
     field.name =~ /password/
-  end
-  append_custom_field_type(proc {|type| type.reflection.macro}) do |field|
-    field.reflection
   end
   append_custom_field_type :render do |field|
     field.options.key? :render

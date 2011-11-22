@@ -15,12 +15,6 @@ module Puffer
       abstract!
 
       module ClassMethods
-        def render_component parent_controller, field, context, *args
-          klass = "#{field.type}_component".camelize.constantize rescue StringComponent
-          component = klass.new field
-          component.process parent_controller, context, *args
-        end
-
         def controller_path
           @controller_path ||= name.sub(/Component$/, '').underscore unless anonymous?
         end

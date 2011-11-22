@@ -20,15 +20,15 @@ a:hover
 	text-decoration: none;
 }
 
-h1
+h1, h1 *
 {
-    font-size: 21px;
+    font-size: 21px !important;
     margin-bottom: 10px;
 }
 
-h2
+h2, h2 *
 {
-    font-size: 17px;
+    font-size: 17px !important;
     margin-bottom: 10px;
 }
 
@@ -417,6 +417,13 @@ select
  .form li textarea
 {
     height: 60px;
+}
+
+.nested_attributes li
+{
+    border-left: 1px solid #ccc;
+    padding-left: 20px;
+    margin-bottom: 15px;
 }
 
 .field_error

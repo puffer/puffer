@@ -1,0 +1,47 @@
+<%= component_fields_for @record do |f| %>
+  <h2><%= f.label field %></h2>
+
+  <ul class="nested_attributes" id="<%= "#{field.name}_nested_attributes" %>">
+    <% f.object.send(field.name).each_with_index do |nested_record, index| -%>
+      <%= f.fields_for field.name, nested_record, :child_index => index do |nested_builder| %>
+        <li id="<%= "#{field.name}_#{index}_attributes" %>">
+          <% field.children.each do |field| %>
+            <%= field.render :form, parent_controller, nested_builder.object, :builder => nested_builder %>
+          <% end %>
+          <%= nested_builder.hidden_field :id if nested_builder.object.persisted? %>
+
+          <% destroy_nested_record = capture do %>
+            <%= nested_builder.hidden_field :_destroy, :value => true %>
+            <%= nested_builder.hidden_field :id %>
+          <% end.to_s.strip.gsub("\n", ' ') %>
+
+          <%= link_to t('.destroy'), '#',
+            :data => {:insert => {
+              :content => destroy_nested_record,
+              :element => "#{field.name}_marked_for_destroy",
+              :remove => "#{field.name}_#{index}_attributes"
+            }} %>
+        </li>
+      <% end %>
+    <% end -%>
+  </ul>
+
+  <div id="<%= field.name %>_marked_for_destroy" style="display: none">
+  </div>
+  
+  <% new_nested_record = capture do %>
+    <%= f.fields_for field.name, field.reflection.klass.new, :child_index => "new_nested_index" do |nested_builder| %>
+      <li id="<%= "#{field.name}_new_nested_index_attributes" %>">
+        <% field.children.each do |field| %>
+          <%= field.render :form, parent_controller, nested_builder.object, :builder => nested_builder %>
+        <% end %>
+
+        <%= link_to t('.destroy'), '#',
+          :data => {:insert => {:remove => "#{field.name}_new_nested_index_attributes"}} %>
+      </li>
+    <% end %>
+  <% end.to_s.strip.gsub("\n", ' ') %>
+
+  <%= link_to t('.add'), '#',
+    :data => {:insert => {:content => new_nested_record, :element => "#{field.name}_nested_attributes"}} %>
+<% end %>

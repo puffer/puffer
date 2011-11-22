@@ -45,7 +45,7 @@ module Puffer
     end
 
     def reflection
-      @reflection ||= model && model.reflect_on_association(name.to_sym)
+      @reflection ||= model && model.to_adapter.reflection(name)
     end
 
     def input_options
@@ -82,6 +82,7 @@ module Puffer
     end
 
     def column_type
+      reflection.macro if reflection
       column[:type] if column
     end
 

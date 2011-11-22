@@ -10,5 +10,6 @@
 //= require puffer/right-paginator-src
 //= require puffer/rails
 //= require puffer/puffer
+//= require puffer/associations
 
 //= require_all ./puffer

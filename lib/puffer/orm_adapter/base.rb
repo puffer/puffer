@@ -11,6 +11,15 @@ module Puffer
       end
 
     end
+
+    class Reflection < ActiveSupport::OrderedOptions
+
+      def initialize hash
+        super
+        hash.each { |(key, value)| self[key] = value }
+      end
+
+    end
   end
 end
 

@@ -11,7 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110930183902) do
+ActiveRecord::Schema.define(:version => 20111122203304) do
+
+  create_table "active_record_orm_has_many_references", :force => true do |t|
+    t.string   "name"
+    t.integer  "primal_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "active_record_orm_has_one_references", :force => true do |t|
+    t.string   "name"
+    t.integer  "primal_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "active_record_orm_primals", :force => true do |t|
     t.string   "string_field"

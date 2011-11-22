@@ -8,6 +8,15 @@ module Puffer
         end
       end
 
+      def reflection name
+        reflection = klass.reflect_on_association(name.to_sym)
+        Reflection.new(
+          :klass => reflection.klass,
+          :macro => reflection.macro,
+          :through? => false
+        ) if reflection
+      end
+
       def filter scope, fields, options = {}
         conditions, order = extract_conditions_and_order!(options)
 
