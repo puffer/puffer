@@ -6,7 +6,7 @@ require "rails/test_help"
 require "rspec/rails"
 require "ammeter/init"
 
-Bundler.require(:default, ENV["RAILS_ENV"])
+Bundler.require :development
 
 ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true
