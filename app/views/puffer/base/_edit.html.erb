@@ -1,6 +1,6 @@
 <% @title = "Edit #{resource.human}" %>
 <h1><%= @title %></h1>
-<%= form_for record, :url => resource.member_path do |f| %>
+<%= form_for record, :url => resource.member_path, :html => { :multipart => true } do |f| %>
   <ul class="form">
   <% update_fields.each do |field| -%>
     <li><%= field.render :update, controller, record %></li>
