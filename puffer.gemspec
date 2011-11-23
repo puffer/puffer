@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{pyromaniac}]
-  s.date = %q{2011-11-16}
+  s.date = %q{2011-11-23}
   s.description = %q{In Soviet Russia puffer admins you}
   s.email = %q{kinwizard@gmail.com}
   s.extra_rdoc_files = [
@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "app/assets/javascripts/puffer/application.js",
+    "app/assets/javascripts/puffer/associations.js",
     "app/assets/javascripts/puffer/puffer.js",
     "app/assets/javascripts/puffer/rails.js",
     "app/assets/javascripts/puffer/right-autocompleter-src.js",
@@ -56,6 +57,10 @@ Gem::Specification.new do |s|
     "app/components/file_component.rb",
     "app/components/hidden/form.html.erb",
     "app/components/hidden_component.rb",
+    "app/components/nested_attributes_many/form.html.erb",
+    "app/components/nested_attributes_many_component.rb",
+    "app/components/nested_attributes_one/form.html.erb",
+    "app/components/nested_attributes_one_component.rb",
     "app/components/password/form.html.erb",
     "app/components/password_component.rb",
     "app/components/references_many/form.html.erb",
@@ -170,6 +175,8 @@ Gem::Specification.new do |s|
     "spec/dummy/app/helpers/application_helper.rb",
     "spec/dummy/app/helpers/news_helper.rb",
     "spec/dummy/app/models/active_record_orm.rb",
+    "spec/dummy/app/models/active_record_orm/has_many_reference.rb",
+    "spec/dummy/app/models/active_record_orm/has_one_reference.rb",
     "spec/dummy/app/models/active_record_orm/primal.rb",
     "spec/dummy/app/models/category.rb",
     "spec/dummy/app/models/friendship.rb",
@@ -214,6 +221,8 @@ Gem::Specification.new do |s|
     "spec/dummy/db/migrate/20110301072545_create_news.rb",
     "spec/dummy/db/migrate/20110912114129_create_puffer_users.rb",
     "spec/dummy/db/migrate/20110930183902_create_active_record_orm_primals.rb",
+    "spec/dummy/db/migrate/20111120144025_create_active_record_orm_has_one_references.rb",
+    "spec/dummy/db/migrate/20111122203304_create_active_record_orm_has_many_references.rb",
     "spec/dummy/db/schema.rb",
     "spec/dummy/db/seeds.rb",
     "spec/dummy/public/404.html",
