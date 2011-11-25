@@ -1,6 +1,9 @@
 # Puffer::Sessions::Clearance integrates Puffer admin interface
 # builder with the Clearance authentication & authorization solution.
 class Puffer::Sessions::Clearance < Puffer::Sessions::Base
+  before_filter :if => :signed_in?, :except => :destroy do
+    redirect_to admin_root_url
+  end
 
   setup do
     model_name :user
@@ -13,7 +16,7 @@ class Puffer::Sessions::Clearance < Puffer::Sessions::Base
   def create
     # I used to follow the Clearance conventions
     params[:session] = params.delete resource.attributes_key
-    
+
     if @record = authenticate(params) and sign_in(@record)
       redirect_back_or admin_root_url
     else
