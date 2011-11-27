@@ -23,6 +23,14 @@ class Orms::MongoidOrmPrimalsController < Puffer::Base
   end
 
   form do
+    field :has_one_reference do
+      field :name
+    end
+
+    field :has_many_references do
+      field :name
+    end
+    
     field :string_field
     field :symbol_field
     field :select_field, :select => (1..5).map {|i| "option #{i}"}

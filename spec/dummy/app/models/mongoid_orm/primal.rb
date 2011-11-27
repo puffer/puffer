@@ -16,6 +16,11 @@ class MongoidOrm::Primal
   field :set_field, :type => ::Set
   field :range_field, :type => Range
 
+  has_one :has_one_reference, :validate => true, :class_name => 'MongoidOrm::HasOneReference'
+  has_many :has_many_references, :validate => true, :class_name => 'MongoidOrm::HasManyReference'
+
+  accepts_nested_attributes_for :has_one_reference, :has_many_references, :allow_destroy => true
+
   def array_field_before_type_cast
     array_field.join(', ') if array_field.present?
   end

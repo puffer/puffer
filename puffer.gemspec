@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = Puffer::VERSION
   s.authors     = ["pyromaniac"]
   s.email       = ["kinwizard@gmail.com"]
-  s.homepage    = ""
+  s.homepage    = "http://github.com/puffer/puffer"
   s.summary     = %q{In Soviet Russia puffer admins you}
   s.description = %q{Admin interface builder}
 
