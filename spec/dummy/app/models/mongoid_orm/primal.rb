@@ -19,6 +19,9 @@ class MongoidOrm::Primal
   has_one :has_one_reference, :validate => true, :class_name => 'MongoidOrm::HasOneReference'
   has_many :has_many_references, :validate => true, :class_name => 'MongoidOrm::HasManyReference'
 
+  embeds_one :embeds_one_reference, :validate => true, :class_name => 'MongoidOrm::EmbedsOneReference'
+  embeds_many :embeds_many_references, :validate => true, :class_name => 'MongoidOrm::EmbedsManyReference'
+
   accepts_nested_attributes_for :has_one_reference, :has_many_references, :allow_destroy => true
 
   def array_field_before_type_cast

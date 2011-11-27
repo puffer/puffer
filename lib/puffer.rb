@@ -102,14 +102,14 @@ module Puffer
     field.reflection && [:references_one, :has_one].include?(field.reflection.macro) && !field.reflection.through? && field.model.instance_methods.include?(:"#{field}_attributes=")
   end
   append_custom_field_type :nested_attributes_one do |field|
-    field.reflection && field.reflection.macro == :embeds_one && field.model.instance_methods.include?(:"#{field}_attributes=")
+    field.reflection && field.reflection.macro == :embeds_one
   end
 
   append_custom_field_type :nested_attributes_many do |field|
     field.reflection && [:references_many, :has_many].include?(field.reflection.macro) && !field.reflection.through? && field.model.instance_methods.include?(:"#{field}_attributes=")
   end
   append_custom_field_type :nested_attributes_many do |field|
-    field.reflection && field.reflection.macro == :embeds_many && field.model.instance_methods.include?(:"#{field}_attributes=")
+    field.reflection && field.reflection.macro == :embeds_many
   end
 
   append_custom_field_type :references_one do |field|

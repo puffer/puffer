@@ -30,6 +30,14 @@ class Orms::MongoidOrmPrimalsController < Puffer::Base
     field :has_many_references do
       field :name
     end
+
+    field :embeds_one_reference do
+      field :name
+    end
+
+    field :embeds_many_references do
+      field :name
+    end
     
     field :string_field
     field :symbol_field
