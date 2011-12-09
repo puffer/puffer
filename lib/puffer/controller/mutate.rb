@@ -26,7 +26,7 @@ module Puffer
         end
 
         def puffer_namespace
-          resource.scope
+          request.path_info.split('/').delete_if(&:blank?).first.to_sym
         end
 
         def resource

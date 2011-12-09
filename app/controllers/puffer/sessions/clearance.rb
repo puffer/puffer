@@ -14,13 +14,10 @@ class Puffer::Sessions::Clearance < Puffer::Sessions::Base
   end
 
   def create
-    # I used to follow the Clearance conventions
-    params[:session] = params.delete resource.attributes_key
-
-    if @record = authenticate(params) and sign_in(@record)
+    if @record = authenticate and sign_in(@record)
       redirect_back_or admin_root_url
     else
-      @record = resource.new_member :email => params[:session][:email]
+      @record = resource.new_member :email => resource.attributes[:email]
       render 'new'
     end
   end
@@ -29,4 +26,12 @@ class Puffer::Sessions::Clearance < Puffer::Sessions::Base
     sign_out
     redirect_to new_admin_session_url
   end
+
+private
+  
+  def authenticate
+    model.authenticate(resource.attributes[:email],
+                        resource.attributes[:password])
+  end
+
 end

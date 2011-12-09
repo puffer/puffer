@@ -13,7 +13,9 @@ module Puffer
         Reflection.new(
           :klass => reflection.klass,
           :macro => reflection.macro,
-          :through? => !!reflection.through_reflection
+          :through? => !!reflection.through_reflection,
+          :accessor => accessor_for(reflection),
+          :primary_key => :id
         ) if reflection
       end
 
@@ -68,6 +70,15 @@ module Puffer
 
       def query_order field
         field.options[:order] || query_column(field)
+      end
+
+      def accessor_for reflection
+        case reflection.macro
+        when :has_one, :belongs_to then
+          "#{reflection.name}_id"
+        when :has_many, :has_and_belong_to_many then
+          "#{reflection.name.to_s.singularize}_ids"
+        end
       end
 
     end

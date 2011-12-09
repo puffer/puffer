@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111122203304) do
+ActiveRecord::Schema.define(:version => 20111208222355) do
 
   create_table "active_record_orm_has_many_references", :force => true do |t|
     t.string   "name"
@@ -48,6 +48,16 @@ ActiveRecord::Schema.define(:version => 20111122203304) do
     t.integer  "lft"
     t.integer  "rgt"
     t.integer  "depth",      :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "clearance_users", :force => true do |t|
+    t.string   "email"
+    t.string   "encrypted_password", :limit => 128
+    t.string   "salt",               :limit => 128
+    t.string   "confirmation_token", :limit => 128
+    t.string   "remember_token",     :limit => 128
     t.datetime "created_at"
     t.datetime "updated_at"
   end

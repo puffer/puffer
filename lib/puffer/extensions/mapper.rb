@@ -41,15 +41,13 @@ module Puffer
       module InstanceMethods
 
         def namespace_with_puffer path, options = {}
-          defaults :puffer_scope => path.to_sym do
-            namespace_without_puffer path, options do
-              yield
+          namespace_without_puffer path, options do
+            yield
 
-              if ::Rails.application.routes.resources_tree.any? {|node| node.scope == @scope[:module].to_sym}
-                old, @scope[:module] = @scope[:module], 'admin'
-                root :to => 'dashboard#index'
-                @scope[:module] = old
-              end
+            if ::Rails.application.routes.resources_tree.any? {|node| node.scope == @scope[:module].to_sym}
+              old, @scope[:module] = @scope[:module], 'admin'
+              root :to => 'dashboard#index'
+              @scope[:module] = old
             end
           end
         end

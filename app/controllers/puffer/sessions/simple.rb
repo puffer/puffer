@@ -9,8 +9,8 @@ class Puffer::Sessions::Simple < Puffer::Sessions::Base
   end
 
   def create
-    p resource.attributes_key
     @record = resource.adapter.find_first(:conditions => {:email => resource.attributes[:email]})
+    
     if @record && @record.authenticate(resource.attributes[:password])
       session[:puffer_user_id] = @record.id
       redirect_back_or admin_root_url

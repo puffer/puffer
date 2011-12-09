@@ -113,10 +113,10 @@ module Puffer
   end
 
   append_custom_field_type :references_one do |field|
-    field.reflection && [:references_one, :has_one, :belongs_to, :embedded_in].include?(field.reflection.macro)
+    field.reflection && [:has_one, :belongs_to, :references_one, :referenced_in, :embedded_in].include?(field.reflection.macro)
   end
   append_custom_field_type :references_many do |field|
-    field.reflection && [:references_many, :has_many, :has_and_belongs_to_many].include?(field.reflection.macro)
+    field.reflection && [:has_many, :references_many, :has_and_belongs_to_many, :references_and_referenced_in_many].include?(field.reflection.macro)
   end
 
   append_custom_field_type :select do |field|

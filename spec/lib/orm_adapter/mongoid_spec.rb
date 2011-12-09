@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'lib/orm_adapter/base_shared'
 
 describe "MongoidOrm" do
@@ -31,7 +30,6 @@ describe "MongoidOrm" do
       def filter options = {}
         model.to_adapter.filter(model, controller.index_fields, options).order([:_id, :asc]).all.to_a
       end
-
 
       def nth *indexes
         model.where.order([:_id, :asc]).all.to_a.values_at *indexes

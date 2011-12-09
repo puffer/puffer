@@ -22,7 +22,6 @@ describe "Tree" do
       {:scope => :admin, :current => :categories, :children => [:posts], :ancestors => []},
       {:scope => :admin, :current => :posts, :children => [], :ancestors => [:categories]},
       {:scope => :admin, :current => :news, :children => [], :ancestors => []},
-      {:scope => :admin, :current => :puffer_users, :children => [], :ancestors => []},
       {:scope => :orms, :current => :active_record_orm_primals, :children => [], :ancestors => []},
       {:scope => :orms, :current => :mongoid_orm_primals, :children => [], :ancestors => []},
       {:scope => :admin, :current => :session, :children => [], :ancestors => []}

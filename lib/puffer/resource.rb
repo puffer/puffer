@@ -19,7 +19,7 @@ module Puffer
       params = ActiveSupport::HashWithIndifferentAccess.new.deep_merge params
 
       @resource_node = params[:puffer]
-      @scope = swallow_nil{@resource_node.scope} || params[:puffer_scope]
+      @scope = swallow_nil{@resource_node.scope} || controller_instance.puffer_namespace
       @params = params
       @controller_instance = controller_instance
     end

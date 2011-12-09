@@ -35,7 +35,11 @@ module Puffer
         # method, or you should properly redefine +has_puffer_access?+ See
         # +has_puffer_access?+ source and docs.
         def current_puffer_user
-          @current_puffer_user ||= super rescue (::Admin::SessionsController.model.to_adapter.find_first(:conditions => {:id => session[:puffer_user_id]}) if session[:puffer_user_id])
+          @current_puffer_user ||= begin
+            super
+          rescue NoMethodError
+            ::Admin::SessionsController.model.to_adapter.get(session[:puffer_user_id])
+          end
         end
 
         # This method is also part of auth system and it can be redefined at the
@@ -52,7 +56,9 @@ module Puffer
         #     end
         #   end
         def has_puffer_access? namespace
-          super rescue (current_puffer_user && current_puffer_user.has_role?(namespace))
+          super
+        rescue NoMethodError
+          (current_puffer_user && current_puffer_user.has_role?(namespace))
         end
 
         # Used in before_filter to prevent unauthorized access

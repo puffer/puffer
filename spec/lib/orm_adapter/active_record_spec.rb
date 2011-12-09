@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'lib/orm_adapter/base_shared'
 
 describe "ActiveRecordOrm" do

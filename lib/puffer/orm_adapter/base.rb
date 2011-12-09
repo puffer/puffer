@@ -6,6 +6,10 @@ module Puffer
         raise NotSupportedError
       end
 
+      def reflection name
+        raise NotSupportedError
+      end
+
       def filter scope, fields, options = {}
         raise NotSupportedError
       end
