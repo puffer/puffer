@@ -30,8 +30,7 @@ class Puffer::Sessions::Clearance < Puffer::Sessions::Base
 private
   
   def authenticate
-    model.authenticate(resource.attributes[:email],
-                        resource.attributes[:password])
+    model.authenticate(resource.attributes[:email], resource.attributes[:password])
   end
 
 end

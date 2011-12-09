@@ -167,3 +167,7 @@ end
 ```
 
 Have a nice day and let Puffer rock for you.
+
+***
+
+Thanks to [Dmitry Ustalov](http://eveel.ru) for the name of Puffer along with the Clearance integration.
