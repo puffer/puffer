@@ -6,3 +6,8 @@
   Now there are one or more versions inside modules and default version is inherited.
   See more - [default behaviors](https://github.com/puffer/puffer/wiki/Default-behaviors)
   No more autoconfig attempts.
+
+### New features
+
+* `per_page` config option.
+* Grid index controller.

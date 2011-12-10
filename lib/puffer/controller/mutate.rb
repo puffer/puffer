@@ -20,7 +20,8 @@ module Puffer
         def puffer_filters
           @puffer_filters ||= begin
             filters = params[Puffer::Filters.model_name.param_key] || {}
-            filters = {:puffer_order => configuration.order}.merge(filters) if configuration.order.present?
+            filters.reverse_merge! :puffer_order => configuration.order if configuration.order.present?
+            filters.reverse_merge! :puffer_per_page => configuration.per_page if configuration.per_page.present?
             Puffer::Filters.new filter_fields, filters
           end
         end

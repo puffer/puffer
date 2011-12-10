@@ -38,6 +38,8 @@
                     <%= form_for puffer_filters, :url => resource.collection_path, :method => :get do |f| %>
                       <dt><%= f.label :puffer_search %></dt>
                       <dd><%= f.text_field :puffer_search %></dd>
+                      <dt><%= f.label :puffer_per_page %></dt>
+                      <dd><%= f.text_field :puffer_per_page %></dd>
 
                       <% filter_fields.columns.each do |field| %>
                         <%= field.render :filter, controller, puffer_filters %>

@@ -25,6 +25,8 @@ module Puffer
         puffer_class_attribute :scope
         #  order - default order option. Is a string with field name and direction. Ex: 'email', 'first_name asc', 'title desc'
         puffer_class_attribute :order
+        # obviously< records per page
+        puffer_class_attribute :per_page, 30
 
         helper_method :configuration
       end

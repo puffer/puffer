@@ -22,7 +22,7 @@ module Puffer
     delegate :model_name, :special_attributes, :to => 'self.class'
 
     def self.special_attributes
-      %w(puffer_search puffer_order)
+      %w(puffer_search puffer_order puffer_per_page)
     end
 
     special_attributes.each do |attribute|
@@ -59,7 +59,7 @@ module Puffer
     end
 
     def any?
-      attributes.values.any?
+      attributes.except(:puffer_per_page).values.any?
     end
 
     def attributes
@@ -116,6 +116,10 @@ module Puffer
 
     def order
       puffer_order.to_s.split(' ').map(&:to_sym)
+    end
+
+    def per_page
+      puffer_per_page.to_i
     end
 
     def query

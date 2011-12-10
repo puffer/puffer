@@ -15,7 +15,7 @@ module Puffer
     respond_to :html, :js
 
     def index
-      @records = resource.collection.page(params[:page])
+      @records = resource.collection.page(params[:page]).per(puffer_filters.per_page)
       respond_with @records
     end
 
