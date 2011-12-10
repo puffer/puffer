@@ -1,0 +1,9 @@
+<ul class="list_grid">
+<% records.each do |record| -%>
+  <li>
+    <% grid_fields.each do |field| -%>
+      <td><%= field.render :grid, controller, record %></td>
+    <% end -%>
+  </li>
+<% end -%>
+</ul>

@@ -1,4 +1,4 @@
-class Admin::ProfilesController < Puffer::Base
+class Admin::ProfilesController < Puffer::GridBase
 
   setup do
     group :users
