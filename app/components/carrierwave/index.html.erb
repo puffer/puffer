@@ -1,0 +1,1 @@
+<%= image_tag(@record.send(field.name).send(thumbnail_name).url) if @record.send("#{field.name}?") %>

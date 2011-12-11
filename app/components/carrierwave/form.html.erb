@@ -1,0 +1,21 @@
+<%= component_fields_for @record do |f| %>
+  <div class="label">
+    <%= f.label field %>
+    <div class="field_error">
+      <%= f.object.errors[field.name.to_sym].first %>
+    </div>
+  </div>
+  
+  <%= f.file_field field.name, field.input_options %>
+  <%= f.text_field "remote_#{field.name}_url", field.input_options %>
+  <%= image_tag(f.object.send(field.name).send(thumbnail_name).url) if f.object.send("#{field.name}?") %>
+
+  <% if f.object.send("#{field.name}?") %>
+    <div>
+      <%= f.check_box "remove_#{field.name}" %>
+      <%= f.label "remove_#{field.name}" %>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field "#{field.name}_cache" %>
+<% end %>

@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(:version => 20111208222355) do
     t.string   "name"
     t.string   "surname"
     t.date     "birth_date"
+    t.string   "avatar"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

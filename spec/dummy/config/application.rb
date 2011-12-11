@@ -6,6 +6,7 @@ Bundler.require
 require 'puffer'
 require 'nested_set'
 require 'devise'
+require 'carrierwave'
 
 module Dummy
   class Application < Rails::Application

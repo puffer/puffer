@@ -8,6 +8,7 @@ class Admin::ProfilesController < Puffer::GridBase
     field 'user.email'
     field :name
     field :surname
+    field :avatar
     field :birth_date, :format => :long
   end
 
@@ -18,6 +19,7 @@ class Admin::ProfilesController < Puffer::GridBase
     end
     field :name
     field :surname
+    field :avatar
     field :birth_date
     field :created_at
   end

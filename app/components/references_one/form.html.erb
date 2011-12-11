@@ -2,7 +2,7 @@
   <div class="label">
     <%= f.label field %>
     <div class="field_error">
-      <%= @record.errors[field.reflection.foreign_key.to_sym].first ||
+      <%= @record.errors[field.reflection.accessor.to_sym].first ||
         @record.errors[field.name.to_sym].first.presence %>
     </div>
   </div>

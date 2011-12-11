@@ -129,4 +129,8 @@ module Puffer
     field.options.key? :render
   end
 
+  append_custom_field_type :carrierwave do |field|
+    field.model.respond_to?(:uploaders) && field.model.uploaders.key?(field.name.to_sym)
+  end
+
 end
