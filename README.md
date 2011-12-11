@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/puffer/puffer.png)](http://travis-ci.org/puffer/puffer)
+
 # Puffer — YARAI (Yet Another Rails Admin Interface)
 
 Puffer was created to help a project owner or moderators view and
