@@ -41,4 +41,6 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency(%q<devise>, [">= 0"])
   s.add_development_dependency(%q<clearance>, [">= 0"])
+
+  s.add_development_dependency(%q<carrierwave>, [">= 0"])
 end

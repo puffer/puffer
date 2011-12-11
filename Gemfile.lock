@@ -54,6 +54,8 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
+    carrierwave (0.5.8)
+      activesupport (~> 3.0)
     childprocess (0.2.3)
       ffi (~> 1.0.6)
     clearance (0.13.0)
@@ -171,6 +173,7 @@ DEPENDENCIES
   ammeter
   bson_ext
   capybara
+  carrierwave
   clearance
   database_cleaner
   devise
