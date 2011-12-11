@@ -5,6 +5,7 @@
  *= require puffer/puffer
  *= require puffer/puffer_tree
  *= require puffer/puffer_grid
+ *= require puffer/file_input
 
  *= require_all ./puffer
  */

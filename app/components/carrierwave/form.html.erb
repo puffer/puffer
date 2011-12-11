@@ -5,17 +5,30 @@
       <%= f.object.errors[field.name.to_sym].first %>
     </div>
   </div>
-  
-  <%= f.file_field field.name, field.input_options %>
-  <%= f.text_field "remote_#{field.name}_url", field.input_options %>
-  <%= image_tag(f.object.send(field.name).send(thumbnail_name).url) if f.object.send("#{field.name}?") %>
+
+  <div class="carrierwave">
+    <span class="file_input">
+      <%= f.file_field field.name, field.input_options %>
+      <span class="file_input_overlay"><%= t('.choose file') %></span>
+    </span>
+
+    <span class="or">
+      <%= t('.or') %>
+    </span>
+
+    <%= f.text_field "remote_#{field.name}_url", field.input_options %>
+  </div>
 
   <% if f.object.send("#{field.name}?") %>
-    <div>
+    <div class="remove_file">
       <%= f.check_box "remove_#{field.name}" %>
       <%= f.label "remove_#{field.name}" %>
     </div>
   <% end %>
+
+  <div class="file_link">
+    <%= field.render :index, parent_controller, f.object %>
+  <div>
 
   <%= f.hidden_field "#{field.name}_cache" %>
 <% end %>

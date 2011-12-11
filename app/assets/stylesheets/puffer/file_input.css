@@ -1,0 +1,59 @@
+.file_input {
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+}
+
+.file_input input[type=file] {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    opacity: 0;
+    cursor: pointer;
+    font-size: 100px;
+    padding: 0;
+    margin: 0;
+}
+
+.file_input_overlay {
+    display: inline-block;
+    font-family: Helvetica, Arial, sans-serif;
+    border-radius: 3px;
+    background: #536C80;
+    color: #ddd;
+    text-shadow: -1px -1px 0 #304759;
+    padding: 3px 10px;
+    font-size: 11pt;
+    cursor: pointer;
+}
+
+.carrierwave {
+    margin-bottom: 5px;
+}
+
+.carrierwave * {
+    vertical-align: middle;
+}
+
+.carrierwave input[type=text] {
+    width: 300px !important;
+}
+
+.carrierwave .or {
+    display: inline-block;
+    padding: 3px 10px;
+}
+
+.remove_file * {
+    vertical-align: middle;
+    margin: 0;
+    padding: 0;
+}
+
+.remove_file {
+    margin-bottom: 5px;
+}
+
+.remove_file label {
+    font-weight: normal !important;
+}

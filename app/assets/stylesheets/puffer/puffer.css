@@ -370,6 +370,7 @@ input[type=submit]
     text-shadow: -1px -1px 0 #304759;
     padding: 3px 10px;
     font-size: 11pt;
+    cursor: pointer;
 }
 
 select
