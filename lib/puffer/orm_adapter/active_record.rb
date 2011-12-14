@@ -74,7 +74,9 @@ module Puffer
 
       def accessor_for reflection
         case reflection.macro
-        when :has_one, :belongs_to then
+        when :belongs_to then
+          reflection.foreign_key
+        when :has_one then
           "#{reflection.name}_id"
         when :has_many, :has_and_belong_to_many then
           "#{reflection.name.to_s.singularize}_ids"

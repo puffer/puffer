@@ -11,4 +11,4 @@
 
 * `per_page` config option.
 * Grid index controller.
-* carrierwave component
+* Carrierwave component implemented.
