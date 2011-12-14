@@ -1,6 +1,5 @@
 module Puffer
   class TreeBase < Puffer::Base
-    unloadable
 
     helper 'puffer/helpers/puffer_tree'
 

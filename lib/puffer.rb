@@ -22,6 +22,24 @@ module Puffer
   class ComponentMissing < PufferError
   end
 
+  autoload :Base, 'puffer/backends/controllers/base'
+  autoload :TreeBase, 'puffer/backends/controllers/tree_base'
+  autoload :GridBase, 'puffer/backends/controllers/grid_base'
+  autoload :DashboardBase, 'puffer/backends/controllers/dashboard_base'
+  autoload :PufferUsersBase, 'puffer/backends/controllers/puffer_users_base'
+
+  module Sessions
+    autoload :Base, 'puffer/backends/controllers/sessions/base'
+    autoload :Simple, 'puffer/backends/controllers/sessions/simple'
+    autoload :Clearance, 'puffer/backends/controllers/sessions/clearance'
+  end
+
+  module User
+    autoload :Base, 'puffer/backends/models/user/base'
+    autoload :ActiveRecord, 'puffer/backends/models/user/active_record'
+    autoload :Mongoid, 'puffer/backends/models/user/mongoid'
+  end
+
   module Controller
     autoload :Action, 'puffer/controller/actions'
     autoload :MemberAction, 'puffer/controller/actions'
@@ -31,9 +49,6 @@ module Puffer
   module Component
     autoload :Base, 'puffer/component'
   end
-
-  # module Sessions
-  # end
 
   # Puffer has two types of mappings. If maps <tt>field.type</tt> to component
   # class and also maps field attributes to <tt>field.type</tt>

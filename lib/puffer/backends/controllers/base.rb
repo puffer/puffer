@@ -1,6 +1,5 @@
 module Puffer
   class Base < ApplicationController
-    unloadable
     pufferize!
 
     before_filter :require_puffer_user

@@ -1,6 +1,5 @@
 module Puffer
   class GridBase < Puffer::Base
-    unloadable
 
     define_fieldset :grid, :fallbacks => :index
 

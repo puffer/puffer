@@ -2,7 +2,6 @@
 # implementation by default implemented basic auth through PufferUser.
 # See Puffer::SessionsDeviseBase for alternative implementation example.
 class Puffer::Sessions::Base < ApplicationController
-  unloadable
   pufferize!
 
   before_filter :require_puffer_user, :only => :destroy
