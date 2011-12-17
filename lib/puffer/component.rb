@@ -35,8 +35,8 @@ module Puffer
       helper 'puffer/helpers/component', 'puffer/helpers/puffer'
 
       attr_reader :parent_controller, :field, :identifer, :record, :records, :resource, :opts
-      delegate :env, :request, :params, :session, :_members, :_collections, :to => :parent_controller
-      helper_method :params, :session, :_members, :_collections, :parent_controller, :field, :identifer, :component_id, :event_url, :event_path, :record, :records, :resource, :opts
+      delegate :env, :request, :params, :session, :to => :parent_controller
+      helper_method :params, :session, :parent_controller, :field, :identifer, :component_id, :event_url, :event_path, :record, :records, :resource, :opts
 
       def initialize field
         super()
