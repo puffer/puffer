@@ -16,6 +16,9 @@ require 'puffer/engine'
 
 module Puffer
 
+  TRUE_VALUES = [true, 1, '1', 't', 'T', 'true', 'TRUE'].to_set
+  FALSE_VALUES = [false, 0, '0', 'f', 'F', 'false', 'FALSE'].to_set
+
   class PufferError < StandardError
   end
 

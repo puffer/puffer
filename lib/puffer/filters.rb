@@ -94,17 +94,25 @@ module Puffer
     end
 
     def conditions
-      fieldset.map(&:field_name).reduce(ActiveSupport::HashWithIndifferentAccess.new()) do |res, attribute|
+      fieldset.reduce(ActiveSupport::HashWithIndifferentAccess.new()) do |res, field|
+        attribute = field.field_name
         value = send(attribute)
 
         unless value.blank?
+          if field.column_type == :boolean
+            value = true if Puffer::TRUE_VALUES.include?(value)
+            value = false if Puffer::FALSE_VALUES.include?(value)
+          end
+
           value = case value
           when 'puffer_nil' then nil
           when 'puffer_blank' then ''
           else value
           end
+          
           res[attribute] = value
         end
+
 
         res
       end

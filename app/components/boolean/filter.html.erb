@@ -1,0 +1,9 @@
+<%= component_fields_for @record do |f| %>
+  <dt><%= f.label field.field_name %></dt>
+  <dd>
+  <% ['', 'puffer_nil', false, true].each do |value| -%>
+    <%= f.radio_button field.field_name, value %>
+    <%= f.label [field.field_name, value].join('_') %>
+  <% end -%>
+  </dd>
+<% end %>
