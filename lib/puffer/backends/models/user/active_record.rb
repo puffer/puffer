@@ -1,5 +1,3 @@
-require 'orm_adapter/adapters/active_record'
-
 module Puffer
   module User
     class ActiveRecord < ActiveRecord::Base

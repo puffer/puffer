@@ -1,5 +1,3 @@
-require 'orm_adapter/adapters/mongoid'
-
 module Puffer
   module User
     class Mongoid
