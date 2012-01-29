@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    puffer (0.1.0)
+    puffer (0.1.1)
       kaminari
       orm_adapter
       rails (~> 3.1)
