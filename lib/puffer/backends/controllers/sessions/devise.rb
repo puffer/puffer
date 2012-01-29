@@ -30,5 +30,5 @@ class Puffer::Sessions::Devise < Puffer::Sessions::Base
   #     end
   #   end
   # end
-  
+
 end

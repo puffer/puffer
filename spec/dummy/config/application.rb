@@ -2,11 +2,10 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
-Bundler.require
+Bundler.require :development
+
+require 'carrierwave/orm/activerecord'
 require 'puffer'
-require 'nested_set'
-require 'devise'
-require 'carrierwave'
 
 module Dummy
   class Application < Rails::Application
@@ -42,3 +41,5 @@ module Dummy
     config.assets.enabled = true
   end
 end
+
+require Rails.root.join('config/initializers/clearance.rb')

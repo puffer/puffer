@@ -8,7 +8,7 @@ class Admin::NewsController < Puffer::Base
     field :title
     field :body
     field :renderable, :render => lambda { @record.title }
-    field :renderable2, :render => :render_title
+    #field :renderable2, :render => :render_title
   end
 
   form do

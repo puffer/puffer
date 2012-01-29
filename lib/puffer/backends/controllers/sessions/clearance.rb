@@ -1,7 +1,7 @@
 # Puffer::Sessions::Clearance integrates Puffer admin interface
 # builder with the Clearance authentication & authorization solution.
 class Puffer::Sessions::Clearance < Puffer::Sessions::Base
-  
+
   before_filter :if => :signed_in?, :except => :destroy do
     redirect_to admin_root_url
   end
@@ -29,7 +29,7 @@ class Puffer::Sessions::Clearance < Puffer::Sessions::Base
   end
 
 private
-  
+
   def authenticate
     model.authenticate(resource.attributes[:email], resource.attributes[:password])
   end

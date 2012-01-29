@@ -27,7 +27,7 @@ module Puffer
         conditions_fields = fields.select {|f| f.column && conditions.keys.include?(f.field_name)}.to_fieldset
         search_fields = fields.select {|f| f.column && !conditions_fields.include?(f) && search_types.include?(f.column_type)}
         all_fields = conditions_fields + search_fields
-        
+
         scope = scope.any_of(searches(search_fields, options[:search])) if options[:search].present?
         scope = scope.order_by(order)
 
@@ -64,11 +64,11 @@ module Puffer
 
       def accessor_for reflection
         case reflection.macro
-        when :referenced_in then
+        when :referenced_in, :belongs_to then
           reflection.foreign_key
-        when :references_one then
+        when :references_one, :has_one then
           "#{reflection.name}_id"
-        when :references_many, :references_and_referenced_in_many then
+        when :references_many, :references_and_referenced_in_many, :has_many, :has_and_belong_to_many then
           "#{reflection.name.to_s.singularize}_ids"
         end
       end

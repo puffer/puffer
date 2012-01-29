@@ -26,7 +26,7 @@ module Puffer
 
         conditions_fields = fields.select {|f| f.column && conditions.keys.include?(f.field_name)}.to_fieldset
         search_fields = fields.select {|f| f.column && !conditions_fields.include?(f) && search_types.include?(f.column_type)}
-        all_fields = conditions_fields + search_fields        
+        all_fields = conditions_fields + search_fields
 
         scope = scope.includes(includes(all_fields)).includes(reflection_includes(fields)).where(searches(search_fields, options[:search])).order(order)
 

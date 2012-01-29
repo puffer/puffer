@@ -6,6 +6,5 @@
         @record.errors[field.name.to_sym].first.presence %>
     </div>
   </div>
-  <%#= f.hidden_field field, field.input_options %>
-  <%= link_to "Choose", '#', :data => {"new-dialog-uri" => event_path(:choose)} %>
+  <%= f.text_field field, field.input_options %>
 <% end %>

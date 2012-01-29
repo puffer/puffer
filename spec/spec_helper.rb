@@ -6,8 +6,6 @@ require "rails/test_help"
 require "rspec/rails"
 require "ammeter/init"
 
-Bundler.require :development
-
 ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true
 ActionMailer::Base.default_url_options[:host] = "test.com"
@@ -38,7 +36,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
 
   config.infer_base_class_for_anonymous_controllers = true
-  
+
   config.before(:suite) do
     #DatabaseCleaner.clean_with :truncation
 

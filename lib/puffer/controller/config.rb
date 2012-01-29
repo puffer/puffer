@@ -31,12 +31,8 @@ module Puffer
         helper_method :configuration
       end
 
-      module InstanceMethods
-
-        def configuration
-          self.class.configuration
-        end
-
+      def configuration
+        self.class.configuration
       end
 
       module ClassMethods

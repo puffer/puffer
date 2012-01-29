@@ -36,15 +36,15 @@ shared_examples "an adapter" do
       end
 
       it 'should return all searched records' do
-        filter(:search => 'hel').should == nth(0, 1, 2, 3)
+        filter(:search => 'hel').should =~ nth(0, 1, 2, 3)
       end
 
       it 'should return searched records without conditioned' do
-        filter(:search => 'hel', :conditions => {'select_field' => 'hello'}).should == nth(0, 3)
+        filter(:search => 'hel', :conditions => {'select_field' => 'hello'}).should =~ nth(0, 3)
       end
 
       it 'should return searched records without conditioned' do
-        filter(:search => 'hel', :conditions => {'select_field' => 'world'}).should == nth(1)
+        filter(:search => 'hel', :conditions => {'select_field' => 'world'}).should =~ nth(1)
       end
 
     end
@@ -60,15 +60,15 @@ shared_examples "an adapter" do
       end
 
       it 'should return all conditioned records' do
-        filter(:conditions => {'select_field' => 'hello'}).should == nth(0, 2, 3)
+        filter(:conditions => {'select_field' => 'hello'}).should =~ nth(0, 2, 3)
       end
 
       it 'should return all conditioned records' do
-        filter(:conditions => {'boolean_field' => false}).should == nth(1, 2, 4)
+        filter(:conditions => {'boolean_field' => false}).should =~ nth(1, 2, 4)
       end
 
       it 'should stack conditions with end' do
-        filter(:conditions => {'select_field' => 'hello', 'boolean_field' => true}).should == nth(0, 3)
+        filter(:conditions => {'select_field' => 'hello', 'boolean_field' => true}).should =~ nth(0, 3)
       end
 
     end
@@ -83,15 +83,15 @@ shared_examples "an adapter" do
       end
 
       it 'should order records asc' do
-        filter(:order => 'integer_field').should == nth(4, 0, 1, 3, 2)
+        filter(:order => 'integer_field').should =~ nth(4, 0, 1, 3, 2)
       end
 
       it 'should order records asc' do
-        filter(:order => ['integer_field', :asc]).should == nth(4, 0, 1, 3, 2)
+        filter(:order => ['integer_field', :asc]).should =~ nth(4, 0, 1, 3, 2)
       end
 
       it 'should order records desc' do
-        filter(:order => ['integer_field', :desc]).should == nth(2, 3, 1, 0, 4)
+        filter(:order => ['integer_field', :desc]).should =~ nth(2, 3, 1, 0, 4)
       end
 
     end
@@ -105,15 +105,15 @@ shared_examples "an adapter" do
         end
 
         it 'should return from till' do
-          filter(:conditions => {'datetime_field' => Puffer::Filters::Diapason.new(Time.now + 0.9.hour, Time.now + 3.1.hours)}).should == nth(1, 2, 3)
+          filter(:conditions => {'datetime_field' => Puffer::Filters::Diapason.new(Time.now + 0.9.hour, Time.now + 3.1.hours)}).should =~ nth(1, 2, 3)
         end
 
         it 'should return from' do
-          filter(:conditions => {'datetime_field' => Puffer::Filters::Diapason.new(Time.now + 0.9.hour)}).should == nth(1, 2, 3, 4)
+          filter(:conditions => {'datetime_field' => Puffer::Filters::Diapason.new(Time.now + 0.9.hour)}).should =~ nth(1, 2, 3, 4)
         end
 
         it 'should return till' do
-          filter(:conditions => {'datetime_field' => Puffer::Filters::Diapason.new(nil, Time.now + 3.1.hours)}).should == nth(0, 1, 2, 3)
+          filter(:conditions => {'datetime_field' => Puffer::Filters::Diapason.new(nil, Time.now + 3.1.hours)}).should =~ nth(0, 1, 2, 3)
         end
       end
     end

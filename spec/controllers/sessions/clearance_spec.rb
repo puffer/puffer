@@ -1,8 +1,10 @@
+require 'clearance/testing'
 require 'controllers/sessions/base_shared'
 
 describe Puffer::Sessions::Clearance do
-  Puffer::Sessions::Clearance.send :include, Clearance::Authentication
   controller do
+    include Clearance::Authentication
+
     setup do
       model_name :clearance_user
     end

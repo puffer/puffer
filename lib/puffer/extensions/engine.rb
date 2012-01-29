@@ -4,22 +4,20 @@ module Puffer
       module Engine
         module Configuration
           extend ActiveSupport::Concern
-          
+
           included do
             alias_method_chain :paths, :components
           end
 
-          module InstanceMethods
-            def paths_with_components
-              @paths ||= begin
-                paths = paths_without_components
-                paths.add 'app/components', :eager_load => true
-                paths
-              end
+          def paths_with_components
+            @paths ||= begin
+              paths = paths_without_components
+              paths.add 'app/components', :eager_load => true
+              paths
             end
           end
         end
-        
+
         extend ActiveSupport::Concern
 
         included do

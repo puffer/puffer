@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # specify any dependencies here; for example:
-  s.add_runtime_dependency(%q<rails>, ["~> 3.1.0"])
+  s.add_runtime_dependency(%q<rails>, ["~> 3.1"])
   s.add_runtime_dependency(%q<kaminari>, [">= 0"])
   s.add_runtime_dependency(%q<orm_adapter>, [">= 0"])
 

@@ -1,5 +1,5 @@
 PATH
-  remote: .
+  remote: /home/pyromaniac/work/opensource/puffer
   specs:
     puffer (0.1.0)
       kaminari
@@ -192,6 +192,7 @@ DEPENDENCIES
   mongoid
   nested_set
   puffer!
+  rails (~> 3.2.0)
   rb-inotify
   rspec-rails
   sqlite3

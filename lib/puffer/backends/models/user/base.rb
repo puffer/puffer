@@ -5,7 +5,7 @@ module Puffer
 
       included do
         include ActiveModel::SecurePassword
-        
+
         attr_protected :password_digest
         has_secure_password
 

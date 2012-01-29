@@ -14,10 +14,8 @@ module Puffer
         helper_method :_members, :_collections
       end
 
-      module InstanceMethods
-        def fields set
-          self.class.fields set
-        end
+      def fields set
+        self.class.fields set
       end
 
       module ClassMethods
