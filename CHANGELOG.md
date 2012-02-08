@@ -1,4 +1,6 @@
-## 0.1.1 \[ In Development \] \[ Branch: master \]
+## 0.1.2 \[ In Development \] \[ Branch: master \]
+
+## 0.1.1
 
 ### New Behavior
 
@@ -12,3 +14,4 @@
 * `per_page` config option.
 * Grid index controller.
 * Carrierwave component implemented.
+* Rails 3.2 compatible.
