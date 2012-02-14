@@ -1,5 +1,5 @@
 <% @title = resource.human %>
-<h1><%= @title %></h1>
+<h1><%= @title %><% if records.present? %> (<%= records.total_count %>)<% end %></h1>
 
 
 <% if records.present? %>
