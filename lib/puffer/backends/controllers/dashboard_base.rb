@@ -12,7 +12,6 @@ class Puffer::DashboardBase < ApplicationController
   end
 
   def index
-    
   end
 
 end

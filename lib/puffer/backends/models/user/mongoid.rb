@@ -3,7 +3,7 @@ module Puffer
     class Mongoid
       include ::Mongoid::Document
 
-      self.collection_name = 'puffer_users' 
+      self.collection_name = 'puffer_users'
 
       field :email, :type => String
       field :password_digest, :type => String

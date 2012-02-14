@@ -1,18 +1,2 @@
 Description:
-    Create puffer controller for specified model
-
-Example:
-    rails generate puffer:controller User
-    rails generate puffer:controller user
-    rails generate puffer:controller users
-
-    This will create:
-        app/controllers/admin/users_controller.rb
-
-    rails generate puffer:controller Moderator::User
-    rails generate puffer:controller moderator/user
-    rails generate puffer:controller moderator/users
-
-    This will create:
-        app/controllers/moderator/users_controller.rb
-
+  Create puffer controller for specified model
