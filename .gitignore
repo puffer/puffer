@@ -8,3 +8,4 @@ spec/dummy/tmp/
 *.orig
 *.sublime-project
 *.sublime-workspace
+.idea
