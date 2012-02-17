@@ -9,3 +9,4 @@ spec/dummy/tmp/
 *.sublime-project
 *.sublime-workspace
 .idea
+Gemfile.lock
