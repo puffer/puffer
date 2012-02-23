@@ -1,6 +1,6 @@
 "a[data-insert]".on('click', function(event) {
   if (event.which != 1) return;
-  
+
   if (this.data('insert').element) {
     var new_id = new Date().getTime();
     $(this.data('insert').element).insert(this.data('insert').content.replace(/new_nested_index/g, new_id));

@@ -13,7 +13,8 @@ ActionMailer::Base.default_url_options[:host] = "test.com"
 Rails.backtrace_cleaner.remove_silencers!
 
 # Configure capybara for integration testing
-require "capybara/rails"
+require 'capybara/rails'
+require 'capybara/dsl'
 Capybara.default_driver   = :rack_test
 Capybara.default_selector = :css
 
@@ -51,4 +52,11 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+
+  def config.escaped_path(*parts)
+    Regexp.compile(parts.join('[\\\/]'))
+  end
+
+  config.include Puffer::Component::ExampleGroup, :type => :component,
+    :example_group => {:file_path => config.escaped_path(%w[spec components])}
 end

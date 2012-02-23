@@ -29,7 +29,7 @@ module Puffer
 
     module Array
       def to_fieldset
-        Puffer::FieldSet.new.concat self
+        Puffer::Fieldset.new('default').concat self
       end
 
       def to_includes

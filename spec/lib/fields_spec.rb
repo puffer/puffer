@@ -2,41 +2,43 @@ require 'spec_helper'
 
 describe "Field" do
 
+  let(:fieldset){Puffer::Fieldset.new('foo', Post)}
+
   it "#model" do
-    field = Puffer::Field.new 'user.profile.name', Post
+    field = fieldset.field 'user.profile.name'
     field.model.should == Profile
-    field = Puffer::Field.new 'user.email', Post
+    field = fieldset.field 'user.email'
     field.model.should == User
-    field = Puffer::Field.new 'user', Post
+    field = fieldset.field 'user'
     field.model.should == Post
-    field = Puffer::Field.new 'title', Post
+    field = fieldset.field 'title'
     field.model.should == Post
   end
 
   it "#name" do
-    field = Puffer::Field.new 'user.profile.name', Post
+    field = fieldset.field 'user.profile.name'
     field.name.should == 'name'
   end
 
   it "#column" do
-    field = Puffer::Field.new 'user.profile.name', Post
+    field = fieldset.field 'user.profile.name'
     field.name.should == 'name'
-    field = Puffer::Field.new 'user.full_name', Post
+    field = fieldset.field 'user.full_name'
     field.column.should == nil
   end
 
   it '#type' do
-    field = Puffer::Field.new 'user.created_at', Post
+    field = fieldset.field 'user.created_at'
     field.type.should == :datetime
   end
 
   it '#type with virtual field' do
-    field = Puffer::Field.new 'user.full_name', Post
+    field = fieldset.field 'user.full_name'
     field.type.should == :string
   end
 
   it '#type was specified' do
-    field = Puffer::Field.new 'user.full_name', Post, :type => :text
+    field = fieldset.field 'user.full_name', :type => :text
     field.type.should == :text
   end
 

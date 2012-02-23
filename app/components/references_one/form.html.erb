@@ -2,9 +2,9 @@
   <div class="label">
     <%= f.label field %>
     <div class="field_error">
-      <%= @record.errors[field.reflection.accessor.to_sym].first ||
-        @record.errors[field.name.to_sym].first.presence %>
+      <p><%= @record.errors[field.reflection.accessor.to_sym].first %></p>
+      <p><%= @record.errors[field.name.to_sym].first %></p>
     </div>
   </div>
-  <%= f.text_field field, field.input_options %>
+  <%= f.hidden_field field.reflection.accessor, field.input_options %>
 <% end %>

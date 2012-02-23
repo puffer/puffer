@@ -52,10 +52,6 @@ module Puffer
     autoload :MemberAction, 'puffer/controller/actions'
     autoload :CollectionAction, 'puffer/controller/actions'
   end
-  
-  module Component
-    autoload :Base, 'puffer/component'
-  end
 
   # Puffer has two types of mappings. If maps <tt>field.type</tt> to component
   # class and also maps field attributes to <tt>field.type</tt>

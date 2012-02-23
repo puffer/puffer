@@ -2,18 +2,18 @@ require 'spec_helper'
 
 describe ReferencesOneComponent do
 
-  include RSpec::Rails::RequestExampleGroup
+  model Post
+  let(:record){Fabricate :post}
 
-  context 'index' do
+  field :user
 
-    it 'should render index component'
-
+  it '#index' do
+    process(:index, record).should == ''
   end
 
-  context 'form' do
-
-    it 'should render form component'
-
+  it '#form' do
+    result = process(:form, record)
+    result.should have_tag("input[name='post[user_id]'][type='hidden']")
   end
 
 end

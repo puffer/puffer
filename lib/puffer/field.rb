@@ -1,23 +1,19 @@
 module Puffer
   class Field
 
-    attr_accessor :resource, :field_name, :field_set, :options, :children
+    attr_accessor :field_name, :fieldset, :options
 
-    def initialize field_name, resource, *fieldset_and_options, &block
-      @field_name = field_name.to_s
-      @resource = resource
-      @options = fieldset_and_options.extract_options!  
-      @field_set = fieldset_and_options.first
-      @children = Puffer::FieldSet.new swallow_nil{field_set.name}
-      block.bind(self).call if block
+    def initialize fieldset, field_name, options = {}
+      @fieldset, @field_name, @options = fieldset, field_name.to_s, options
+      @fieldset.push(self)
     end
 
-    def field name, options = {}, &block
-      @children.field(name, swallow_nil{reflection.klass}, options, &block)
+    def children
+      @children ||= Puffer::Fieldset.new fieldset.model, "#{fieldset.name}_children"
     end
 
     def native?
-      model == resource
+      model == fieldset.model
     end
 
     def to_s
@@ -69,12 +65,12 @@ module Puffer
       @model ||= begin
         associations = field_name.split('.')
         associations.pop
-        temp = resource
+        temp = fieldset.model
         while temp.reflect_on_association(association = swallow_nil{associations.shift.to_sym}) do
           temp = temp.reflect_on_association(association).klass
         end
         temp
-      end if resource
+      end if fieldset.model
     end
 
     def column
