@@ -212,6 +212,10 @@ h2, h2 *
 {
 	width: 100%;
 	display: table;
+}
+
+.fixed_layout
+{
     table-layout: fixed;
 }
 

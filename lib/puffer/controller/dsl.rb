@@ -14,7 +14,7 @@ module Puffer
             options = actions.extract_options!
             return actions.each{|action| define_fieldset(action, options)} if actions.many?
 
-            fallbacks = Array.wrap(options.delete(:fallbacks)).map(&:to_sym)
+            fallbacks = Array.wrap(options[:fallbacks]).map(&:to_sym)
 
             action = actions.first
             self._fieldset_fallbacks[action] = [action] + fallbacks
