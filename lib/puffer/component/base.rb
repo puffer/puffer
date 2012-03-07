@@ -39,8 +39,8 @@ module Puffer
       helper_method :params, :session, :parent_controller, :field, :identifer, :component_id, :event_url, :event_path, :record, :records, :resource, :opts
 
       def initialize field
-        super()
         @field = field
+        super()
       end
 
       def process context, parent_controller, record, options = {}
@@ -111,6 +111,7 @@ module Puffer
         Digest::MD5.hexdigest(SecureRandom.uuid)
       end
 
+      ActiveSupport.run_load_hooks(:puffer_component, self)
     end
   end
 end

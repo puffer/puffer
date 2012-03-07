@@ -7,6 +7,7 @@ require 'puffer/orm_adapter/mongoid' if defined?(Mongoid::Document::OrmAdapter)
 # require 'puffer/orm_adapter/data_mapper' if defined?(DataMapper::Resource::OrmAdapter)
 # require 'puffer/orm_adapter/mongo_mapper' if defined?(MongoMapper::Document::OrmAdapter)
 
+require 'puffer/extensions/engine'
 require 'puffer/extensions/controller'
 require 'puffer/extensions/core'
 if Rails.version < '3.2'
@@ -15,7 +16,6 @@ else
   require 'puffer/extensions/mapper32'
 end
 require 'puffer/extensions/directive_processor'
-require 'puffer/extensions/engine'
 require 'puffer/engine'
 
 module Puffer

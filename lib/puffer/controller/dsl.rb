@@ -12,9 +12,9 @@ module Puffer
         module ClassMethods
           def define_fieldset *actions
             options = actions.extract_options!
-            fallbacks = Array.wrap(options.delete(:fallbacks)).map(&:to_sym)
-
             return actions.each{|action| define_fieldset(action, options)} if actions.many?
+
+            fallbacks = Array.wrap(options.delete(:fallbacks)).map(&:to_sym)
 
             action = actions.first
             self._fieldset_fallbacks[action] = [action] + fallbacks

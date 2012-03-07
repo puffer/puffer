@@ -4,7 +4,7 @@ ENV["RAILS_ENV"] ||= "test"
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require "rails/test_help"
 require "rspec/rails"
-require "ammeter/init"
+# require "ammeter/init"
 
 ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true

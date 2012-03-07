@@ -21,8 +21,9 @@ module Puffer
         extend ActiveSupport::Concern
 
         included do
-          initializer :"puffer.add_view_paths", :after => :add_view_paths do |app|
-            Puffer::Component::Base.prepend_view_path paths["app/components"].existent if paths["app/components"]
+          initializer :add_component_paths do |app|
+            components = paths["app/components"].existent
+            ActiveSupport.on_load(:puffer_component){ prepend_view_path(components) } if components.present?
           end
         end
       end

@@ -137,6 +137,7 @@ h2, h2 *
 
 .sidebar .navigation > li, .dashboard .navigation > li
 {
+    position: relative;
     display: block;
     margin-bottom: 5px;
 }
@@ -156,6 +157,13 @@ h2, h2 *
 .sidebar .navigation > li > a
 {
     display: block;
+}
+
+.sidebar .navigation > li > .add_entity
+{
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 .sidebar .navigation > li .additional dt
@@ -204,7 +212,7 @@ h2, h2 *
 {
 	width: 100%;
 	display: table;
-	clear: both;
+    table-layout: fixed;
 }
 
 .column
@@ -410,7 +418,8 @@ select
     font-weight: bold;
 }
 
-.form li input[type=text], .form li input[type=password], .form li textarea
+.form li input[type=text], .form li input[type=password], .form li textarea,
+dd input[type=text], dd input[type=password], dd textarea
 {
     width: 100%;
 }

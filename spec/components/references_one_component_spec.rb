@@ -13,7 +13,7 @@ describe ReferencesOneComponent do
 
   it '#form' do
     result = process(:form, record)
-    result.should have_tag("input[name='post[user_id]'][type='hidden']")
+    result.should have_tag("input[name='post[user_id]'][type='text']")
   end
 
 end

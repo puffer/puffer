@@ -15,25 +15,22 @@
   <div class="columns">
     <div class="column sidebar">
       <div class="padder">
-        <ul class="navigation"> 
+        <ul class="navigation">
           <% puffer_resources_navigation do |title, path, current| %>
             <li<%= raw(current ? ' class="selected"' : '') %>>
               <%= link_to title, path %>
+              <%= link_to '+', resource.new_path, :class => 'add_entity' if current %>
               <% if current %>
                 <div class="additional">
                   <dl>
-                    <dt>Links</dt>
-                    <dd>
-                      <p>
-                        <%= link_to t(:list, :target => resource.human), resource.collection_path %>
-                        <%= link_to t(:add, :target => resource.human), resource.new_path %>
-                      </p>
-                      <p>
+                    <% if _collections.present? %>
+                      <dt>Links</dt>
+                      <dd>
                         <% _collections.each do |collection| %>
                           <%= link_to collection.label, resource.collection_path(:action => collection.action) if collection.display? && [:match, :get].include?(collection.method) %>
                         <% end %>
-                      </p>
-                    </dd>
+                      </dd>
+                    <% end %>
 
                     <%= form_for puffer_filters, :url => resource.collection_path, :method => :get do |f| %>
                       <dt><%= f.label :puffer_search %></dt>

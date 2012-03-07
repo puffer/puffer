@@ -3,15 +3,15 @@ module Puffer
     module Base
 
       def columns_hash
-        raise NotSupportedError
+        raise ::OrmAdapter::NotSupportedError
       end
 
       def reflection name
-        raise NotSupportedError
+        raise ::OrmAdapter::NotSupportedError
       end
 
       def filter scope, fields, options = {}
-        raise NotSupportedError
+        raise ::OrmAdapter::NotSupportedError
       end
 
     end
