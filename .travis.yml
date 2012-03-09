@@ -9,7 +9,7 @@ env:
   - RAILS_VERSION=3.2.2
   - RAILS_VERSION=3-1-stable
   - RAILS_VERSION=3-2-stable
-  - RAILS_VERSION=master
+  # - RAILS_VERSION=master
 
 matrix:
   exclude:

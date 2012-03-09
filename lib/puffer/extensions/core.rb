@@ -7,26 +7,6 @@ module Puffer
       end
     end
 
-    module String
-      def singular?
-        self.singularize == self
-      end
-
-      def plural?
-        self.pluralize == self
-      end
-    end
-
-    module Symbol
-      def singular?
-        to_s.singular?
-      end
-
-      def plural?
-        to_s.plural?
-      end
-    end
-
     module Array
       def to_fieldset
         Puffer::Fieldset.new('default').concat self
@@ -48,8 +28,6 @@ module Puffer
 end
 
 Object.send :include, Puffer::Extensions::Object
-String.send :include, Puffer::Extensions::String
-Symbol.send :include, Puffer::Extensions::Symbol
 Array.send :include, Puffer::Extensions::Array
 
 Kernel.class_eval do
