@@ -2,8 +2,6 @@ source "http://rubygems.org"
 
 gemspec
 
-gem 'rspec-core', :git => 'git://github.com/rspec/rspec-core.git'
-
 case version = ENV['RAILS_VERSION'] || '~> 3.1'
 when /master/
   gem "rails", :git => "git://github.com/rails/rails.git"
