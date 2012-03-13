@@ -3,6 +3,7 @@ source "http://rubygems.org"
 gemspec
 
 gem 'rspec-rails', '>= 2.9.0.rc2'
+gem 'mongo', '1.6.0'
 
 case version = ENV['RAILS_VERSION'] || '~> 3.1'
 when /master/

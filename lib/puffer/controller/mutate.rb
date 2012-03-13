@@ -52,8 +52,8 @@ module Puffer
 
         def model
           @model ||= model_name.camelize.constantize
-        rescue
-          raise Puffer::NoModelError.new(model_name.camelize)
+        rescue NameError => e
+          nil
         end
 
       end

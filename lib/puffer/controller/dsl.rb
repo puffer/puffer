@@ -12,24 +12,25 @@ module Puffer
         module ClassMethods
           def define_fieldset *actions
             options = actions.extract_options!
-            return actions.each{|action| define_fieldset(action, options)} if actions.many?
-
-            fallbacks = Array.wrap(options[:fallbacks]).map(&:to_sym)
+            actions.each{|action| define_fieldset(action, options)} and return if actions.many?
 
             action = actions.first
+            fallbacks = Array.wrap(options[:fallbacks]).map(&:to_sym)
+
             self._fieldset_fallbacks[action] = [action] + fallbacks
 
             class_attribute "_#{action}_fields"
             send "_#{action}_fields=", Puffer::Fieldset.new(action, model) unless send("_#{action}_fields?")
-            delegate "#{action}_fields", :to => 'self.class'
-            helper_method "#{action}_fields"
 
             define_fieldset_reader_for action
             define_fieldset_writer_for action
+
+            delegate "#{action}_fields", :to => 'self.class'
+            helper_method "#{action}_fields"
           end
 
           def define_fieldset_reader_for action
-            self.class.instance_eval do
+            (class << self; self; end).instance_eval do
               define_method "#{action}_fields" do
                 actions = self._fieldset_fallbacks[action].dup
                 last = actions.pop
@@ -41,7 +42,7 @@ module Puffer
           end
 
           def define_fieldset_writer_for action
-            self.class.instance_eval do
+            (class << self; self; end).instance_eval do
               define_method action do |&block|
                 @_super_fields = send("_#{action}_fields")
                 @_fields = send("_#{action}_fields=", Puffer::Fieldset.new(action, model))
@@ -74,9 +75,10 @@ module Puffer
       end
 
       extend ActiveSupport::Concern
-      include Fieldsets
 
       included do
+        include Fieldsets
+
         class_attribute :_members
         self._members = Puffer::Controller::Actions.new :member
         class_attribute :_collections
