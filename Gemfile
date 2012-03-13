@@ -2,6 +2,8 @@ source "http://rubygems.org"
 
 gemspec
 
+gem 'rspec-rails', '>= 2.9.0.rc2'
+
 case version = ENV['RAILS_VERSION'] || '~> 3.1'
 when /master/
   gem "rails", :git => "git://github.com/rails/rails.git"
