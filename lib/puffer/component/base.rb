@@ -98,7 +98,7 @@ module Puffer
       end
 
       def event_options name
-        {:action => :event, :event => name, :field => field.to_s, :fieldset => field.field_set.name, :identifer => identifer}
+        {:action => :event, :event => name, :field => field.to_s, :fieldset => field.fieldset.name, :identifer => identifer}
       end
 
       def component_id
