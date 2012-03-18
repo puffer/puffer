@@ -1,5 +1,11 @@
 [![Build Status](https://secure.travis-ci.org/puffer/puffer.png)](http://travis-ci.org/puffer/puffer)
 
+# Achtung!
+
+It's better to install Puffer from the HEAD of ruby repo now.
+
+<pre>gem "puffer", :git => "git://github.com/puffer/puffer.git"</pre>
+
 # Puffer — YARAI (Yet Another Rails Admin Interface)
 
 Puffer was created to help a project owner or moderators view and
