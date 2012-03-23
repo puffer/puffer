@@ -20,36 +20,31 @@ module Puffer
             self._fieldset_fallbacks[action] = [action] + fallbacks
 
             class_attribute "_#{action}_fields"
-            send "_#{action}_fields=", Puffer::Fieldset.new(action, model) unless send("_#{action}_fields?")
+            delegate "#{action}_fields", :to => 'self.class'
+            helper_method "#{action}_fields"
 
             define_fieldset_reader_for action
             define_fieldset_writer_for action
 
-            delegate "#{action}_fields", :to => 'self.class'
-            helper_method "#{action}_fields"
           end
 
           def define_fieldset_reader_for action
-            (class << self; self; end).instance_eval do
-              define_method "#{action}_fields" do
-                actions = self._fieldset_fallbacks[action].dup
-                last = actions.pop
-                actions.map do |action|
-                  send("_#{action}_fields").presence
-                end.compact.first || send("_#{last}_fields")
-              end
+            define_singleton_method "#{action}_fields" do
+              actions = self._fieldset_fallbacks[action].dup
+              last = actions.pop
+              actions.map do |action|
+                send("_#{action}_fields").presence
+              end.compact.first || send("_#{last}_fields")
             end
           end
 
           def define_fieldset_writer_for action
-            (class << self; self; end).instance_eval do
-              define_method action do |&block|
-                @_super_fields = send("_#{action}_fields")
-                @_fields = send("_#{action}_fields=", Puffer::Fieldset.new(action, model))
-                block.call if block
-                remove_instance_variable :@_fields
-                remove_instance_variable :@_super_fields
-              end
+            define_singleton_method action do |&block|
+              @_super_fields = send("_#{action}_fields")
+              @_fields = send("_#{action}_fields=", Puffer::Fieldset.new(action, model))
+              block.call if block
+              remove_instance_variable :@_fields
+              remove_instance_variable :@_super_fields
             end
           end
 

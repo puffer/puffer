@@ -13,8 +13,7 @@ describe "Fieldsets" do
       define_fieldset :index
     }}
 
-    specify{subject.index_fields.should be_a Puffer::Fieldset}
-    specify{subject.index_fields.should be_empty}
+    specify{subject.index_fields.should be_blank}
   end
 
   context 'fieldset fallbacks' do
@@ -29,10 +28,8 @@ describe "Fieldsets" do
       define_fieldset :show, :fallbacks => :index
     }}
 
-    specify{subject.index_fields.should be_a Puffer::Fieldset}
-    specify{subject.index_fields.should be_empty}
-    specify{subject.show_fields.should be_a Puffer::Fieldset}
-    specify{subject.show_fields.should be_empty}
+    specify{subject.index_fields.should be_blank}
+    specify{subject.show_fields.should be_blank}
   end
 
   context 'fieldset fallbacks' do
