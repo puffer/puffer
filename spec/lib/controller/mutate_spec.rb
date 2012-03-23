@@ -6,7 +6,7 @@ describe "Mutate" do
     class SomeController < Puffer::Base
     end
 
-    specify{SomeController.model.should be_nil}
+    specify{expect{SomeController.model}.to raise_error(Puffer::NoModelError)}
   end
 
   context 'existant model' do

@@ -51,9 +51,10 @@ module Puffer
         end
 
         def model
+          return nil if model_name == false
           @model ||= model_name.camelize.constantize
         rescue NameError => e
-          nil
+          raise Puffer::NoModelError.new(to_s, model_name.camelize)
         end
 
       end

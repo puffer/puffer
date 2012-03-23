@@ -27,14 +27,14 @@ module Puffer
   end
 
   class NoModelError < PufferError
-    def initialize model_name
+    def initialize controller_name, model_name
       super <<-EOS
         Puffer controller can not found model named #{model_name}
         To solve this you should properly configurate controller
 
-        class Admin::SomeController
+        class #{controller_name}
           setup do
-            model_name 'YourCustomModel'
+            model_name 'your_custom_model_name'
           end
         end
       EOS
