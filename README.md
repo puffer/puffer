@@ -38,6 +38,44 @@ Or in Gemfile:
 
 `gem "puffer"`
 
+## Post-installation actions.
+
+First of all, it is nessesary to create security system for admin
+interface. It consists of two parts: user model and sessions controller.
+There are two cases for it:
+
+### Integrated auth system
+
+Simple integarted auth system. To activate it - just execute
+`rails g puffer:puffer_user`. This will create model, migrations, controller
+and routes for PufferUser model. Also, default sessions controller which
+uses PufferUser model already in engine. So, both parts of auth system are
+ready for usage. Also there is mongoid backend for PufferUser storage. See
+`app/models/puffer_user.rb` for details.
+
+### External auth system
+
+If application already use some kind of auth system like a devise, clearance
+or sorcery - you should use corresponding SessionsController backend.
+Just create app/controllers/admin/sessions_controller.rb in your application
+directory to redefine default SessionsController.
+
+The content of file depends on used auth system. There are several backends
+for SessionsController exists in Puffer. I.e. for clearance use:
+
+```
+class Admin::SessionsController < Puffer::Sessions::Clearance
+end
+```
+
+See https://github.com/puffer/puffer/tree/master/lib/puffer/backends/controllers/sessions
+for the list of backends. Also you can create your own backend.
+
+If you use app's auth system, you might want to redefine access rules. The simpliest way
+for it - is to redefine `current_puffer_use` or `has_puffer_access?` methods in controller
+or implement `has_role?` method for your user model. See https://github.com/puffer/puffer/blob/master/lib/puffer/controller/auth.rb for details.
+
+
 ## Introduction.
 
 Let's assume this is the data structure of your application:

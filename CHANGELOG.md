@@ -1,5 +1,10 @@
 ## 0.1.2 \[ In Development \] \[ Branch: master \]
 
+### New Behavior
+
+*   Authorization-related classes as PufferUser or PufferUserController are removed
+    from engine and moved to generator `puffer:puffer_user`
+
 ### New features
 
 *   Created TestCase and ExampleGroup for components. It can be used for
