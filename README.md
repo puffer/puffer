@@ -50,8 +50,8 @@ Simple integarted auth system. To activate it - just execute
 `rails g puffer:puffer_user`. This will create model, migrations, controller
 and routes for PufferUser model. Also, default sessions controller which
 uses PufferUser model already in engine. So, both parts of auth system are
-ready for usage. Also there is mongoid backend for PufferUser storage. See
-`app/models/puffer_user.rb` for details.
+ready for usage. Also there is mongoid backend for PufferUser storage.
+See generator usage for details.
 
 ### External auth system
 
