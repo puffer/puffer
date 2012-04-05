@@ -12,9 +12,12 @@ require 'spec_helper'
 # end
 describe Puffer::Helpers::PufferHelper do
 
-  it "generates scopes navigation" do
+  before do
+    helper.stub(:has_puffer_access?){true}
     helper.stub(:puffer_namespace).and_return(:admin)
-    
+  end
+
+  it "generates scopes navigation" do
     navigation = []
     helper.puffer_scopes_navigation do |*args|
       navigation.push args
@@ -27,7 +30,6 @@ describe Puffer::Helpers::PufferHelper do
   end
 
   it "generates groups navigation" do
-    helper.stub(:puffer_namespace).and_return(:admin)
     helper.stub(:resource).and_return mock(:resource_node => mock, :root => mock(:resource_node => mock(:group => :posting)))
 
     navigation = []
@@ -43,7 +45,6 @@ describe Puffer::Helpers::PufferHelper do
   end
 
   it "generates resources navigation" do
-    helper.stub(:puffer_namespace).and_return(:admin)
     helper.stub(:configuration).and_return mock(:group => :posting)
     helper.stub(:resource).and_return mock(:resource_node => mock, :root => mock(:resource_node => Rails.application.routes.resources_tree[15]))
 
