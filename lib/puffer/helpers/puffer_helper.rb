@@ -5,8 +5,8 @@ module Puffer
     module PufferHelper
 
       def puffer_scopes_navigation
-        Rails.application.routes.resources_tree.map(&:scope).uniq.each do |scope|
-          yield scope, send("#{scope}_root_path"), scope == puffer_namespace
+        Rails.application.routes.resources_tree.map(&:scope).uniq.each do |namespace|
+          yield namespace, send("#{namespace}_root_path"), namespace == puffer_namespace if has_puffer_access?(namespace)
         end
       end
 
@@ -16,18 +16,18 @@ module Puffer
             path = send("#{resource_node.scope}_#{resource_node.url_segment}_path")
             current = resource.resource_node ? resource.root.resource_node.group == resource_node.group : false
 
-            yield resource_node.group, path, current
+            yield resource_node.group, path, current if has_puffer_access?(namespace)
           end
         end
       end
 
-      def puffer_resources_navigation namespace = puffer_namespace, group = configuration.group
+      def puffer_resources_navigation group = configuration.group, namespace = puffer_namespace
         Rails.application.routes.resources_tree.roots.select {|node| node.scope == namespace && node.group == group}.each do |resource_node|
           title = resource_node.controller.model.model_name.human
           path = send("#{resource_node.scope}_#{resource_node.url_segment}_path")
           current = resource.resource_node ? resource.root.resource_node == resource_node : false
 
-          yield title, path, current
+          yield title, path, current if has_puffer_access?(namespace)
         end
       end
 
@@ -39,25 +39,6 @@ module Puffer
         end
         head.push field.human
         head.join(' ').html_safe
-      end
-
-      def render_field field, record
-        if field.options[:render]
-          case field.options[:render]
-          when Symbol then
-            res = send(field.options[:render], record)
-          when Proc then
-            res = field.options[:render].bind(self).call(record)
-          else ''
-          end
-        else
-          res = record.call_chain(field.to_s)
-        end
-        unless field.native?
-          url = edit_polymorphic_path [resource.scope, record.call_chain(field.path)] rescue nil
-          res = link_to res, url if url
-        end
-        res
       end
 
     end

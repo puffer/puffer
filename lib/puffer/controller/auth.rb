@@ -14,7 +14,7 @@ module Puffer
       extend ActiveSupport::Concern
 
       included do
-        helper_method :current_puffer_user
+        helper_method :current_puffer_user, :has_puffer_access?
       end
 
       # Return current user instance, used for authorization. This method can
