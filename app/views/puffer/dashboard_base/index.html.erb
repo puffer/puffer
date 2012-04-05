@@ -1,17 +1,15 @@
-<% puffer_scopes_navigation do |scope| %>
-  <h2><%= scope.to_s.humanize %></h2>
-  <ul class="navigation">
-    <% puffer_groups_navigation scope do |group| %>
-      <li>
-        <span><%= group.to_s.humanize %></span>
-        <ul class="additional">
-          <% puffer_resources_navigation scope, group do |resource, url| %>
-            <li>
-              <%= link_to resource, url %>
-            </li>
-          <% end %>
-        </ul>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+<h2><%= puffer_namespace.to_s.humanize %></h2>
+<ul class="navigation">
+  <% puffer_groups_navigation puffer_namespace do |group| %>
+    <li>
+      <span><%= group.to_s.humanize %></span>
+      <ul class="additional">
+        <% puffer_resources_navigation puffer_namespace, group do |resource, url| %>
+          <li>
+            <%= link_to resource, url %>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+</ul>

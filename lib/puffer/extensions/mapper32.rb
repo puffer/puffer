@@ -44,7 +44,7 @@ module Puffer
 
           if ::Rails.application.routes.resources_tree.any? {|node| node.scope == @scope[:module].to_sym}
             old, @scope[:module] = @scope[:module], 'admin'
-            root :to => 'dashboard#index'
+            root :to => "dashboard##{old}"
             @scope[:module] = old
           end
         end

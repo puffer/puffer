@@ -370,7 +370,8 @@ input[type=text], input[type=password], textarea
 
 input[type=text]:focus, input[type=password]:focus, textarea:focus
 {
-    border: #536C80 solid 1px;
+    /*border: #536C80 solid 1px;*/
+    box-shadow: 0 0 10px #a0ccef;
 }
 
 input[type=submit]
