@@ -512,11 +512,11 @@ dd input[type=text], dd input[type=password], dd textarea
 .locale
 {
     float: left;
-    width: 30px;
+    width: 60px;
     line-height: 29px;
 }
 
 .locale_input
 {
-    margin-left: 30px;
+    margin-left: 60px;
 }
