@@ -130,6 +130,10 @@ h2, h2 *
     padding: 5px 12px;
 }
 
+.sidebar select {
+    width: 200px;
+}
+
 .sidebar .navigation, .dashboard .navigation
 {
     position: static;
@@ -505,6 +509,14 @@ dd input[type=text], dd input[type=password], dd textarea
     margin-bottom: 10px;
 }
 
-select.time_zone {
-    width: 200px;
+.locale
+{
+    float: left;
+    width: 30px;
+    line-height: 29px;
+}
+
+.locale_input
+{
+    margin-left: 30px;
 }

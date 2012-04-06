@@ -6,11 +6,13 @@
     </div>
   </div>
   <% @locales.each do |locale| %>
-    <p>
-      <%= locale %>:
+    <div class="locale">
+      <%= locale %>
+    </div>
+    <div class="locale_input">
       <%= f.fields_for field.to_s do |l| %>
         <%= l.text_field locale, :value => @values[locale.to_s] %>
       <% end %>
-    </p>
+    </div>
   <% end %>
 <% end %>

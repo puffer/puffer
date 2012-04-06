@@ -1,4 +1,4 @@
 <%= component_fields_for @record do |f| %>
   <dt><%= f.label field.field_name %></dt>
-  <dd><%= f.time_zone_select field.field_name, field.options[:priority_zones], {:include_blank => true}, {:class => 'time_zone'} %></dd>
+  <dd><%= f.time_zone_select field.field_name, field.options[:priority_zones], {:include_blank => true} %></dd>
 <% end %>
