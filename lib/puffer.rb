@@ -53,6 +53,7 @@ module Puffer
   module Sessions
     autoload :Base, 'puffer/backends/controllers/sessions/base'
     autoload :Simple, 'puffer/backends/controllers/sessions/simple'
+    autoload :Devise, 'puffer/backends/controllers/sessions/devise'
     autoload :Clearance, 'puffer/backends/controllers/sessions/clearance'
   end
 

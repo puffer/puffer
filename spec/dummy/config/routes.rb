@@ -1,5 +1,7 @@
 Dummy::Application.routes.draw do
 
+  devise_for :devise_users
+
   namespace :admin do
     resources :users do
       resource :profile do

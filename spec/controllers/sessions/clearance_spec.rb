@@ -12,6 +12,10 @@ describe Puffer::Sessions::Clearance do
     def current_puffer_user
       current_user
     end
+
+    def authenticate
+      model.authenticate(resource.attributes[:email], resource.attributes[:password])
+    end
   end
 
   it_behaves_like "a session controller" do

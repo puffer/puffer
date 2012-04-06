@@ -2,10 +2,6 @@
 # builder with the Clearance authentication & authorization solution.
 class Puffer::Sessions::Clearance < Puffer::Sessions::Base
 
-  before_filter :if => :signed_in?, :except => :destroy do
-    redirect_to admin_root_url
-  end
-
   setup do
     model_name :user
   end
