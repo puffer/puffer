@@ -504,3 +504,7 @@ dd input[type=text], dd input[type=password], dd textarea
     list-style: none;
     margin-bottom: 10px;
 }
+
+select.time_zone {
+    width: 200px;
+}

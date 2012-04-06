@@ -165,5 +165,15 @@ module Puffer
   append_custom_field_type :carrierwave do |field|
     field.model.respond_to?(:uploaders) && field.model.uploaders.key?(field.name.to_sym)
   end
+  append_custom_field_type :localized do |field|
+    field.name.ends_with?('_translations')
+  end
+  append_custom_field_type :time_zone do |field|
+    field.name =~ /\Atz\Z/ || field.name =~ /time_zone/ || field.name =~ /timezone/
+  end
+
+  append_custom_field_type :string do |field|
+    field.column_type == :object
+  end
 
 end

@@ -20,6 +20,7 @@ class Orms::MongoidOrmPrimalsController < Puffer::Base
     field :hash_field
     field :set_field
     field :range_field
+    field :time_zone
   end
 
   form do
@@ -53,6 +54,8 @@ class Orms::MongoidOrmPrimalsController < Puffer::Base
     field :hash_field
     field :set_field
     field :range_field
+    field :localized_field_translations
+    field :time_zone
   end
 
 end

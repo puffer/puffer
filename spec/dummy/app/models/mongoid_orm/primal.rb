@@ -15,6 +15,8 @@ class MongoidOrm::Primal
   field :hash_field, :type => Hash
   field :set_field, :type => ::Set
   field :range_field, :type => Range
+  field :localized_field, :localize => true
+  field :time_zone
 
   has_one :has_one_reference, :validate => true, :class_name => 'MongoidOrm::HasOneReference'
   has_many :has_many_references, :validate => true, :class_name => 'MongoidOrm::HasManyReference'
