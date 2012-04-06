@@ -25,7 +25,6 @@ module Puffer
 
             define_fieldset_reader_for action
             define_fieldset_writer_for action
-
           end
 
           def define_fieldset_reader_for action

@@ -38,7 +38,7 @@ class Orms::MongoidOrmPrimalsController < Puffer::Base
     field :embeds_many_references do
       field :name
     end
-    
+
     field :string_field
     field :symbol_field
     field :select_field, :select => (1..5).map {|i| "option #{i}"}

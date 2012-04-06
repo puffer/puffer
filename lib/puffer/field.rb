@@ -9,7 +9,7 @@ module Puffer
     end
 
     def children
-      @children ||= Puffer::Fieldset.new fieldset.model, "#{fieldset.name}_children"
+      @children ||= Puffer::Fieldset.new "#{fieldset.name}_children", fieldset.model
     end
 
     def native?
