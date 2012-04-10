@@ -90,8 +90,19 @@ module Puffer
   def self.component_for field
     type = field
     type = field.type if field.respond_to? :type
-    (_component_mappings[type.to_sym] || "#{type}_component").to_s.camelize.constantize
-  rescue NameError
+    component = (_component_mappings[type.to_sym] || "#{type}_component").to_s.camelize
+    if component.respond_to?(:safe_constantize)
+      component.safe_constantize || raise_component_missing(type, field)
+    else
+      begin
+        component.constantize
+      rescue NameError
+        raise_component_missing type, field
+      end
+    end
+  end
+
+  def raise_component_missing(type, field)
     raise ComponentMissing, "Missing `#{type}` component for `#{field}` field. Please use Puffer.map_component binding or specify field type manually"
   end
 

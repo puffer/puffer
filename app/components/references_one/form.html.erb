@@ -6,5 +6,5 @@
       <p><%= @record.errors[field.name.to_sym].first %></p>
     </div>
   </div>
-  <%= f.text_field field.reflection.accessor, field.input_options %>
+  <%= f.text_field field.reflection.accessor, field.input_options.merge(:autocomplete => :off) %>
 <% end %>

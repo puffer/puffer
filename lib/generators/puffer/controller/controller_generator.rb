@@ -8,6 +8,10 @@ class Puffer::ControllerGenerator < Rails::Generators::NamedBase
     template 'controller.rb', path
   end
 
+  def generate_routes
+    route "namespace :#{options.namespace.to_s.underscore} do\n    resources :#{controller_name.underscore}\n  end"
+  end
+
 private
 
   def model_name

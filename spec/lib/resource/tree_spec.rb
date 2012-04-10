@@ -24,6 +24,7 @@ describe "Tree" do
       {:scope => :admin, :current => :news, :children => [], :ancestors => []},
       {:scope => :orms, :current => :active_record_orm_primals, :children => [], :ancestors => []},
       {:scope => :orms, :current => :mongoid_orm_primals, :children => [], :ancestors => []},
+      {:scope => :orms, :current => :has_one_references, :children => [], :ancestors => []},
       {:scope => :admin, :current => :session, :children => [], :ancestors => []}
     ]
   end

@@ -52,8 +52,21 @@ module Puffer
 
         def model
           return nil if model_name.blank?
-          @model ||= model_name.camelize.constantize
-        rescue NameError => e
+          @model ||= begin
+            camelized = model_name.camelize
+            if camelized.respond_to?(:safe_constantize)
+              camelized.safe_constantize || raise_no_model_error
+            else
+              begin
+                camelized.constantize
+              rescue NameError
+                raise_no_model_error
+              end
+            end
+          end
+        end
+
+        def raise_no_model_error
           raise Puffer::NoModelError.new(to_s, model_name.camelize)
         end
 

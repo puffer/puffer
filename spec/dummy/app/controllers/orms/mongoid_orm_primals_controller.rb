@@ -1,7 +1,7 @@
 class Orms::MongoidOrmPrimalsController < Puffer::Base
 
   setup do
-    group :mongoid
+    group :mongoid_orm
     model_name 'mongoid_orm/primal'
   end
 
@@ -32,11 +32,19 @@ class Orms::MongoidOrmPrimalsController < Puffer::Base
       field :name
     end
 
-    field :embeds_one_reference do
+    field :has_one_nested do
       field :name
     end
 
-    field :embeds_many_references do
+    field :has_many_nesteds do
+      field :name
+    end
+
+    field :embeds_one_nested do
+      field :name
+    end
+
+    field :embeds_many_nesteds do
       field :name
     end
 

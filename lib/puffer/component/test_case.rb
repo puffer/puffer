@@ -57,7 +57,7 @@ module Puffer
           end
 
           def determine_default_component_class(name)
-            name.sub(/Test$/, '').safe_constantize
+            name.sub(/Test$/, '').constantize
           end
 
           def model new_class = nil

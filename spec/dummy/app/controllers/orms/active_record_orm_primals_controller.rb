@@ -20,11 +20,11 @@ class Orms::ActiveRecordOrmPrimalsController < Puffer::Base
   end
 
   form do
-    field :has_one_reference do
+    field :has_one_nested do
       field :name
     end
 
-    field :has_many_references do
+    field :has_many_nesteds do
       field :name
     end
 

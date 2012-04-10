@@ -33,6 +33,7 @@ Dummy::Application.routes.draw do
   namespace :orms do
     resources :active_record_orm_primals
     resources :mongoid_orm_primals
+    resources :has_one_references
   end
 
 end
