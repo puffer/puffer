@@ -89,9 +89,11 @@ module Puffer
     end
 
     def collection_scope
-      scope = parent ? parent.member.send(name) : model
-      scope = scope.send controller.configuration.scope if controller.configuration.scope
-      scope
+      parent ? parent.member.send(name) : model
+    end
+
+    def controller_scope
+      controller.configuration.scope.presence || {}
     end
 
     def adapter
@@ -100,7 +102,7 @@ module Puffer
 
     def collection
       adapter.filter collection_scope, controller.filter_fields,
-        :conditions => controller_instance.puffer_filters.conditions,
+        :conditions => controller_instance.puffer_filters.conditions.merge(controller_scope),
         :search => controller_instance.puffer_filters.search,
         :order => controller_instance.puffer_filters.order
     end
@@ -118,6 +120,7 @@ module Puffer
     end
 
     def new_member attributes = attributes
+      attributes.merge!(controller_scope)
       if parent
         if plural?
           parent.member.send(name).new attributes

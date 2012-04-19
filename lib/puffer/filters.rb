@@ -109,7 +109,7 @@ module Puffer
           when 'puffer_blank' then ''
           else value
           end
-          
+
           res[attribute] = value
         end
 

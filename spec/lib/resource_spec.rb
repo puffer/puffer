@@ -175,6 +175,14 @@ describe Puffer::Resource do
       resource.new_member.name.should == 'my new name'
     end
 
+    it "singular parent with attributes" do
+      resource = Puffer::Resource.new tree_node(2, :user_id => @user.id, :tag => {:name => 'my new name'})
+      resource.stub(:controller_scope){{:name => 'hello!'}}
+      resource.new_member.should be_new_record
+      resource.new_member.should be_instance_of(Tag)
+      resource.new_member.name.should == 'hello!'
+    end
+
   end
 
 end

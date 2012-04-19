@@ -21,7 +21,7 @@ module Puffer
         puffer_class_attribute :destroy, true
         #  destroy - records show method allowed?
         puffer_class_attribute :show, false
-        #  scope - default scope name for all queries
+        #  scope - default scope for all queries
         puffer_class_attribute :scope
         #  order - default order option. Is a string with field name and direction. Ex: 'email', 'first_name asc', 'title desc'
         puffer_class_attribute :order
@@ -62,10 +62,12 @@ module Puffer
 
         def method_missing method, *args, &block
           method_name = "_puffer_attribute_#{method}"
-          if args.present? && controller.respond_to?("#{method_name}=")
-            controller.send "#{method_name}=", args.first
+          if (args.present? || block) && controller.respond_to?("#{method_name}=")
+            controller.send "#{method_name}=", args.first.presence || block
           elsif controller.respond_to?(method_name)
-            controller.send method_name
+            value = controller.send(method_name)
+            value = value.call if value.respond_to?(:call)
+            value
           else
             super
           end
