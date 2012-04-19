@@ -14,6 +14,10 @@ module Puffer
         raise ::OrmAdapter::NotSupportedError
       end
 
+      def merge_scopes scope, additional
+        raise ::OrmAdapter::NotSupportedError
+      end
+
     end
 
     class Reflection < ActiveSupport::OrderedOptions

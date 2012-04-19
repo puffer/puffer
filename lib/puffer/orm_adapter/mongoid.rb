@@ -47,6 +47,10 @@ module Puffer
         scope
       end
 
+      def merge_scopes scope, additional
+        scope.where(additional)
+      end
+
     private
 
       def search_types
