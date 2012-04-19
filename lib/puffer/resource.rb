@@ -89,7 +89,9 @@ module Puffer
     end
 
     def collection_scope
-      parent ? parent.member.send(name) : model
+      scope = parent ? parent.member.send(name) : model
+      scope = scope.send controller.configuration.scope if controller.configuration.scope
+      scope
     end
 
     def adapter
@@ -97,9 +99,7 @@ module Puffer
     end
 
     def collection
-      scope = collection_scope
-      scope = scope.send controller.configuration.scope if controller.configuration.scope
-      adapter.filter scope, controller.filter_fields,
+      adapter.filter collection_scope, controller.filter_fields,
         :conditions => controller_instance.puffer_filters.conditions,
         :search => controller_instance.puffer_filters.search,
         :order => controller_instance.puffer_filters.order
