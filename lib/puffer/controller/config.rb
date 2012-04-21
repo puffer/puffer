@@ -14,21 +14,19 @@ module Puffer
       included do
         # Configuration options with default values:
         #  group - interface group name, displays as tab in interface header
-        puffer_class_attribute :group, :default
+        puffer_config_option :group, :default
         #  model_name - obviosly - model name for controller
-        puffer_class_attribute :model_name
+        puffer_config_option :model_name
         #  destroy - records destruction allowed?
-        puffer_class_attribute :destroy, true
+        puffer_config_option :destroy, true
         #  destroy - records show method allowed?
-        puffer_class_attribute :show, false
+        puffer_config_option :show, false
         #  scope - default scope for all queries
-        puffer_class_attribute :scope
+        puffer_config_option :scope
         #  order - default order option. Is a string with field name and direction. Ex: 'email', 'first_name asc', 'title desc'
-        puffer_class_attribute :order
+        puffer_config_option :order
         # obviously< records per page
-        puffer_class_attribute :per_page, 30
-
-        helper_method :configuration
+        puffer_config_option :per_page, 30
       end
 
       def configuration
@@ -37,13 +35,13 @@ module Puffer
 
       module ClassMethods
 
-        def puffer_class_attribute name, default = nil
-          class_attribute "_puffer_attribute_#{name}"
-          send "_puffer_attribute_#{name}=", default
+        def puffer_config_option name, default = nil
+          class_attribute "_puffer_config_option_#{name}"
+          send "_puffer_config_option_#{name}=", default
         end
 
         def setup &block
-          block.bind(Config.new(self)).call
+          block.bind(configuration).call
         end
 
         def configuration
@@ -61,7 +59,7 @@ module Puffer
         end
 
         def method_missing method, *args, &block
-          method_name = "_puffer_attribute_#{method}"
+          method_name = "_puffer_config_option_#{method}"
           if (args.present? || block) && controller.respond_to?("#{method_name}=")
             controller.send "#{method_name}=", args.first.presence || block
           elsif controller.respond_to?(method_name)

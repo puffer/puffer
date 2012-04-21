@@ -5,6 +5,7 @@ require 'rails/all'
 Bundler.require :development
 
 require 'carrierwave/orm/activerecord'
+require 'devise/orm/mongoid'
 require 'puffer'
 
 module Dummy

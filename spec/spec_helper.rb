@@ -39,7 +39,7 @@ RSpec.configure do |config|
   config.infer_base_class_for_anonymous_controllers = true
 
   config.before(:suite) do
-    #DatabaseCleaner.clean_with :truncation
+    # DatabaseCleaner.clean_with :truncation
 
     DatabaseCleaner[:active_record].strategy = :transaction
     DatabaseCleaner[:mongoid].strategy = :truncation

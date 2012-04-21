@@ -4,7 +4,7 @@ describe Puffer::Controller::Config do
   context 'default values' do
     subject{Class.new(ApplicationController) do
       include Puffer::Controller::Config
-      puffer_class_attribute :key, :value
+      puffer_config_option :key, :value
     end}
     specify{subject.configuration.key.should == :value}
   end
@@ -12,7 +12,7 @@ describe Puffer::Controller::Config do
   context 'redefined values' do
     subject{Class.new(ApplicationController) do
       include Puffer::Controller::Config
-      puffer_class_attribute :key, :value
+      puffer_config_option :key, :value
 
       setup do
         key :value2
@@ -24,7 +24,7 @@ describe Puffer::Controller::Config do
   context 'value block' do
     subject{Class.new(ApplicationController) do
       include Puffer::Controller::Config
-      puffer_class_attribute :key, :value
+      puffer_config_option :key, :value
 
       setup do
         key{:hello}
@@ -36,7 +36,7 @@ describe Puffer::Controller::Config do
   context 'value proc' do
     subject{Class.new(ApplicationController) do
       include Puffer::Controller::Config
-      puffer_class_attribute :key, :value
+      puffer_config_option :key, :value
 
       setup do
         key lambda{:world}

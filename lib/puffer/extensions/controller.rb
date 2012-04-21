@@ -19,6 +19,8 @@ module Puffer
             include Puffer::Controller::Dsl
             include Puffer::Controller::Config
             include Puffer::Controller::Auth
+
+            helper_method :configuration
           end
         end
 

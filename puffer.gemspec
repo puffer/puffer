@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency(%q<rspec-html-matchers>, [">= 0"])
   s.add_development_dependency(%q<capybara>, [">= 0"])
   s.add_development_dependency(%q<database_cleaner>, [">= 0"])
-  # s.add_development_dependency(%q<ammeter>, [">= 0"])
+  s.add_development_dependency(%q<ammeter>, [">= 0"])
   s.add_development_dependency(%q<timecop>, [">= 0"])
   s.add_development_dependency(%q<guard>, [">= 0"])
   s.add_development_dependency(%q<guard-rspec>, [">= 0"])
