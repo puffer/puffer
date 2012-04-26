@@ -19,6 +19,8 @@ module Puffer
         puffer_config_option :model_name
         #  destroy - records destruction allowed?
         puffer_config_option :destroy, true
+        #  destroy - records creation allowed?
+        puffer_config_option :create, true
         #  destroy - records show method allowed?
         puffer_config_option :show, false
         #  scope - default scope for all queries

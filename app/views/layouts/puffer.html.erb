@@ -19,7 +19,7 @@
           <% puffer_resources_navigation do |title, path, current| %>
             <li<%= raw(current ? ' class="selected"' : '') %>>
               <%= link_to title, path %>
-              <%= link_to '+', resource.new_path, :class => 'add_entity' if current %>
+              <%= link_to '+', resource.new_path, :class => 'add_entity' if current && controller.configuration.create %>
               <% if current %>
                 <div class="additional">
                   <dl>
