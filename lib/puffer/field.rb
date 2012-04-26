@@ -40,6 +40,10 @@ module Puffer
       Puffer.field_type_for self
     end
 
+    def sort
+      column ? field_name : options[:sort]
+    end
+
     def reflection
       @reflection ||= model && model.to_adapter.reflection(name)
     end
