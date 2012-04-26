@@ -22,13 +22,13 @@ module Puffer
       def filter scope, fields, options = {}
         conditions, order = extract_conditions_and_order!(options)
 
-        order = order.map { |o| f = fields[o.first]; [query_order(f), o.last] if f && f.column }.compact
+        order = order.map { |o| f = fields[o.first]; [f.sort, o.last] if f && f.sort }.compact
 
         conditions_fields = fields.select {|f| f.column && conditions.keys.include?(f.field_name)}.to_fieldset
         search_fields = fields.select {|f| f.column && !conditions_fields.include?(f) && search_types.include?(f.column_type)}
         all_fields = conditions_fields + search_fields
 
-        scope = scope.any_of(searches(search_fields, options[:search])) if options[:search].present?
+        scope = scope.any_of(searches(search_fields, options[:search])) if search_fields.present? && options[:search].present?
         scope = scope.order_by(order)
 
         conditions.each do |name, value|
@@ -60,10 +60,6 @@ module Puffer
       def searches fields, query
         regexp = /#{Regexp.escape(query)}/i
         fields.map {|field| {field.to_s => regexp}}
-      end
-
-      def query_order field
-        field.options[:order] || field.name
       end
 
       def accessor_for reflection

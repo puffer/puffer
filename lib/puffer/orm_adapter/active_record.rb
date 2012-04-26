@@ -22,7 +22,7 @@ module Puffer
       def filter scope, fields, options = {}
         conditions, order = extract_conditions_and_order!(options)
 
-        order = order.map { |name, dir| field = fields[name]; "#{query_order(field)} #{dir}" if field && field.column }.compact.join(', ')
+        order = order.map { |name, dir| field = fields[name]; "#{query_sort(field)} #{dir}" if field && field.sort }.compact.join(', ')
 
         conditions_fields = fields.select {|f| f.column && conditions.keys.include?(f.field_name)}.to_fieldset
         search_fields = fields.select {|f| f.column && !conditions_fields.include?(f) && search_types.include?(f.column_type)}
@@ -72,8 +72,8 @@ module Puffer
         "#{field.model.table_name}.#{field.name}" if field.column
       end
 
-      def query_order field
-        field.options[:order] || query_column(field)
+      def query_sort field
+        field.options[:sort] ? "#{field.model.table_name}.#{field.options[:sort]}" : query_column(field)
       end
 
       def accessor_for reflection
