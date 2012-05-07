@@ -15,11 +15,11 @@ class Puffer::PufferUserGenerator < Rails::Generators::Base
 
   def copy_model
     case options[:orm]
-    when :activerecord then
-      copy_file "puffer_user_activerecord.rb", "app/models/puffer_user.rb"
-      migration_template "create_puffer_users.rb", "db/migrate/create_puffer_users.rb"
     when :mongoid then
       copy_file "puffer_user_mongoid.rb", "app/models/puffer_user.rb"
+    else
+      copy_file "puffer_user_activerecord.rb", "app/models/puffer_user.rb"
+      migration_template "create_puffer_users.rb", "db/migrate/create_puffer_users.rb"
     end
   end
 
