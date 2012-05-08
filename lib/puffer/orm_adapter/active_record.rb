@@ -65,7 +65,11 @@ module Puffer
       end
 
       def searches fields, query
-        [fields.map {|f| "#{query_column(f)} like ?"}.compact.join(' or '), *(Array.wrap("%#{query}%") * fields.count)] if query.present?
+        if query.present?
+          query = query.gsub('%', '\%').gsub('_', '\_')
+          [fields.map {|f| "#{query_column(f)} like ?"}.compact.join(' or '),
+            *(Array.wrap("%#{query}%") * fields.count)]
+        end
       end
 
       def query_column field
