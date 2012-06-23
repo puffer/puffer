@@ -11,7 +11,7 @@ It's better to install Puffer from the HEAD of ruby repo now.
 Puffer was created to help a project owner or moderators view and
 edit all the project's data models.
 
-**It's compatible with Rails 3.1 only.**
+**It's compatible with Rails >= 3.1 only.**
 
 ## Discussion and help
 
