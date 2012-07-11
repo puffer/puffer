@@ -20,7 +20,7 @@ module Puffer
       end
 
       def filter scope, fields, options = {}
-        conditions, order = extract_conditions_and_order!(options)
+        conditions, order = *extract_conditions!(options)[0..1]
 
         order = order.map { |name, dir| field = fields[name]; "#{query_sort(field)} #{dir}" if field && field.sort }.compact.join(', ')
 

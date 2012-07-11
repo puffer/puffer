@@ -20,7 +20,7 @@ module Puffer
       end
 
       def filter scope, fields, options = {}
-        conditions, order = extract_conditions_and_order!(options)
+        conditions, order = *extract_conditions!(options)[0..1]
 
         order = order.map { |o| f = fields[o.first]; [f.sort, o.last] if f && f.sort }.compact
 
