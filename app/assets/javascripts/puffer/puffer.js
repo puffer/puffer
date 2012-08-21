@@ -42,7 +42,11 @@ $(document).on('ready', function(event) {
 
 $(document).on('ctrl+s', function(event) {
   $$('form[data-send]').each(function(element) {
-    element.send();
+    element.send({
+      onComplete: function() {
+        $(document).fire('ajax:complete', {xhr: this});
+      }
+    });
   });
   event[0].stop();
 });
