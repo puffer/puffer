@@ -42,11 +42,11 @@ $(document).on('ready', function(event) {
 
 $(document).on('ctrl+s', function(event) {
   $$('form[data-send]').each(function(element) {
-    element.fire('submit');
     element.send({
-      onComplete: function() {
-        $(document).fire('ajax:complete', {xhr: this});
-      }
+      onCreate:   function() { $(document).fire('ajax:loading',  {xhr: this}); },
+      onComplete: function() { $(document).fire('ajax:complete', {xhr: this}); },
+      onSuccess:  function() { $(document).fire('ajax:success',  {xhr: this}); },
+      onFailure:  function() { $(document).fire('ajax:failure',  {xhr: this}); }
     });
   });
   event[0].stop();
