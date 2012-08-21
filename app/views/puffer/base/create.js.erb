@@ -1,0 +1,6 @@
+$('update').update("<%= j render(@record.persisted? ? 'edit' : 'new') %>");
+<% if @record.persisted? %>
+  if (window.history && window.history.pushState) {
+    window.history.pushState({}, '<%= @title %>', '<%= resource.edit_path(@record) %>');
+  }
+<% end %>

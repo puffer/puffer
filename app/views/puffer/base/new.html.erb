@@ -1,15 +1,3 @@
-<% @title = "New #{resource.human}" %>
-<h1><%= @title %></h1>
-<%= form_for record, :url => resource.collection_path, :html => { :multipart => true } do |f| %>
-  <ul class="form">
-  <% create_fields.each do |field| -%>
-    <li><%= field.render :create, controller, record %></li>
-  <% end -%>
-  </ul>
-
-  <div class="buttons">
-    <%= f.submit t('puffer.save') %>
-    <%= f.submit t('puffer.save_and_exit') %>
-    <%= link_to 'cancel', (request.referer || resource.collectin_path) %>
-  </div>
-<% end %>
+<div id="update">
+  <%= render 'new' %>
+</div>

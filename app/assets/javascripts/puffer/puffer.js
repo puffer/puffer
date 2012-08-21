@@ -39,3 +39,10 @@ $(document).on('ready', function(event) {
     new Sortable(element);
   });
 });
+
+$(document).on('ctrl+s', function(event) {
+  $$('form[data-send]').each(function(element) {
+    element.send();
+  });
+  event[0].stop();
+});

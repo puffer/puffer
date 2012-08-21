@@ -30,7 +30,7 @@ module Puffer
 
       def method_missing method, *args, &block
         nodes.send method, *args, &block if nodes.respond_to? method
-      end      
+      end
     end
   end
 end

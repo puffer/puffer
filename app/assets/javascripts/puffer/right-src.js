@@ -4678,15 +4678,23 @@ var Xhr = RightJS.Xhr = new Class(Observer, {
       method = 'post';
     }
 
-    var data = this.prepareData(this.params, this.prepareParams(params), add_params);
+    if (params instanceof FormData) {
+      var data = params
 
-    if (this.urlEncoded && method == 'post' && !headers['Content-type']) {
-      this.setHeader('Content-type', 'application/x-www-form-urlencoded;charset='+this.encoding);
+      for (key in add_params) {
+        data.append(key, add_params[key]);
+      }
+    } else {
+      var data = this.prepareData(this.params, this.prepareParams(params), add_params);
+
+      if (method == 'get') {
+        if (data) { url += (url.include('?') ? '&' : '?') + data; }
+        data = null;
+      }
     }
 
-    if (method == 'get') {
-      if (data) { url += (url.include('?') ? '&' : '?') + data; }
-      data = null;
+    if (!(data instanceof FormData) && this.urlEncoded && method == 'post' && !headers['Content-type']) {
+      this.setHeader('Content-type', 'application/x-www-form-urlencoded;charset='+this.encoding);
     }
 
     xhr = this.xhr = this.createXhr();
@@ -4747,7 +4755,7 @@ var Xhr = RightJS.Xhr = new Class(Observer, {
   createXhr: function() {
     if (this.jsonp) {
       return new Xhr.JSONP(this);
-    } else if (this.form && this.form.first('input[type=file]')) {
+    } else if (!('FormData' in window) && this.form && this.form.first('input[type=file]')) {
       return new Xhr.IFramed(this.form);
     } else if ('ActiveXObject' in window){
       return new ActiveXObject('MSXML2.XMLHTTP');
@@ -4884,6 +4892,7 @@ Form.include({
   send: function(options) {
     options = options || {};
     options.method = options.method || this._.method || 'post';
+    data = ('FormData' in window) ? new FormData(this._) : this
 
     this.xhr = new Xhr(
       this._.action || document.location.href,
@@ -4891,7 +4900,7 @@ Form.include({
     )
     .onComplete(this.enable.bind(this))
     .onCancel(this.enable.bind(this))
-    .send(this);
+    .send(data);
 
     this.disable.bind(this).delay(1); // webkit needs this async call with iframed calls
     return this;
