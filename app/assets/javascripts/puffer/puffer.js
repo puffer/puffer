@@ -42,6 +42,7 @@ $(document).on('ready', function(event) {
 
 $(document).on('ctrl+s', function(event) {
   $$('form[data-send]').each(function(element) {
+    element.fire('submit');
     element.send({
       onComplete: function() {
         $(document).fire('ajax:complete', {xhr: this});
