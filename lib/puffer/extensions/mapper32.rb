@@ -61,8 +61,6 @@ module Puffer
 
           defaults :puffer => resource_node do
             resource_scope_without_puffer kind, resource do
-              block.call if block
-
               member do
                 controller._members.each do |action|
                   send *action.route
@@ -75,6 +73,8 @@ module Puffer
                 end
                 get '/event/:fieldset/:field/:event(/:identifer)', :action => :event, :as => :event
               end
+
+              block.call if block
             end
           end
         else
