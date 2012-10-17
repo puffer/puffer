@@ -1,6 +1,8 @@
-## 0.1.2 \[ In Development \] \[ Branch: master \]
+## 0.5.0 \[ In Development \] \[ Branch: master \]
 
 ### New Behavior
+
+*   Mountable engine: `mount Puffer::Engine => '/'`
 
 *   Authorization-related classes as PufferUser or PufferUserController are removed
     from engine and moved to generator `puffer:puffer_user`

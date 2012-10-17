@@ -22,7 +22,7 @@ class Puffer::Sessions::Devise < Puffer::Sessions::Base
 
   def destroy
     sign_out model_name.to_sym
-    redirect_to new_admin_session_url
+    redirect_to puffer.new_admin_session_url
   end
 
 end

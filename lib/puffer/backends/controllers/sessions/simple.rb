@@ -22,7 +22,7 @@ class Puffer::Sessions::Simple < Puffer::Sessions::Base
 
   def destroy
     session.delete(:puffer_user_id)
-    redirect_to new_admin_session_url
+    redirect_to puffer.new_admin_session_url
   end
 
 end

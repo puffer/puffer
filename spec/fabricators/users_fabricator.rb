@@ -4,9 +4,9 @@ Fabricator :user do
 end
 
 Fabricator :user_with_profile, :from => :user do
-  profile!
+  profile
 end
 
 Fabricator :user_with_profile_and_tags, :from => :user do
-  profile! { Fabricate :profile_with_tags }
+  profile { Fabricate :profile_with_tags }
 end

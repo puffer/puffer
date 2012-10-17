@@ -36,4 +36,6 @@ Dummy::Application.routes.draw do
     resources :has_one_references
   end
 
+  mount Puffer::Engine => '/'
+
 end

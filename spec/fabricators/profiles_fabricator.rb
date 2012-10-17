@@ -5,5 +5,5 @@ Fabricator :profile do
 end
 
 Fabricator :profile_with_tags, :from => :profile do
-  tags!(:count => 3) { |profile, i| Fabricate(:tag) }
+  tags(:count => 3) { |profile, i| Fabricate(:tag) }
 end

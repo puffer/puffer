@@ -5,5 +5,5 @@ Fabricator :post do
 end
 
 Fabricator :post_with_categories, :from => :post do
-  categories!(:count => 2) { |post, i| Fabricate(:category) }
+  categories(:count => 2) { |post, i| Fabricate(:category) }
 end
