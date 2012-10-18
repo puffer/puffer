@@ -9,7 +9,10 @@ module Puffer
       return super if puffer_filters.any?
       @records = resource.collection_scope
       if session[:expanded].present?
-        @records = @records.where(["depth in (0, 1) or parent_id in (#{session[:expanded].join(', ')})"]).arrange
+        table = resource.model.arel_table
+        @records = @records.where(
+          table[:depth].in([0, 1]).or(table[:parent_id].in(session[:expanded]))
+        ).arrange
       else
         @records = @records.with_depth([0, 1]).arrange
       end
