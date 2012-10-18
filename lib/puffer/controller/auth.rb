@@ -62,7 +62,7 @@ module Puffer
       # Used in before_filter to prevent unauthorized access
       def require_puffer_user
         unless has_puffer_access?(puffer_namespace)
-          redirect_to new_admin_session_url(:return_to => request.fullpath)
+          redirect_to puffer.new_admin_session_url(:return_to => request.fullpath)
           return false
         end
       end

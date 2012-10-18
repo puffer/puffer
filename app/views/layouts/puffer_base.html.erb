@@ -17,7 +17,7 @@
         <%= yield :header %>
         <% if current_puffer_user %>
           <div class="logout">
-            <%= link_to t('puffer.logout'), admin_session_url, :method => :delete %>
+            <%= link_to t('puffer.logout'), puffer.admin_session_url, :method => :delete %>
           </div>
         <% end %>
       </div>

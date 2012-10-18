@@ -1,4 +1,4 @@
-<%= form_for record, :url => admin_session_path(:return_to => params[:return_to]), :method => :post do |f| %>
+<%= form_for record, :url => puffer.admin_session_path(:return_to => params[:return_to]), :method => :post do |f| %>
   <ul class="form">
   <% create_fields.each do |field| -%>
     <li><%= field.render :create, controller, record %></li>
