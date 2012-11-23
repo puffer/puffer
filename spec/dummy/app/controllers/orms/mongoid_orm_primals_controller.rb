@@ -38,6 +38,10 @@ class Orms::MongoidOrmPrimalsController < Puffer::Base
 
     field :has_many_nesteds do
       field :name
+
+      field :primal_reference do
+        field :string_field
+      end
     end
 
     field :embeds_one_nested do

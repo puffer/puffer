@@ -10,7 +10,7 @@ module Puffer
 
     def children
       model = reflection ? reflection.klass : fieldset.model
-      @children ||= Puffer::Fieldset.new "#{fieldset.name}_children", model
+      @children ||= Puffer::Fieldset.new "#{fieldset.name}:#{field_name}", model
     end
 
     def native?

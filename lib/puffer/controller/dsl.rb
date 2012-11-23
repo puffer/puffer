@@ -48,7 +48,12 @@ module Puffer
           end
 
           def fields set
-            send "#{set}_fields"
+            segments = set.split ?:
+            fieldset = send "#{segments.first}_fields"
+            segments[1..-1].each do |segment|
+              fieldset = fieldset[segment].children
+            end
+            fieldset
           end
 
           def super_fields
