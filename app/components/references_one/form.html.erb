@@ -6,5 +6,26 @@
       <p><%= @record.errors[field.name.to_sym].first %></p>
     </div>
   </div>
-  <%= f.text_field field.reflection.accessor, field.input_options.merge(:autocomplete => :off) %>
+
+  <div class="autocomplete_wrapper">
+    <% id = @record.send(field.reflection.accessor) %>
+    <% referenced = @record.send(field.name) %>
+
+    <a data-role="references_one_clear" data-references-one-clear="true" class="" href="#"
+      style="display: <%= id.present? ? 'block' : 'none'%>;">×</a>
+
+    <%= text_field_tag field.reflection.accessor,
+      id.present? ? referenced.respond_to?(:to_title) ? referenced.to_title : referenced.to_s : nil,
+      field.input_options.merge(
+        autocomplete: :off,
+        disabled: id.present? ? :disabled : nil,
+        data: {
+          role: "references_one_autocomplete",
+          autocompleter: "{url: '#{event_path(:choose)}', onDone: references_one_autocomplete_done}"
+        }
+      )
+    %>
+
+    <%= f.hidden_field field.reflection.accessor, { data: { role: 'references_one_id' } } %>
+  </div>
 <% end %>

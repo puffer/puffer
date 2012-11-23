@@ -12,7 +12,9 @@ class Orms::HasOneReferencesController < Puffer::Base
   form do
     field :name
     field :primal_nested
-    field :primal_reference
+    field :primal_reference do
+      field :string_field
+    end
   end
 
 end

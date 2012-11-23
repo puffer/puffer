@@ -1,0 +1,41 @@
+ul li .field-wrapper {
+  display: inline-block;
+}
+
+ul li .field-wrapper .field-name
+{
+  color: #999;
+  display: inline-block;
+  padding: 0 3px 0 0;
+}
+
+ul li .field-wrapper .field-value
+{
+  display: inline-block;
+  padding: 0 10px 0 0;
+}
+
+.autocomplete_wrapper
+{
+  position: relative;
+}
+
+.autocomplete_wrapper a
+{
+  position: absolute;
+  right: 0;
+  top: 4px;
+  width: 21px;
+  height: 21px;
+  line-height: 20px;
+  text-align: center;
+  background: #CCC;
+  border-radius: 3px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.autocomplete_wrapper a:hover
+{
+  background: #999;
+}

@@ -1,8 +1,8 @@
 /**
- * RightJS-UI Autocompleter v2.2.1
+ * RightJS-UI Autocompleter v2.2.2
  * http://rightjs.org/ui/autocompleter
  *
- * Copyright (C) 2010-2011 Nikolay Nemshilov
+ * Copyright (C) 2010-2012 Nikolay Nemshilov
  */
 var Autocompleter = RightJS.Autocompleter = (function(document, RightJS) {
 /**
@@ -148,7 +148,7 @@ var Spinner = new RightJS.Class(RightJS.Element, {
  * A shared module that toggles a widget visibility status
  * in a uniformed way according to the options settings
  *
- * Copyright (C) 2010-2011 Nikolay Nemshilov
+ * Copyright (C) 2010-2012 Nikolay Nemshilov
  */
 var Toggler = {
   /**
@@ -172,7 +172,7 @@ var Toggler = {
    */
   hide: function(fx_name, fx_options) {
     this.constructor.current = null;
-    return Toggler_toggle(this, 'show', fx_name, fx_options);
+    return Toggler_toggle(this, 'hide', fx_name, fx_options);
   },
 
   /**
@@ -215,29 +215,39 @@ var Toggler = {
  * @return void
  */
 function Toggler_toggle(element, event, fx_name, fx_options) {
-  if (RightJS.Fx) {
-    if (fx_name === undefined) {
-      fx_name = element.options.fxName;
+  if ((event === 'hide' && element.visible()) || (event === 'show' && element.hidden())) {
+    if (RightJS.Fx) {
+      element.___fx = true;
 
-      if (fx_options === undefined) {
-        fx_options = {
-          duration: element.options.fxDuration,
-          onFinish: RightJS(element.fire).bind(element, event)
-        };
+      if (fx_name === undefined) {
+        fx_name = element.options.fxName;
 
-        // hide on double time
-        if (event === 'hide') {
-          fx_options.duration = (RightJS.Fx.Durations[fx_options.duration] ||
-            fx_options.duration) / 2;
+        if (fx_options === undefined) {
+          fx_options = {
+            duration: element.options.fxDuration,
+            onFinish: function() {
+              element.___fx = false;
+              element.fire(event);
+            }
+          };
+
+          // hide on double time
+          if (event === 'hide') {
+            fx_options.duration = (RightJS.Fx.Durations[fx_options.duration] ||
+              fx_options.duration) / 2;
+          }
         }
       }
+    } else {
+      // manually trigger the event if no fx were specified
+      element.___fx = false;
+      if (!fx_name) { element.fire(event); }
     }
+
+    return element.$super(fx_name, fx_options);
+  } else {
+    return element;
   }
-
-  // manually trigger the event if no fx were specified
-  if (!RightJS.Fx || !fx_name) { element.fire(event); }
-
-  return element.$super(fx_name, fx_options);
 }
 
 /**
@@ -316,13 +326,13 @@ var R       = RightJS,
 /**
  * The RightJS UI Autocompleter unit base class
  *
- * Copyright (C) 2009-2011 Nikolay Nemshilov
+ * Copyright (C) 2009-2012 Nikolay Nemshilov
  */
 var Autocompleter = new Widget('UL', {
   include: Toggler,
 
   extend: {
-    version: '2.2.1',
+    version: '2.2.2',
 
     EVENTS: $w('show hide update load select done'),
 
@@ -608,17 +618,17 @@ $(document).on({
 });
 
 
-var embed_style = document.createElement('style'),                 
-    embed_rules = document.createTextNode("*.rui-dd-menu, *.rui-dd-menu li{margin:0;padding:0;border:none;background:none;list-style:none;font-weight:normal;float:none} *.rui-dd-menu{display:none;position:absolute;z-index:9999;background:white;border:1px solid #BBB;border-radius:.2em;-moz-border-radius:.2em;-webkit-border-radius:.2em;box-shadow:#DDD .2em .2em .4em;-moz-box-shadow:#DDD .2em .2em .4em;-webkit-box-shadow:#DDD .2em .2em .4em} *.rui-dd-menu li{padding:.2em .4em;border-top:none;border-bottom:none;cursor:pointer} *.rui-dd-menu li.current{background:#DDD} *.rui-dd-menu li:hover{background:#EEE}dl.rui-dd-menu dt{padding:.3em .5em;cursor:default;font-weight:bold;font-style:italic;color:#444;background:#EEE}dl.rui-dd-menu dd li{padding-left:1.5em}div.rui-spinner,div.rui-spinner div{margin:0;padding:0;border:none;background:none;list-style:none;font-weight:normal;float:none;display:inline-block; *display:inline; *zoom:1;border-radius:.12em;-moz-border-radius:.12em;-webkit-border-radius:.12em}div.rui-spinner{text-align:center;white-space:nowrap;background:#EEE;border:1px solid #DDD;height:1.2em;padding:0 .2em}div.rui-spinner div{width:.4em;height:70%;background:#BBB;margin-left:1px}div.rui-spinner div:first-child{margin-left:0}div.rui-spinner div.glowing{background:#777}div.rui-re-anchor{margin:0;padding:0;background:none;border:none;float:none;display:inline;position:absolute;z-index:9999}.rui-autocompleter{border-top-color:#DDD !important;border-top-left-radius:0 !important;border-top-right-radius:0 !important;-moz-border-radius-topleft:0 !important;-moz-border-radius-topright:0 !important;-webkit-border-top-left-radius:0 !important;-webkit-border-top-right-radius:0 !important}.rui-autocompleter-spinner{border:none !important;background:none !important;position:absolute;z-index:9999}.rui-autocompleter-spinner div{margin-top:.2em !important; *margin-top:0.1em !important}");      
-                                                                   
-embed_style.type = 'text/css';                                     
-document.getElementsByTagName('head')[0].appendChild(embed_style); 
-                                                                   
-if(embed_style.styleSheet) {                                       
-  embed_style.styleSheet.cssText = embed_rules.nodeValue;          
-} else {                                                           
-  embed_style.appendChild(embed_rules);                            
-}                                                                  
+var embed_style = document.createElement('style'),
+    embed_rules = document.createTextNode("*.rui-dd-menu, *.rui-dd-menu li{margin:0;padding:0;border:none;background:none;list-style:none;font-weight:normal;float:none} *.rui-dd-menu{display:none;position:absolute;z-index:9999;background:white;border:1px solid #BBB;border-radius:.2em;-moz-border-radius:.2em;-webkit-border-radius:.2em;box-shadow:#DDD .2em .2em .4em;-moz-box-shadow:#DDD .2em .2em .4em;-webkit-box-shadow:#DDD .2em .2em .4em} *.rui-dd-menu li{padding:.2em .4em;border-top:none;border-bottom:none;cursor:pointer} *.rui-dd-menu li.current{background:#DDD} *.rui-dd-menu li:hover{background:#EEE}dl.rui-dd-menu dt{padding:.3em .5em;cursor:default;font-weight:bold;font-style:italic;color:#444;background:#EEE}dl.rui-dd-menu dd li{padding-left:1.5em}div.rui-spinner,div.rui-spinner div{margin:0;padding:0;border:none;background:none;list-style:none;font-weight:normal;float:none;display:inline-block; *display:inline; *zoom:1;border-radius:.12em;-moz-border-radius:.12em;-webkit-border-radius:.12em}div.rui-spinner{text-align:center;white-space:nowrap;background:#EEE;border:1px solid #DDD;height:1.2em;padding:0 .2em}div.rui-spinner div{width:.4em;height:70%;background:#BBB;margin-left:1px}div.rui-spinner div:first-child{margin-left:0}div.rui-spinner div.glowing{background:#777}div.rui-re-anchor{margin:0;padding:0;background:none;border:none;float:none;display:inline;position:absolute;z-index:9999}.rui-autocompleter{border-top-color:#DDD !important;border-top-left-radius:0 !important;border-top-right-radius:0 !important;-moz-border-radius-topleft:0 !important;-moz-border-radius-topright:0 !important;-webkit-border-top-left-radius:0 !important;-webkit-border-top-right-radius:0 !important}.rui-autocompleter-spinner{border:none !important;background:none !important;position:absolute;z-index:9999}.rui-autocompleter-spinner div{margin-top:.2em !important; *margin-top:0.1em !important}");
+
+embed_style.type = 'text/css';
+document.getElementsByTagName('head')[0].appendChild(embed_style);
+
+if(embed_style.styleSheet) {
+  embed_style.styleSheet.cssText = embed_rules.nodeValue;
+} else {
+  embed_style.appendChild(embed_rules);
+}
 
 
 return Autocompleter;

@@ -1,0 +1,11 @@
+<ul>
+  <% records.each do |record| -%>
+    <li data-id="<%= record.id %>" data-title="<%= record.respond_to?(:to_title) ? record.to_title : record.to_s %>">
+      <% fields.each do |field| -%>
+        <div class="field-wrapper">
+          <span class="field-name"><%= field.human %>:</span><span class="field-value"><%= record.send(field.name) %></span>
+        </div>
+      <% end -%>
+    </li>
+  <% end -%>
+</ul>

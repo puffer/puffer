@@ -11,5 +11,6 @@
 //= require puffer/rails
 //= require puffer/puffer
 //= require puffer/nested_attributes
+//= require puffer/references
 
 //= require_all ./puffer

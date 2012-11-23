@@ -1,9 +1,1 @@
-<%= render :layout => '../views/puffer/base/table', :locals => { :table_fields => field.children, :controller => controller.parent_controller } do |record| %>
-  <% link_to t('.choose'), '#' %>
-<% end %>
-
-<div id="paginator"></div>
-
-<%= javascript_tag do %>
-  new Paginator({total: <%= @records.num_pages %>, current: <%= params[:page] || 1 %>, link: {'data-dialog-uri': '<%= event_path(:choose, :page => '%{page}') %>'}}).insertTo('paginator', 'instead');
-<% end %>
+<%= render 'ul', fields: field.children, controller: controller.parent_controller %>
