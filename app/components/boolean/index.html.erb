@@ -1,7 +1,0 @@
-<% if field.options[:editable] && field.column %>
-  <%= component_wrap do %>
-    <%= link_to @record.call_chain(field.to_s) ? 'True' : 'False', event_path(:change, :id => @record.to_param), :remote => true %>
-  <% end %>
-<% else %>
-  <%= check_box_tag '', '', @record.call_chain(field.to_s), :disabled => true %>
-<% end %>

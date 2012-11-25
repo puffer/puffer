@@ -1,9 +1,0 @@
-<%= component_fields_for @record do |f| %>
-  <div class="label">
-    <%= f.label field %>
-    <div class="field_error">
-      <%= @record.errors[field.name.to_sym].first %>
-    </div>
-  </div>
-  <%= f.time_zone_select field, field.options[:priority_zones], {:include_blank => field.options.key?(:include_blank) ? field.options[:include_blank] : true }, field.input_options %>
-<% end %>

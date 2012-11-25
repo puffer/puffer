@@ -1,6 +1,0 @@
-<%# Here it should check file version mime and output image or link to file %>
-<% if true %>
-  <%= image_tag @record.send(field.name).send(thumbnail_name).url if @record.send("#{field.name}?") %>
-<% else %>
-  <%= link_to @record.send(field.name).send(thumbnail_name).url if @record.send("#{field.name}?") %>
-<% end %>

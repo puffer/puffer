@@ -1,3 +1,0 @@
-class StringComponent < BaseComponent
-
-end

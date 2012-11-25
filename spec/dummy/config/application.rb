@@ -4,8 +4,6 @@ require 'rails/all'
 
 Bundler.require :development
 
-require 'carrierwave/orm/activerecord'
-require 'devise/orm/mongoid'
 require 'puffer'
 
 module Dummy
@@ -57,5 +55,3 @@ module Dummy
     config.assets.version = '1.0'
   end
 end
-
-require Rails.root.join('config/initializers/clearance.rb')

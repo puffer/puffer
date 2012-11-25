@@ -1,6 +1,0 @@
-<% nodes = capture do %>
-  <% puffer_tree_node records do |record, children| %>
-    <%= render :partial => 'record', :object => record, :locals => {:children => children} %>
-  <% end %>
-<% end %>
-$('<%= dom_id @parent %>').replace('<%= escape_javascript nodes %>')

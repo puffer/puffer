@@ -1,9 +1,0 @@
-<%= component_fields_for @record do |f| %>
-  <div class="label">
-    <%= f.label field %>
-    <div class="field_error">
-      <%= f.object.errors[field.name.to_sym].first %>
-    </div>
-  </div>
-  <%= f.text_field field, field.input_options %>
-<% end %>

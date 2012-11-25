@@ -1,3 +1,0 @@
-class TextComponent < BaseComponent
-
-end

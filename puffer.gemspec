@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["pyromaniac"]
   s.email       = ["kinwizard@gmail.com"]
   s.homepage    = "http://github.com/puffer/puffer"
-  s.summary     = %q{In Soviet Russia puffer admins you}
-  s.description = %q{Admin interface builder}
+  s.summary     = "In Soviet Russia puffer admins you"
+  s.description = "Admin interface builder"
 
   s.rubyforge_project = "puffer"
 
@@ -18,37 +18,35 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  # specify any dependencies here; for example:
-  s.add_runtime_dependency(%q<rails>, [">= 3.1"])
-  s.add_runtime_dependency(%q<kaminari>, [">= 0"])
-  s.add_runtime_dependency(%q<orm_adapter>, [">= 0.4.0"])
+  s.add_runtime_dependency 'rails', '>= 3.1'
+  s.add_runtime_dependency 'orm_adapter', '>= 0.4'
+  s.add_runtime_dependency 'kaminari'
 
-  s.add_development_dependency(%q<sqlite3>, [">= 0"])
-  s.add_development_dependency(%q<mongoid>, ["~> 2.4"])
-  s.add_development_dependency(%q<bson_ext>, [">= 0"])
-  s.add_development_dependency(%q<rspec-rails>, [">= 0"])
-  s.add_development_dependency(%q<rspec-html-matchers>, [">= 0"])
-  s.add_development_dependency(%q<database_cleaner>, [">= 0"])
-  s.add_development_dependency(%q<ammeter>, [">= 0"])
-  s.add_development_dependency(%q<timecop>, [">= 0"])
-  s.add_development_dependency(%q<guard>, [">= 0"])
-  s.add_development_dependency(%q<guard-rspec>, [">= 0"])
+  s.add_development_dependency 'mongoid', '>= 3.0'
+  s.add_development_dependency 'sqlite3'
 
+  s.add_development_dependency 'rspec-rails'
+  s.add_development_dependency 'rspec-html-matchers'
+  s.add_development_dependency 'database_cleaner'
+  s.add_development_dependency 'ammeter'
+  s.add_development_dependency 'timecop'
+  s.add_development_dependency 'guard'
+  s.add_development_dependency 'guard-rspec'
 
   if RUBY_PLATFORM =~ /darwin/i
-    s.add_development_dependency(%q<rb-fsevent>, [">= 0"])
+    s.add_development_dependency 'rb-fsevent'
   else
-    s.add_development_dependency(%q<libnotify>, [">= 0"])
-    s.add_development_dependency(%q<rb-inotify>, [">= 0"])
+    s.add_development_dependency 'libnotify'
+    s.add_development_dependency 'rb-inotify'
   end
 
-  s.add_development_dependency(%q<forgery>, [">= 0"])
-  s.add_development_dependency(%q<fabrication>, [">= 0"])
-  s.add_development_dependency(%q<nested_set>, [">= 0"])
+  s.add_development_dependency 'forgery'
+  s.add_development_dependency 'fabrication'
+  s.add_development_dependency 'nested_set'
 
-  s.add_development_dependency(%q<devise>, [">= 0"])
-  s.add_development_dependency(%q<clearance>, [">= 0"])
+  s.add_development_dependency 'devise'
+  s.add_development_dependency 'clearance'
 
-  s.add_development_dependency(%q<carrierwave>, [">= 0"])
-  s.add_development_dependency(%q<mini_magick>, [">= 0"])
+  s.add_development_dependency 'carrierwave'
+  s.add_development_dependency 'mini_magick'
 end

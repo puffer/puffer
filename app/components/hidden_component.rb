@@ -1,3 +1,0 @@
-class HiddenComponent < BaseComponent
-
-end
