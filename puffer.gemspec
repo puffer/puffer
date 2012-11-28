@@ -18,8 +18,11 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency 'rails', '>= 3.1'
+  s.add_runtime_dependency 'railties', '>= 3.1'
   s.add_runtime_dependency 'orm_adapter', '>= 0.4'
+  s.add_runtime_dependency 'haml'
+  s.add_runtime_dependency 'sass-rails'
+  s.add_runtime_dependency 'bootstrap-sass'
   s.add_runtime_dependency 'kaminari'
 
   s.add_development_dependency 'mongoid', '>= 3.0'

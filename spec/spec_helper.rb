@@ -50,6 +50,6 @@ RSpec.configure do |config|
     Regexp.compile(parts.join('[\\\/]'))
   end
 
-  config.include Puffer::Component::ExampleGroup, :type => :component,
-    :example_group => {:file_path => config.escaped_path(%w[spec components])}
+  # config.include Puffer::Component::ExampleGroup, :type => :component,
+  #   :example_group => {:file_path => config.escaped_path(%w[spec components])}
 end

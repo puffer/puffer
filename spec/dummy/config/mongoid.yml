@@ -1,11 +1,20 @@
 development:
-  host: localhost
-  database: puffer_development
+  sessions:
+    default:
+      database: puffer_development
+      hosts:
+        - localhost:27017
 
 test:
-  host: localhost
-  database: puffer_test
+  sessions:
+    default:
+      database: puffer_test
+      hosts:
+        - localhost:27017
 
 production:
-  host: localhost
-  database: puffer_development
+  sessions:
+    default:
+      database: puffer_development
+      hosts:
+        - localhost:27017
