@@ -10,3 +10,4 @@ spec/dummy/tmp/
 *.sublime-workspace
 .idea
 Gemfile.lock
+tmp/
