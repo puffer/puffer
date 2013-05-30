@@ -42,4 +42,13 @@ describe "Field" do
     field.type.should == :text
   end
 
+  it '#type with a custom title' do
+    field = fieldset.field 'user.full_name', :title => "Custom title"
+    field.human.should == "Custom title"
+  end
+
+  it '#type with a default title' do
+    field = fieldset.field 'user.full_name'
+    field.human.should == "Full name"
+  end
 end
