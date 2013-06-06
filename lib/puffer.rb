@@ -102,7 +102,7 @@ module Puffer
     end
   end
 
-  def raise_component_missing(type, field)
+  def self.raise_component_missing(type, field)
     raise ComponentMissing, "Missing `#{type}` component for `#{field}` field. Please use Puffer.map_component binding or specify field type manually"
   end
 
