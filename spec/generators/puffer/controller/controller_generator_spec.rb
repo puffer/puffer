@@ -5,9 +5,9 @@ require 'generators/puffer/controller/controller_generator'
 
 describe Puffer::ControllerGenerator do
   before do
-    FileUtils.mkdir_p '/tmp/ammeter/config/'
-    File.open '/tmp/ammeter/config/routes.rb', 'w' do |routes|
-      routes.write "Rails.application.routes.draw do\nend"
+    FileUtils.mkdir_p File.join(Dir.tmpdir, 'ammeter', 'config')
+    File.open File.join(Dir.tmpdir, 'ammeter', 'config', 'routes.rb'), 'w' do |routes|
+      routes.puts "Rails.application.routes.draw do\nend"
     end
   end
 
