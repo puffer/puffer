@@ -11,5 +11,5 @@ class ReferencesManyComponent < Puffer::Component::Base
   def filter
 
   end
-  
+
 end

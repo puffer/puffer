@@ -10,7 +10,7 @@ shared_examples "an adapter" do
 
 
     def nth *indexes
-      model.all.to_a.values_at *indexes
+      model.all.to_a.sort_by{|record| record.id.to_s}.values_at *indexes
     end
 
     context 'without params' do

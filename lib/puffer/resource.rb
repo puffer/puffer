@@ -16,7 +16,10 @@ module Puffer
     delegate :env, :request, :to => :controller_instance, :allow_nil => true
 
     def initialize params, controller_instance = nil
-      params = {}.with_indifferent_access.deep_merge params
+      params_class = defined?(ActionController::Parameters) ?
+        ActionController::Parameters : ActiveSupport::HashWithIndifferentAccess
+
+      params = params_class.new.deep_merge params
 
       @resource_node = params[:puffer]
       @scope = swallow_nil{@resource_node.scope} || controller_instance.puffer_namespace

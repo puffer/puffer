@@ -14,3 +14,7 @@ when /3-2-stable/
 else
   gem "rails", version
 end
+
+if ENV['STRONG_PARAMETERS']
+  gem 'strong_parameters'
+end

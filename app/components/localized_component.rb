@@ -10,4 +10,8 @@ class LocalizedComponent < BaseComponent
     render
   end
 
+  def permitted_params
+    {field.field_name => @locales}
+  end
+
 end

@@ -38,4 +38,5 @@ class Puffer::Sessions::Base < ApplicationController
     # current_user_session.destroy
     # redirect_to puffer.new_admin_session_url
   end
+
 end

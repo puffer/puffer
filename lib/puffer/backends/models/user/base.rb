@@ -6,7 +6,10 @@ module Puffer
       included do
         include ActiveModel::SecurePassword
 
-        attr_protected :password_digest
+        if defined? ActiveModel::MassAssignmentSecurity
+          attr_protected :password_digest
+        end
+
         has_secure_password
 
         validates :email, :uniqueness => true, :presence => true

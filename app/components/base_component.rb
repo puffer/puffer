@@ -11,4 +11,8 @@ class BaseComponent < Puffer::Component::Base
   def filter
   end
 
+  def permitted_params
+    field.field_name
+  end
+
 end

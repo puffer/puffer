@@ -1,7 +1,7 @@
 <% @title = "New #{resource.human}" %>
 <h1><%= @title %></h1>
 <%= form_for record, :url => resource.collection_path, :html => {:multipart => true, :data => {:send => true}} do |f| %>
-  <ul class="form" data-entity-model="<%= record.class.model_name.underscore %>" data-entity-id="">
+  <ul class="form" data-entity-model="<%= record.class.model_name.to_s.underscore %>" data-entity-id="">
   <% create_fields.each do |field| -%>
     <li><%= field.render :create, controller, record %></li>
   <% end -%>
