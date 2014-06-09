@@ -1,7 +1,7 @@
 <% @title = "Edit #{resource.human}" %>
 <h1><%= @title %></h1>
 <%= form_for record, :url => resource.member_path(@record), :html => {:multipart => true, :data => {:send => true}} do |f| %>
-  <ul class="form" data-entity-model="<%= record.class.model_name.underscore %>" data-entity-id="<%= record.id %>">
+  <ul class="form" data-entity-model="<%= record.class.model_name.to_s.underscore %>" data-entity-id="<%= record.id %>">
   <% update_fields.each do |field| -%>
     <li><%= field.render :update, controller, record %></li>
   <% end -%>

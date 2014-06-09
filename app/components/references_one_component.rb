@@ -14,4 +14,8 @@ class ReferencesOneComponent < BaseComponent
     render
   end
 
+  def permitted_params
+    "#{field.field_name}_id"
+  end
+
 end

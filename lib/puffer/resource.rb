@@ -16,7 +16,10 @@ module Puffer
     delegate :env, :request, :to => :controller_instance, :allow_nil => true
 
     def initialize params, controller_instance = nil
-      params = ActiveSupport::HashWithIndifferentAccess.new.deep_merge params
+      params_class = defined?(ActionController::Parameters) ?
+        ActionController::Parameters : ActiveSupport::HashWithIndifferentAccess
+
+      params = params_class.new.deep_merge params
 
       @resource_node = params[:puffer]
       @scope = swallow_nil{@resource_node.scope} || controller_instance.puffer_namespace
@@ -46,7 +49,7 @@ module Puffer
     def parent
       @parent ||= begin
         if resource_node.parent
-          parent_params = ActiveSupport::HashWithIndifferentAccess.new({:puffer => resource_node.parent})
+          parent_params = {:puffer => resource_node.parent}.with_indifferent_access
 
           resource_node.ancestors[0..-2].each do |ancestor|
             key = ancestor.to_s.singularize.foreign_key
@@ -63,7 +66,7 @@ module Puffer
 
     def children
       @children ||= resource_node.children.map do |child_node|
-        child_params = ActiveSupport::HashWithIndifferentAccess.new({:puffer => child_node})
+        child_params = {:puffer => child_node}.with_indifferent_access
 
         resource_node.ancestors.each do |ancestor|
           key = ancestor.to_s.singularize.foreign_key
@@ -78,7 +81,7 @@ module Puffer
     end
 
     def children_hash
-      @children_hash ||= children.inject(ActiveSupport::HashWithIndifferentAccess.new) do |result, child|
+      @children_hash ||= children.inject({}.with_indifferent_access) do |result, child|
         result[child.name] = child
         result
       end

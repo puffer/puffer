@@ -16,4 +16,8 @@ describe ReferencesOneComponent do
     result.should have_tag("input[name='post[user_id]'][type='text']")
   end
 
+  it '#permitted_params' do
+    component.permitted_params.should == 'user_id'
+  end
+
 end

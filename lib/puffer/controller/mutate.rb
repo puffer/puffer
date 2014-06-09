@@ -29,7 +29,11 @@ module Puffer
       end
 
       def resource
-        @resource ||= Puffer::Resource.new params, self
+        @resource ||= Puffer::Resource.new resource_params, self
+      end
+
+      def resource_params
+        params
       end
 
       def record

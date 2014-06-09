@@ -20,6 +20,10 @@ module Puffer
             include Puffer::Controller::Config
             include Puffer::Controller::Auth
 
+            if defined? ::ActionController::Parameters
+              include Puffer::Controller::StrongParameters
+            end
+
             helper_method :configuration
           end
         end

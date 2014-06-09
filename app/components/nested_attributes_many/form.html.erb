@@ -4,7 +4,7 @@
   <ul class="nested_attributes" id="<%= "#{field.name}_nested_attributes" %>">
     <% f.object.send(field.name).each_with_index do |nested_record, index| -%>
       <%= f.fields_for field.name, nested_record, :child_index => index do |nested_builder| %>
-        <li id="<%= "#{field.name}_#{index}_attributes" %>" data-entity-model="<%= nested_builder.object.class.model_name.underscore %>" data-entity-id="<%= nested_builder.object.id %>">
+        <li id="<%= "#{field.name}_#{index}_attributes" %>" data-entity-model="<%= nested_builder.object.class.model_name.to_s.underscore %>" data-entity-id="<%= nested_builder.object.id %>">
           <% field.children.each do |field| %>
             <%= field.render :form, parent_controller, nested_builder.object, :builder => nested_builder %>
           <% end %>
@@ -28,10 +28,10 @@
 
   <div id="<%= field.name %>_marked_for_destroy" style="display: none">
   </div>
-  
+
   <% new_nested_record = capture do %>
     <%= f.fields_for field.name, field.reflection.klass.new, :child_index => "new_nested_index" do |nested_builder| %>
-      <li id="<%= "#{field.name}_new_nested_index_attributes" %>" data-entity-model="<%= nested_builder.object.class.model_name.underscore %>" data-entity-id="">
+      <li id="<%= "#{field.name}_new_nested_index_attributes" %>" data-entity-model="<%= nested_builder.object.class.model_name.to_s.underscore %>" data-entity-id="">
         <% field.children.each do |field| %>
           <%= field.render :form, parent_controller, nested_builder.object, :builder => nested_builder %>
         <% end %>

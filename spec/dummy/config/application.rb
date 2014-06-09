@@ -8,6 +8,10 @@ require 'carrierwave/orm/activerecord'
 require 'devise/orm/mongoid'
 require 'puffer'
 
+if ENV['STRONG_PARAMETERS']
+  require 'strong_parameters'
+end
+
 module Dummy
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

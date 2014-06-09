@@ -18,4 +18,8 @@ describe BaseComponent do
     process(:filter, record).should == ''
   end
 
+  it '#permitted_params' do
+    component.permitted_params.should == 'title'
+  end
+
 end
