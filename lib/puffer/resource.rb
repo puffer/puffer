@@ -120,7 +120,7 @@ module Puffer
       end
     end
 
-    def new_member attributes = attributes
+    def new_member attributes = attributes()
       attributes.merge!(controller_scope)
       if parent
         if plural?
