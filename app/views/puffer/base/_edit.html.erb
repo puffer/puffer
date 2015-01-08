@@ -10,6 +10,6 @@
   <div class="buttons">
     <%= f.submit t('puffer.save') %>
     <%= f.submit t('puffer.save_and_exit') %>
-    <%= link_to 'cancel', (request.referer || resource.collectin_path) %>
+    <%= link_to 'cancel', (request.referer || resource.collection_path) %>
   </div>
 <% end %>

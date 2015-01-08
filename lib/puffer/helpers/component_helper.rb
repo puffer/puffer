@@ -18,7 +18,7 @@ module Puffer
           fields_for record, &block
         end
       end
-      
+
     end
   end
 end

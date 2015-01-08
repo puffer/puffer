@@ -1,5 +1,5 @@
 <%= component_fields_for @record do |f| %>
-  <h2><%= f.label field %></h2>
+  <h2><%= f.label field.human %></h2>
 
   <ul class="nested_attributes" id="<%= "#{field.name}_nested_attributes" %>">
     <% f.object.send(field.name).each_with_index do |nested_record, index| -%>

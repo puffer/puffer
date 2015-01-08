@@ -30,7 +30,7 @@ module Puffer
     end
 
     def human
-      @human ||= model && model.human_attribute_name(name)
+      @human ||= options[:title] || (model && model.human_attribute_name(name))
     end
 
     def type

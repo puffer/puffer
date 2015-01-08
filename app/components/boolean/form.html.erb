@@ -1,5 +1,5 @@
-<%= component_fields_for @record do |f| %>
-  <%= f.check_box field, field.input_options %>
-  <%= f.label field %>
-  <%= @record.errors[field.name.to_sym].first %>
-<% end %>
+<%= component_fields_for @record do |f| -%>
+  <%= f.check_box field, field.input_options -%>
+  <%= f.label field.human -%>
+  <%= @record.errors[field.name.to_sym].first -%>
+<% end -%>
